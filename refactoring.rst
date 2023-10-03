@@ -277,6 +277,7 @@ Po refaktoryzacji:
     };
 
     class Engineer : public Employee {};
+    
     class Salesman : public Employee {};
 
 
