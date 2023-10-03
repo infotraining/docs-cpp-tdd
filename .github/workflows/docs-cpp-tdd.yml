@@ -36,7 +36,7 @@ jobs:
 
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
-      uses: infotraining/docs-cpp-tdd
+      uses: infotraining/docs-cpp-tdd@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_build/html
