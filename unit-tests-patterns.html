@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Wzorce testów jednostkowych &#8212; Test-Driven Development w C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'unit-tests-patterns';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SOLID OOP - zasady solidnego programowania obiektowego" href="solid-oop.html" />
+    <link rel="prev" title="Google C++ Testing Framework" href="gtest.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Test-Driven Development w C++
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Wzorce testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd/issues/new?title=Issue%20on%20page%20%2Funit-tests-patterns.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/unit-tests-patterns.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Wzorce testów jednostkowych</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#four-phase-test">Four-Phase Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-verification">State Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guard-assertion">Guard Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-assertion">Delta Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-assertion">Custom Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-verification">Behavior Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-mother">Object Mother</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#builder-object">Builder Object</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="wzorce-testow-jednostkowych">
+<h1>Wzorce testów jednostkowych<a class="headerlink" href="#wzorce-testow-jednostkowych" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Wzorce do tworzenia asercji</p></li>
+<li><p>Wzorce do budowania fikstur</p></li>
+<li><p>Wzorce do klas przypadków testowych</p></li>
+</ul>
+<section id="four-phase-test">
+<h2>Four-Phase Test<a class="headerlink" href="#four-phase-test" title="Permalink to this heading">#</a></h2>
+<p>Każdy test składa się z czterech wykonywanych sekwencyjnie faz.</p>
+<ol class="arabic simple">
+<li><p><strong>Setup</strong>. W fazie pierwszej ustawiana jest fikstura testu. Ta faza jest wymagana do tego, aby testowany system  - SUT (<em>System Under Test</em>) wykazał się oczekiwanym zachowaniem. W fazie inicjalizacyjnej konfigurowane są obiekty pozorujące (mock).</p></li>
+<li><p><strong>Exercise</strong>. W fazie drugiej dokonujemy interakcji z testowanym obiektem (SUT).</p></li>
+<li><p><strong>Verify</strong>. W fazie trzeciej dokonujemy weryfikacji oczekiwanego stanu lub zachowania testowanego systemu.</p></li>
+<li><p><strong>Teardown</strong>. W fazie czwartej przywracamy testowane środowisko do stanu z przed testu.</p></li>
+</ol>
+</section>
+<section id="state-verification">
+<h2>State Verification<a class="headerlink" href="#state-verification" title="Permalink to this heading">#</a></h2>
+<p>Po wykonaniu testu (fazie <em>Exercise</em>) dokonywana jest inspekcja stanu testowanego systemu (SUT). Otrzymane wartości
+porównywane są z wartościami oczekiwanymi dla poprawnego działania systemu.</p>
+<p>Najczęściej weryfikowany stan przechowywany jest w obiekcie SUT, ale zdarza się również, że wymagane jest sprawdzenie
+stanu innego obiektu biorącego udział w teście.</p>
+<p><em>State Verification</em> powinien być używany, gdy interesuje nas tylko stan końcowy systemu, a nie w jaki sposób system
+znalazł się w takim stanie.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">ListTest</span><span class="p">,</span><span class="w"> </span><span class="n">SizeOfListReflectsItemsAddedToIt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">;</span>
+<span class="w">    </span><span class="n">list</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Nazwisko&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ASSERT_EQ</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Prezentowany test przejdzie z implementacją <code class="docutils literal notranslate"><span class="pre">size()</span></code>, która zawsze zwraca <code class="docutils literal notranslate"><span class="pre">1</span></code>. W takim przypadku test jest wystarczająco prosty, aby odczytać intencję jego autora.</p>
+</section>
+<section id="guard-assertion">
+<h2>Guard Assertion<a class="headerlink" href="#guard-assertion" title="Permalink to this heading">#</a></h2>
+<p>Czasami jednak warto zweryfikować nie tylko stan przed, ale również stan po teście, a więc użyć wzorca Guard Assertion. Wzorzec Guard Assertion polega na ujawnieniu założeń zrobionych
+dla fikstury przed wywołaniem funkcjonalności, którą chcemy testować.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">ListTest</span><span class="p">,</span><span class="w"> </span><span class="n">ListIsNoLongerEmptyAfterAddingAnItemToIt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="n">is_empty</span><span class="p">());</span><span class="w"> </span><span class="c1">// guard assertion</span>
+<span class="w">    </span><span class="n">list</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Tekst&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">list</span><span class="p">.</span><span class="n">is_empty</span><span class="p">());</span><span class="w"> </span><span class="c1">// weryfikacja stanu</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Guard Assertion</em> gwarantuje, że metoda <code class="docutils literal notranslate"><span class="pre">is_empty()</span></code> zwróci poprawnie wartość <code class="docutils literal notranslate"><span class="pre">true</span></code> dla
+pustej listy zanim wywołamy metodę <code class="docutils literal notranslate"><span class="pre">add()</span></code>, którą testujemy.</p>
+<p>Wzorzec <em>Guard Assertion</em> jest często używamy z wzorcem <em>Resulting State Assertion</em>.
+Te dwa wzorce są łączone w sekwencję, w której test najpierw weryfikuje, czy stan przed
+odpowiada oczekiwaniom autora testu, a potem przechodzi do wywołania funkcjonalności i zweryfikowania
+stanu wynikowego.</p>
+<p>Zdarza się jednak, że celem dodania <em>Guard Assertion</em> jest upewnienie się, czy założenie dotyczące stanu początkowego fikstury jest prawidłowe. W takich przypadkach sensownie jest przesunąć <em>Guard Assertion(s)</em> na koniec metody inicjalizującej fiksturę.</p>
+</section>
+<section id="delta-assertion">
+<h2>Delta Assertion<a class="headerlink" href="#delta-assertion" title="Permalink to this heading">#</a></h2>
+<p>Jeśli w testach istnieje fikstura, której stanu nie możemy zakodować na sztywno, to nie
+należy weryfikować stanu absolutnego po wywołaniu kodu w teście. Lepiej sprawdzić, czy różnica
+(delta) pomiędzy stanem początkowym a końcowym jest zgodna z naszymi oczekiwaniami.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">ListTest</span><span class="p">,</span><span class="w"> </span><span class="n">SizeOfListReflectsItemsAddedToIt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_list</span><span class="p">();</span><span class="w"> </span><span class="c1">// create_list() dostarcza wypełniony obiekt listy</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size_before</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="c1">// zapamiętanie stanu początkowego</span>
+
+<span class="w">    </span><span class="n">list</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;Tekst&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">size_before</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="n">size</span><span class="p">());</span><span class="w"> </span><span class="c1">// weryfikacja przyrostowa</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Przewaga wzorca <em>Delta Assertions</em> nad wzorcem <em>Resulting State Assertions</em> polega na tym, że test skupia się na tym, co jest
+testowane, zamiast zwracać pozornie dowolne wartości.</p>
+</section>
+<section id="custom-assertion">
+<h2>Custom Assertion<a class="headerlink" href="#custom-assertion" title="Permalink to this heading">#</a></h2>
+<p>Zdarza się, że długość kod weryfikującego nasze oczekiwania przekracza długość kodu
+wymaganą do wywołania kodu w teście. W takim przypadku zaleca się wyodrębnienie
+metody <em>Custom Assertion</em> z testu w celu hermetyzacji złożonej logiki weryfikacji w prostej metodzie, którą możemy wywołać z testu.</p>
+<p><em>Custom Assertion</em> jest stosowane ze względu na możliwość wykonywania różnych typów rozmytego dopasowywania.
+Na przykład, jeśli chcemy porównać dwa obiekty jedynie w oparciu o zestaw wybranych właściwości.</p>
+<p>Innym zastosowaniem jest sytuacja, w której obiekty nie implementują operatora porównania w odpowiedni sposób.</p>
+<p>Używanie <em>Custom Assertion</em> pozwala również zdefiniować bardziej znaczące komunikaty błędu, które zostaną wyświetlone w razie niepowodzenia testu.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">MeetingCalendarTest</span><span class="p">,</span><span class="w"> </span><span class="n">GetsNextAppointmentDate</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MeetingCalendar</span><span class="w"> </span><span class="n">calendar</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// pominięto: ustaw spotkanie w kalendarzu</span>
+
+<span class="w">    </span><span class="n">Date</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calendar</span><span class="p">.</span><span class="n">get_next_appointment</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">AssertDate</span><span class="p">(</span><span class="n">time</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">AssertDate</span><span class="p">(</span><span class="n">Date</span><span class="w"> </span><span class="n">time</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// jeśli obiekt czasu nie jest prawidłowy</span>
+<span class="w">    </span><span class="n">FAIL</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Invalid time&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="behavior-verification">
+<h2>Behavior Verification<a class="headerlink" href="#behavior-verification" title="Permalink to this heading">#</a></h2>
+<p>Wzorzec <em>Behavior Verification</em> nie weryfikuje poprawności zwracanych wartości, lecz sprawdza, czy nasz kod współdziała
+z obiektami współpracownikami w oczekiwany przez nas sposób. Każdy test weryfikuje jakie metody, i w jaki sposób, są
+wywoływane na współpracownikach przez testowany obiekt (SUT).</p>
+<p>Typowym zastosowaniem wzorca <em>Behavior Verification</em> jest rozwijanie aplikacji w stylu “outside-in”.
+W takim przypadku weryfikujemy wywołania na obiektach, które nie mają jeszcze implementacji (obiektach Mock).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>W jednym teście możemy używać zarówno stylu asercji opartego na stanie, jak i stylu opartego na interakcji.</p>
+</div>
+<p>Przykład:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FlightRepository</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">FlightRepository</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Flight</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flight</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MockFlightRepository</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">FlightRepository</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MOCK_METHOD1</span><span class="p">(</span><span class="n">add</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Flight</span><span class="o">&amp;</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FlightServiceTests</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Test</span>
+<span class="p">{</span>
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MockFlightRepository</span><span class="w"> </span><span class="n">flight_repository_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FlightReservationService</span><span class="w"> </span><span class="n">sut_</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">FlightServiceTests</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">sut_</span><span class="p">{</span><span class="n">flight_repository_</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="n">TEST_F</span><span class="p">(</span><span class="n">FlightServiceTests</span><span class="p">,</span><span class="w"> </span><span class="n">CanAddReservationToRepository</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">reservation_request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mother</span><span class="o">::</span><span class="n">create_reservation_request</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">flight_repository_</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">reservation_request</span><span class="p">.</span><span class="n">flight</span><span class="p">)).</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sut_</span><span class="p">.</span><span class="n">make_reservation</span><span class="p">(</span><span class="n">reservation_request</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="object-mother">
+<h2>Object Mother<a class="headerlink" href="#object-mother" title="Permalink to this heading">#</a></h2>
+<p><strong>Object Mother</strong> jest specjalizowaną fabryką, której rolą jest dostarczenie istotnych dla testu danych. Dane te są
+przez fabrykę odpowiednio skonfigurowane.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Mother</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">flight_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LOT101&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;John Newman&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2017/01/01 1:45am&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">ReservationRequest</span><span class="w"> </span><span class="nf">create_reservation_request</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ReservationRequest</span><span class="p">{</span><span class="n">Flight</span><span class="p">{</span><span class="n">flight_no</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">},</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Test jednostkowy wykorzystuje obiekt <code class="docutils literal notranslate"><span class="pre">OrderObjectMother</span></code> do przejrzystego utworzenia obiektu potrzebnego w logice testu.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_F</span><span class="p">(</span><span class="n">FlightServiceTests</span><span class="p">,</span><span class="w"> </span><span class="n">CanAddReservationToRepository</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">reservation_request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mother</span><span class="o">::</span><span class="n">create_reservation_request</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">flight_repository_</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">reservation_request</span><span class="p">.</span><span class="n">flight</span><span class="p">)).</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sut_</span><span class="p">.</span><span class="n">make_reservation</span><span class="p">(</span><span class="n">reservation_request</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="builder-object">
+<h2>Builder Object<a class="headerlink" href="#builder-object" title="Permalink to this heading">#</a></h2>
+<p>Wzorzec <em>Object Mother</em> nie najlepiej sprawdza się w sytuacji, kiedy musimy uwzględnić wiele wariacji danych testowych.
+Lepszym rozwiązaniem jest dynamiczne budowanie takich danych na żądanie z wykorzystaniem wzorca <strong>Test Builder</strong>.
+Obiekty <strong>Test Builder</strong> są implementacją klasycznego wzorca Budowniczy (GOF), który umożliwia zbudowanie złożonego obiektu poprzez
+kolejne wywołania metod budowniczego i odebranie finalnego obiektu przez metodę <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ReservationRequestBuilder</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">flight_no</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;LOT101&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;John Newman&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;2017/01/01 1:45am&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ReservationRequest</span><span class="w"> </span><span class="n">reservation_request_</span><span class="p">{</span><span class="n">Flight</span><span class="p">{</span><span class="n">flight_no</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">},</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">timestamp</span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">ReservationRequestBuilder</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">ReservationRequestBuilder</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">with_client</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">client</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">reservation_request_</span><span class="p">.</span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ReservationRequestBuilder</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">with_timestamp</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">timestamp</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">reservation_request_</span><span class="p">.</span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ReservationRequestBuilder</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">with_flight</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Flight</span><span class="o">&amp;</span><span class="w"> </span><span class="n">flight</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">reservation_request_</span><span class="p">.</span><span class="n">flight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flight</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ReservationRequest</span><span class="w"> </span><span class="nf">get_reservation_request</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">reservation_request_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Test korzystający z budowniczego wygląda następująco:</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_F</span><span class="p">(</span><span class="n">FlightServiceTests</span><span class="p">,</span><span class="w"> </span><span class="n">ThrowsWhenTimestampInInvalidFormat</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ReservationRequestBuilder</span><span class="w"> </span><span class="n">reservation_request_builder</span><span class="p">;</span>
+<span class="w">    </span><span class="n">reservation_request_builder</span><span class="p">.</span><span class="n">with_timestamp</span><span class="p">(</span><span class="s">&quot;2017|01|01 1:45am&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">auto</span><span class="w"> </span><span class="n">reservation_request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reservation_request_builder</span><span class="p">.</span><span class="n">get_reservation_request</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">EXPECT_THROW</span><span class="p">(</span><span class="n">sut_</span><span class="p">.</span><span class="n">make_reservation</span><span class="p">(</span><span class="n">reservation_request</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">invalid_argument</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gtest.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Google C++ Testing Framework</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="solid-oop.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SOLID OOP - zasady solidnego programowania obiektowego</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#four-phase-test">Four-Phase Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#state-verification">State Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guard-assertion">Guard Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delta-assertion">Delta Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-assertion">Custom Assertion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#behavior-verification">Behavior Verification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-mother">Object Mother</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#builder-object">Builder Object</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

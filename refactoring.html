@@ -1,0 +1,851 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Refaktoryzacja kodu &#8212; Test-Driven Development w C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'refactoring';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Obiekty pozorujące" href="mocking-objects.html" />
+    <link rel="prev" title="Dependency Injection" href="dependency-injection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Test-Driven Development w C++
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd/issues/new?title=Issue%20on%20page%20%2Frefactoring.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/refactoring.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Refaktoryzacja kodu</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplikacja-kodu">Duplikacja kodu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niejasne-intencje">Niejasne intencje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zly-kod">Zły kod</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#przeprowadzenie-refaktoryzacji">Przeprowadzenie refaktoryzacji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-klasy">Ekstrakcja klasy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastapienie-instancji-klasy-obiektem-std-function">Zastąpienie instancji klasy obiektem std::function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-interfejsu">Ekstrakcja interfejsu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-metody-lub-funkcji">Ekstrakcja metody lub funkcji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-type-code-podklasami">Zastępowanie <em>type-code</em> podklasami</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-wyrazenia-warunkowego-polimorfizmem">Zastępowanie wyrażenia warunkowego polimorfizmem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wprowadzenie-zmiennej-opisujacej">Wprowadzenie zmiennej opisującej</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-dziedziczenia-delegowaniem">Zastępowanie dziedziczenia delegowaniem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-magicznej-wartosci-stala-symboliczna">Zastępowanie magicznej wartości stałą symboliczną</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refaktoryzacja-do-wzorcow">Refaktoryzacja do wzorców</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="refaktoryzacja-kodu">
+<h1>Refaktoryzacja kodu<a class="headerlink" href="#refaktoryzacja-kodu" title="Permalink to this heading">#</a></h1>
+<p>Refaktoryzujemy zawsze, kiedy jest taka potrzeba.</p>
+<p>Trzy sytuacje, w których musimy bezwzględnie przeprowadzić refaktoryzację:</p>
+<ol class="arabic simple">
+<li><p>Jeśli występuje duplikacja kodu</p></li>
+<li><p>Jeśli kod i/lub jego intencja nie jest jasna</p></li>
+<li><p>Jeśli wykryjemy zły kod (<em>code smell</em>) – symptomy, że występuje problem z jakością projektu</p></li>
+</ol>
+<section id="duplikacja-kodu">
+<h2>Duplikacja kodu<a class="headerlink" href="#duplikacja-kodu" title="Permalink to this heading">#</a></h2>
+<p>Występowanie duplikacji kodu jest znacznikiem niskiej jakości kodu. Jeżeli istnieje kod, który się powtarza, należy pozbyć się duplikacji za pomocą ekstrakcji metody.</p>
+<p>Duplikacji należy unikać również w kodzie testów jednostkowych. Często w kodzie testach powtarzane jest ustawienie obiektów do testu. Możemy wyodrębnić ten kod do metod ustawiających fiksturę testu (<em>test fixture</em>).</p>
+</section>
+<section id="niejasne-intencje">
+<h2>Niejasne intencje<a class="headerlink" href="#niejasne-intencje" title="Permalink to this heading">#</a></h2>
+<p>Kod jest najważniejszą wartością, którą dostarcza programista. W związku z tym powinien być tak jasny i zrozumiały, jak to tylko możliwe. Nie zawsze możemy napisać taki kod na początku, ale możemy go refaktoryzować, aby był bardziej zrozumiały.</p>
+<p>Prostym sposobem wyjaśnienia intencji jest wybór lepszych nazw.</p>
+<p>Stosowanie TDD pomaga w jasnym przekazaniu intencji w czasie pisania kodu, ponieważ musimy myśleć o interfejsie klasy, a nie o jej implementacji. Decydujemy, co jest najbardziej sensowne z punktu widzenia użytkownika klasy bez wchodzenia w szczegóły implementacji.</p>
+</section>
+<section id="zly-kod">
+<h2>Zły kod<a class="headerlink" href="#zly-kod" title="Permalink to this heading">#</a></h2>
+<p>Pojęcie złego kodu (<em>code smell</em>) jest szeroko używane przez społeczność eXtreme Programming w odniesieniu do kodu o nieakceptowalnej jakości. Termin ten został po raz pierwszy użyty przez Fowler’a i Beck’a.</p>
+<p>Jeśli natrafimy na zły kod, powinniśmy przeprowadzić refaktoryzację i pozbyć się go. Zły kod nie zawsze oznacza problem, ale powinniśmy przyjrzeć się temu fragmentowi kodu, aby wyeliminować takie niebezpieczeństwo.</p>
+</section>
+<section id="przeprowadzenie-refaktoryzacji">
+<h2>Przeprowadzenie refaktoryzacji<a class="headerlink" href="#przeprowadzenie-refaktoryzacji" title="Permalink to this heading">#</a></h2>
+<p>Niezbędne są automatyczne testy, które dadzą nam informację zwrotną, czy w czasie refaktoryzacji czegoś nie zepsuliśmy. Nie chcemy zmieniać zachowania, a testy sprawdzające zachowanie poinformują nas, jeśli taka zmiana zajdzie.</p>
+<p>Refaktoryzacja jest przeprowadzana małymi krokami, a po każdym z nich uruchamiane są testy. Dzięki temu od razu wiemy, czy czegoś nie zepsuliśmy. Łatwo określić, co spowodowało problem – ostatni krok. Należy wycofać ten krok i spróbować ponownie.</p>
+</section>
+<section id="ekstrakcja-klasy">
+<h2>Ekstrakcja klasy<a class="headerlink" href="#ekstrakcja-klasy" title="Permalink to this heading">#</a></h2>
+<p>Jeśli klasa jest za duża lub jej działanie jest niejasne, musimy podzielić ją na części mające spójne zachowanie. Ekstrakcja klasy pozwala wyodrębnić jeden z tych zestawów zachowań do nowej klasy. Przy ekstrakcji klasy należy zachować Zasadę Pojedynczej Odpowiedzialności (SRP).</p>
+<p>Jeśli potrzebujemy powielić implementację jakiegoś zachowania, to możemy wyodrębnić kod do oddzielnej klasy. Następnie możemy wyekstrahować interfejs i napisać wymagane implementacje.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Movie</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">destination</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">destination</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">get_name</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">get_category</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MovieList</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;</span><span class="w"> </span><span class="n">movies</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">destination</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">movies</span><span class="p">)</span>
+<span class="w">            </span><span class="n">m</span><span class="p">.</span><span class="n">write_to</span><span class="p">(</span><span class="n">destination</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Wyodrębniamy nową klasę <code class="docutils literal notranslate"><span class="pre">MovieWriter</span></code>, która odpowiada za jeden zakres funkcjonalności.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MovieWriter</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Movie</span><span class="o">&amp;</span><span class="w"> </span><span class="n">movie</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">destination</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">movie</span><span class="p">.</span><span class="n">get_name</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">movie</span><span class="p">.</span><span class="n">get_category</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_to</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="w"> </span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">movies</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">movies</span><span class="p">)</span>
+<span class="w">                </span><span class="n">write_to</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="zastapienie-instancji-klasy-obiektem-std-function">
+<h2>Zastąpienie instancji klasy obiektem std::function<a class="headerlink" href="#zastapienie-instancji-klasy-obiektem-std-function" title="Permalink to this heading">#</a></h2>
+<p>Jeżeli klasa (abstrakcyjna) posiada tylko jedną metodę, wówczas jest spore prawdopodobieństwo, że taką klasę można zastąpić funktorem lub <code class="docutils literal notranslate"><span class="pre">std::function</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ShapeCreator</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">ShapeCreator</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">defualt</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RectangleCreator</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ShapeCreator</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span><span class="w"> </span><span class="n">create</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// using creators for mapping string on shape instance</span>
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">ShapeCreator</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">shape_factory</span><span class="p">;</span>
+<span class="n">shape_factory</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="s">&quot;Rectangle&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">RectangleCreator</span><span class="o">&gt;</span><span class="p">());</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shape_factory</span><span class="p">[</span><span class="s">&quot;Rectangle&quot;</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">create</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Powyższa klasa abstrakcyjna <code class="docutils literal notranslate"><span class="pre">ShapeCreator</span></code> zawiera tylko jedną metodę. Możemy
+uprościć i uelastycznić kod zastępując ją typem <code class="docutils literal notranslate"><span class="pre">std::function</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">ShapeCreator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Shape</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">ShapeCreator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape_factory</span><span class="p">;</span>
+
+<span class="n">shape_factory</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&quot;Rectangle&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+
+<span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rectangle_factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shape_factory</span><span class="p">[</span><span class="s">&quot;Rectangle&quot;</span><span class="p">];</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rectangle_factory</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="ekstrakcja-interfejsu">
+<h2>Ekstrakcja interfejsu<a class="headerlink" href="#ekstrakcja-interfejsu" title="Permalink to this heading">#</a></h2>
+<p>Aby poprawić testowalność lub uniknąć zależności od konkretnych implementacji
+możemy z klasy wyekstrahować jej interfejs:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">//...</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="o">*</span><span class="n">out</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Log: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Po refaktoringu:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ILogger</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">ILogger</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">write_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">ILogger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">//...</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">write_log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Log: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="ekstrakcja-metody-lub-funkcji">
+<h2>Ekstrakcja metody lub funkcji<a class="headerlink" href="#ekstrakcja-metody-lub-funkcji" title="Permalink to this heading">#</a></h2>
+<p>Ekstrakcję metody lub funkcji stosujemy, jeśli kod metody jest zbyt długi lub występują w niej komentarze, które wskazują cel implementacji.</p>
+<p>Metoda przed refaktoringiem:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// oblicz rozmiar pliku i utwórz bufor znaków</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ios</span><span class="o">::</span><span class="n">end</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">file_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">tellg</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">buffer</span><span class="p">(</span><span class="n">file_size</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// wczytaj całą zawartość pliku do bufora znaków</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">seekg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ios</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">file_size</span><span class="p">);</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// przetwórz bufor znaków</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Efekt refaktoringu przy pomocy ekstrakcji metody:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_file_to_string</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// przetwórz bufor znaków</span>
+<span class="w">    </span><span class="c1">//…</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">read_file_to_string</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// oblicz rozmiar pliku i utwórz bufor znaków</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ios</span><span class="o">::</span><span class="n">end</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">file_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">tellg</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">buffer</span><span class="p">(</span><span class="n">file_size</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// wczytaj całą zawartość pliku do bufora znaków</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">seekg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">ios</span><span class="o">::</span><span class="n">beg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">file_size</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="zastepowanie-type-code-podklasami">
+<h2>Zastępowanie <em>type-code</em> podklasami<a class="headerlink" href="#zastepowanie-type-code-podklasami" title="Permalink to this heading">#</a></h2>
+<p>Tę refaktoryzację stosujemy w sytuacji, gdy istnieje klasa, która wykorzystuje typy proste jako identyfikatory wykorzystywane przy implementacji zachowania.</p>
+<ul class="simple">
+<li><p>Tworzymy podklasy dla każdego identyfikatora</p></li>
+<li><p>Zastępujemy sekwencję instrukcji <code class="docutils literal notranslate"><span class="pre">if</span></code> polimorfizmem</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Employee</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">EmployeeType</span><span class="w"> </span><span class="n">type_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">EmployeeType</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">engineer</span><span class="p">,</span><span class="w"> </span><span class="n">salesman</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">calculate_pay</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">salary</span><span class="p">{};</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type_</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EmployeeType</span><span class="o">::</span><span class="n">engineer</span><span class="p">)</span>
+<span class="w">            </span><span class="n">salary</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">engineer_bonus</span><span class="p">();</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">type_</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Salesman</span><span class="p">)</span>
+<span class="w">            </span><span class="n">salary</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">salesman_bonus</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">salary</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Po refaktoryzacji:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Employee</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">calculate_pay</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Employee</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Engineer</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Employee</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Salesman</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Employee</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+</section>
+<section id="zastepowanie-wyrazenia-warunkowego-polimorfizmem">
+<h2>Zastępowanie wyrażenia warunkowego polimorfizmem<a class="headerlink" href="#zastepowanie-wyrazenia-warunkowego-polimorfizmem" title="Permalink to this heading">#</a></h2>
+<p>Wyrażenia warunkowe można zastąpić podklasami obsługującymi różne przypadki. Jeśli istnieją już podklasy, to można rozważyć umieszczenie w nich zachowania warunkowego.</p>
+</section>
+<section id="wprowadzenie-zmiennej-opisujacej">
+<h2>Wprowadzenie zmiennej opisującej<a class="headerlink" href="#wprowadzenie-zmiennej-opisujacej" title="Permalink to this heading">#</a></h2>
+<p>W przypadku złożonego wyrażenia, które jest trudne do zrozumienia, możemy wyodrębnić jego części i przechować pośrednie wyniki w dobrze nazwanych zmiennych tymczasowych. Dzięki temu uzyskujemy łatwe do zrozumienia części, a całe wyrażenie jest jaśniejsze.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">calculate_total</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">get_subtotal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">get_taxable_subtotal</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.15</span><span class="p">)</span>
+<span class="w">            </span><span class="o">-</span><span class="w"> </span><span class="n">get_subtotal</span><span class="p">())</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">100.0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">get_subtotal</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.10</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Po refaktoringu:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">calculate_total</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">subtotal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtotal</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">tax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_taxable_subtotal</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.15</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subtotal</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">tax</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">qualifies_for_discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_subtotal</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">100.0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">discount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qualifies_for_discount</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">subtotal</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.10</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">discount</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="zastepowanie-dziedziczenia-delegowaniem">
+<h2>Zastępowanie dziedziczenia delegowaniem<a class="headerlink" href="#zastepowanie-dziedziczenia-delegowaniem" title="Permalink to this heading">#</a></h2>
+<p>Dziedziczenie powinno być używane tylko, jeśli podklasy są specjalnymi rodzajami klasy nadrzędnej lub rozszerzają ją, a nie jedynie nadpisują jej części.
+Jeśli dziedziczenie jest stosowane tylko w celu ponownego użycia pewnych funkcjonalności klasy nadrzędnej, to powinno zostać zastąpione delegowaniem.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MovieList</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//…</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MovieList</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;</span><span class="w"> </span><span class="n">movies_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Movie</span><span class="o">&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="zastepowanie-magicznej-wartosci-stala-symboliczna">
+<h2>Zastępowanie magicznej wartości stałą symboliczną<a class="headerlink" href="#zastepowanie-magicznej-wartosci-stala-symboliczna" title="Permalink to this heading">#</a></h2>
+<p>Nie zaleca się używania w kodzie wartości literalnych zakodowanych na sztywno. Trudniej je zauważyć i są rażącą duplikacją, a ich zmiana to tzw. shotgun surgery. Zamiast nich należy używać dobrze nazwanych stałych symbolicznych. Zmiana wartości to edycja tylko w jednym miejscu.
+To zalecenie jest bardziej ogólne i odnosi się do dowolnej wartości literalnej, np. string.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">double</span> <span class="n">distance_in_km</span> <span class="o">=</span> <span class="mf">1.609344</span> <span class="o">*</span> <span class="n">distance_in_miles</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">constexpr</span> <span class="n">double</span> <span class="n">km_per_mile</span> <span class="o">=</span> <span class="mf">1.609344</span><span class="p">;</span>
+
+<span class="nb">float</span> <span class="n">distance_in_km</span> <span class="o">=</span> <span class="n">km_per_mile</span> <span class="o">*</span> <span class="n">distance_in_miles</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="refaktoryzacja-do-wzorcow">
+<h2>Refaktoryzacja do wzorców<a class="headerlink" href="#refaktoryzacja-do-wzorcow" title="Permalink to this heading">#</a></h2>
+<p>Wzorce projektowe są esencją sprawdzonych idei projektowych. Powinniśmy poznać jak najwięcej wzorców oraz wiedzieć, kiedy ich używać, a kiedy nie. Jeśli nie znamy wzorców projektowych lub ich nie używamy, tworzony kod może nie wykazywać cech dobrego kodu obiektowego. Nie dostrzeżemy tak łatwo podobieństw i może się okazać, że rozwiązujemy ponownie te same problemy. Znajomość wzorców pomaga rozpoznać powtarzające się problemy i ułatwia ich rozwiązanie.</p>
+<p>Niebezpieczeństwem wzorców projektowych jest ich nadużywanie</p>
+<ul class="simple">
+<li><p>Dostrzeganie wzorca wokół każdego wymagania</p></li>
+<li><p>Projektowanie z użyciem wzorców jako wyniku</p></li>
+</ul>
+<p>Jak należy używać wzorców?</p>
+<ul class="simple">
+<li><p>Jako celów dla refaktoryzacji</p></li>
+<li><p>Nie należy używać ich na samym początku projektu, lecz w razie potrzeby wprowadzać stopniowo w czasie refaktoryzacji</p></li>
+</ul>
+<p>Wzorce projektowe najczęściej występujące w fazie refaktoringu:</p>
+<ul class="simple">
+<li><p>Factory Method</p></li>
+<li><p>Strategy</p></li>
+<li><p>State</p></li>
+<li><p>Facade</p></li>
+<li><p>Command</p></li>
+<li><p>Template Method</p></li>
+<li><p>Decorator</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dependency-injection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Dependency Injection</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="mocking-objects.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Obiekty pozorujące</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplikacja-kodu">Duplikacja kodu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#niejasne-intencje">Niejasne intencje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zly-kod">Zły kod</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#przeprowadzenie-refaktoryzacji">Przeprowadzenie refaktoryzacji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-klasy">Ekstrakcja klasy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastapienie-instancji-klasy-obiektem-std-function">Zastąpienie instancji klasy obiektem std::function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-interfejsu">Ekstrakcja interfejsu</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstrakcja-metody-lub-funkcji">Ekstrakcja metody lub funkcji</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-type-code-podklasami">Zastępowanie <em>type-code</em> podklasami</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-wyrazenia-warunkowego-polimorfizmem">Zastępowanie wyrażenia warunkowego polimorfizmem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wprowadzenie-zmiennej-opisujacej">Wprowadzenie zmiennej opisującej</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-dziedziczenia-delegowaniem">Zastępowanie dziedziczenia delegowaniem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zastepowanie-magicznej-wartosci-stala-symboliczna">Zastępowanie magicznej wartości stałą symboliczną</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refaktoryzacja-do-wzorcow">Refaktoryzacja do wzorców</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

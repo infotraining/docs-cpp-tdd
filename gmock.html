@@ -1,0 +1,1244 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Biblioteka googlemock &#8212; Test-Driven Development w C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gmock';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Stub Vs. Mock" href="stub-vs-mock.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Test-Driven Development w C++
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Biblioteka googlemock</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-tdd/issues/new?title=Issue%20on%20page%20%2Fgmock.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/gmock.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Biblioteka googlemock</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#korzystanie-z-mockow">Korzystanie z mocków</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-domyslnego-zachowania-dla-mocka">Konfiguracja domyślnego zachowania dla mocka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-oczekiwan-dla-mockow">Konfiguracja oczekiwań dla mocków</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-call-vs-expect-call">ON_CALL vs. EXPECT_CALL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nicemocks-vs-strictmocks">NiceMocks vs. StrictMocks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-mockow">Konfiguracja mocków</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zwracane-wartosci-domyslne">Zwracane wartości domyślne</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#akcje">Akcje</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#zwracanie-wartosci">Zwracanie wartości</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow">Definiowanie różnych zachowań w zależności od parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-efektow-ubocznych">Konfiguracja efektów ubocznych</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wywolania-funkcji-funktorow-lub-lambd">Wywołania funkcji, funktorów lub lambd</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-rzucania-wyjatkow">Konfiguracja rzucania wyjątków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okreslanie-ilosci-wywolan">Określanie ilości wywołań</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-kolejnosci-wywolan-metod">Konfiguracja kolejności wywołań metod</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matchers">Matchers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-dowolnej-wartosci">Dopasowanie dowolnej wartości</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania">Porównania</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-lancuchow-znakow">Dopasowanie łańcuchów znaków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#laczenie-wielu-porownan">Łączenie wielu porównań</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-dla-pol-i-getterow-obiektow">Dopasowanie dla pól i getterów obiektów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowania-dla-kontenerow">Dopasowania dla kontenerów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopsowania-wieloargumentowe">Dopsowania wieloargumentowe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tworzenie-wlasnych-obiektow-dopasowujacych">Tworzenie własnych obiektów dopasowujących</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow">Wykorzystanie obiektów dopasowujących w asercjach testów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mockowanie-metod-niewirtualnych">Mockowanie metod niewirtualnych</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="biblioteka-googlemock">
+<h1>Biblioteka googlemock<a class="headerlink" href="#biblioteka-googlemock" title="Permalink to this heading">#</a></h1>
+<p>Podczas pisania testów często nie można, z różnych powodów, używać rzeczywistych obiektów.
+Warto wtedy użyć obiektu mock (mock object). Jest to obiekt który implementuje ten sam interfejs, co obiekt rzeczywisty, ale pozwala na
+sprawdzenie kolejności, parametrów i ilości wywołania metod interfejsu.
+Różni się więc od obiektów typu <em>fake</em>, które są działającą implementacją (uproszczoną) rzeczywistego obiektu.</p>
+<p>Biblioteka Google C++ Mocking Framework służy do tworzenia klas dostarczających mocków.</p>
+<section id="korzystanie-z-mockow">
+<h2>Korzystanie z mocków<a class="headerlink" href="#korzystanie-z-mockow" title="Permalink to this heading">#</a></h2>
+<p>Praca z biblioteką <em>Google Mock</em> sprowadza się do trzech kroków:</p>
+<ol class="arabic">
+<li><p>Użycia prostych makr, aby opisać interfejs który chcemy pozorować.</p>
+<ul class="simple">
+<li><p>dla interfejsu <code class="docutils literal notranslate"><span class="pre">Foo</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Foo</span><span class="p">();</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">get_size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">Bar</span><span class="w"> </span><span class="n">elem</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>tworzymy klasę pozorującą <code class="docutils literal notranslate"><span class="pre">MockFoo</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MockFoo</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Foo</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">get_size</span><span class="p">,</span><span class="w"> </span><span class="p">(),</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="p">,</span><span class="w"> </span><span class="k">override</span><span class="p">));</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">describe</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="k">override</span><span class="p">));</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">describe</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">type</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="k">override</span><span class="p">));</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="n">process</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">Bar</span><span class="w"> </span><span class="n">elem</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="k">override</span><span class="p">));</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>Utworzenia obiektów wraz ze specyfikacją ich oczekiwań i zachowania z użyciem prostej składni.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">MockFoo</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span>
+
+<span class="c1">// optional step</span>
+<span class="n">ON_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="n">get_size</span><span class="p">())</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillByDefault</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span><span class="w"> </span><span class="n">describe</span><span class="p">(</span><span class="mi">5</span><span class="p">)).</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillRepeatedly</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="s">&quot;Id: 5&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Stworzenia testowego kodu, który będzie używał powyższych obiektów. Google Mock będzie odpowiedzialna za przestrzeganie wymagań zdefiniowanych w punkcie 2.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="s">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MyProductionFunction</span><span class="p">(</span><span class="n">foo</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="konfiguracja-domyslnego-zachowania-dla-mocka">
+<h2>Konfiguracja domyślnego zachowania dla mocka<a class="headerlink" href="#konfiguracja-domyslnego-zachowania-dla-mocka" title="Permalink to this heading">#</a></h2>
+<p>Aby ustawić domyślną konfigurację dla metody i określić zwracaną wartość
+należy użyć makra <code class="docutils literal notranslate"><span class="pre">ON_CALL()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ON_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">)).</span><span class="n">WillByDefault</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">42</span><span class="p">));</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ON_CALL()</span></code> definiuje zachowanie w przypadku wywołania określonej metody, ale <strong>nie definiuje oczekiwania</strong>, że ta metoda zostanie wywołana.</p>
+</section>
+<section id="konfiguracja-oczekiwan-dla-mockow">
+<h2>Konfiguracja oczekiwań dla mocków<a class="headerlink" href="#konfiguracja-oczekiwan-dla-mockow" title="Permalink to this heading">#</a></h2>
+<p>Konfiguracja oczekiwań jest realizowana za pomocą makra <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code>.
+<code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code> wyraża konkretne oczekiwanie wywołania metody weryfikowane
+w momencie wywołania destruktora obiektu pozorującego.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="p">(</span><span class="n">matchers</span><span class="p">)</span><span class="w"> </span><span class="cm">/*?*/</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">With</span><span class="p">(</span><span class="n">multi_argument_matchers</span><span class="p">)</span><span class="w"> </span><span class="c1">// ?</span>
+<span class="w">    </span><span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="n">cardinality</span><span class="p">)</span><span class="w">            </span><span class="c1">// ?</span>
+<span class="w">    </span><span class="p">.</span><span class="n">InSequence</span><span class="p">(</span><span class="n">S1</span><span class="p">...,</span><span class="w"> </span><span class="n">SN</span><span class="p">)</span><span class="w">         </span><span class="c1">// *</span>
+<span class="w">    </span><span class="p">.</span><span class="n">After</span><span class="p">(</span><span class="n">expectations</span><span class="p">)</span><span class="w">           </span><span class="c1">// *</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">action</span><span class="p">)</span><span class="w">              </span><span class="c1">// *</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillRepeatedly</span><span class="p">(</span><span class="n">action</span><span class="p">)</span><span class="w">        </span><span class="c1">// ?</span>
+<span class="w">    </span><span class="p">.</span><span class="n">RetiresOnSaturation</span><span class="p">();</span><span class="w">        </span><span class="c1">// ?</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Jeśli pominięta została sekcja <code class="docutils literal notranslate"><span class="pre">(matchers)</span></code>, zachowanie jest równoważne ustawieniu dopasowań ogólnych (<code class="docutils literal notranslate"><span class="pre">_</span></code>) dla
+wszystkich argumentów (np. <code class="docutils literal notranslate"><span class="pre">(_,</span> <span class="pre">_,</span> <span class="pre">_,</span> <span class="pre">_)</span></code> dla metody z czterema argumentami.</p></li>
+<li><p>Jeśli pominięta została sekcja <code class="docutils literal notranslate"><span class="pre">Times()</span></code>, to ilość oczekiwanych wywołań metody jest ustawiona na:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Times(1)</span></code> jeśli nie ustawiono <code class="docutils literal notranslate"><span class="pre">WillOnce()</span></code> lub <code class="docutils literal notranslate"><span class="pre">WillRepeatedly()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Times(n)</span></code> jeśli ustawiono <code class="docutils literal notranslate"><span class="pre">n</span></code> razy <code class="docutils literal notranslate"><span class="pre">WillOnce()</span></code>, ale nie <code class="docutils literal notranslate"><span class="pre">WillRepeatedly()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Times(AtLeast(n))</span></code> jeśli ustawiono <code class="docutils literal notranslate"><span class="pre">n</span></code> razy <code class="docutils literal notranslate"><span class="pre">WillOnce()</span></code> a następnie ustawiono <code class="docutils literal notranslate"><span class="pre">WillRepeatedly()</span></code></p></li>
+</ul>
+</li>
+</ul>
+<section id="on-call-vs-expect-call">
+<h3>ON_CALL vs. EXPECT_CALL<a class="headerlink" href="#on-call-vs-expect-call" title="Permalink to this heading">#</a></h3>
+<p>Dobre testy, powinny <strong>weryfikować kontrakt</strong> pomiędzy klientem (testowany kod), a obiektami zależnymi (pozorowanymi przez mocki).
+Jeśli test zbyt szczegółowo specyfikuje wymagania dla mocków, to efektem jest brak możliwości swobodnej implementacji funkcjonalności.
+W takiej sytuacji refaktoring kodu zwykle powoduje zgłoszenie błędów przez testy.</p>
+<p>Dobrym zaleceniem jest weryfikacja tylko jednej właściwości (lub zachowania) w jednym teście.</p>
+<p>Stosując gMock należy domyślnie używać <code class="docutils literal notranslate"><span class="pre">ON_CALL</span></code> a używać <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span></code> tylko kiedy chcemy zweryfikować określone zachowanie.</p>
+<p>Dobrym rozwiązaniem jest:</p>
+<ul class="simple">
+<li><p>skonfigurowanie mocka w fiksturze za pomocą wielu wywołań <code class="docutils literal notranslate"><span class="pre">ON_CALL</span></code> - tak skonfigurowany mock może być łatwo współdzielony przez wiele testów w grupie</p></li>
+<li><p>a następnie definiować konkretne oczekiwanie dotyczące zachowania obiektu za pomocą <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL</span></code> w konkretnym teście <code class="docutils literal notranslate"><span class="pre">TEST_F</span></code>.</p></li>
+</ul>
+</section>
+<section id="nicemocks-vs-strictmocks">
+<h3>NiceMocks vs. StrictMocks<a class="headerlink" href="#nicemocks-vs-strictmocks" title="Permalink to this heading">#</a></h3>
+<p>Domyślnie (bez konfiguracji oczekiwań) obiekt mocka stworzony przy pomocy framework’a <em>googlemock</em> akceptuje
+wszystkie wywołania metod zgłaszając ostrzeżenie z opisem jaka metoda została wywołana.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Logger</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MockLogger</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Logger</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="k">override</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">Logger</span><span class="o">&amp;</span><span class="w"> </span><span class="n">logger</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Started&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">NiceVsStrictMocks</span><span class="p">,</span><span class="w"> </span><span class="n">DefaultMockDisplaysWarningInOutput</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MockLogger</span><span class="w"> </span><span class="n">mock_logger</span><span class="p">;</span><span class="w"> </span><span class="c1">// default mock - no expectations</span>
+
+<span class="w">    </span><span class="n">run</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">);</span><span class="w"> </span><span class="c1">// gives warning</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Aby uniknąć ostrzeżeń możemy zastosować <code class="docutils literal notranslate"><span class="pre">ON_CALL</span></code> lub opakować mocka szablonem <code class="docutils literal notranslate"><span class="pre">NiceMock</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">NiceVsStrictMocks</span><span class="p">,</span><span class="w"> </span><span class="n">NiceMockWorksInSilentMode</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">NiceMock</span><span class="o">&lt;</span><span class="n">MockLogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mock_logger</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">run</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">);</span><span class="w"> </span><span class="c1">// no warnings</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>W sytuacji, gdy przypadkowe wywołania mogą być problemem możemy zastosować
+wrapper <code class="docutils literal notranslate"><span class="pre">StricMock</span></code>. Wtedy każde wywołanie bez wcześniejszej konfiguracji oczekiwań
+jest zgłaszane jako błąd:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">NiceVsStrictMocks</span><span class="p">,</span><span class="w"> </span><span class="n">StrictMockReportsUnexpectedCallsAsErrors</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">StrictMock</span><span class="o">&lt;</span><span class="n">MockLogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mock_logger</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">run</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">);</span><span class="w"> </span><span class="c1">// reported as error - unexpected call</span>
+<span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">NiceVsStrictMocks</span><span class="p">,</span><span class="w"> </span><span class="n">StrictMockRequiresConfigurationOfExpectation</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">StrictMock</span><span class="o">&lt;</span><span class="n">MockLogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mock_logger</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="n">_</span><span class="p">)).</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">run</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">);</span><span class="w"> </span><span class="c1">// reported as error - unexpected call</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="konfiguracja-mockow">
+<h2>Konfiguracja mocków<a class="headerlink" href="#konfiguracja-mockow" title="Permalink to this heading">#</a></h2>
+<section id="zwracane-wartosci-domyslne">
+<h3>Zwracane wartości domyślne<a class="headerlink" href="#zwracane-wartosci-domyslne" title="Permalink to this heading">#</a></h3>
+<p>Domyślnie metody wywoływane na mocku zwracają domyślne wartości określonego typu (<strong>default-constructed values</strong>).</p>
+<p>Możemy zmienić domyślną wartość dla określonego typu wykorzystując szablon <code class="docutils literal notranslate"><span class="pre">DefaultValue&lt;T&gt;</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">DefaultValue</span><span class="p">;</span>
+
+<span class="c1">// sets the default value to be returned. T must be CopyConstructible.</span>
+<span class="n">DefaultValue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Set</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+
+<span class="c1">// sets a factory. Will be invoked on demand. T must be MoveConstructible.</span>
+<span class="c1">//  T make_T();</span>
+<span class="n">DefaultValue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">SetFactory</span><span class="p">(</span><span class="o">&amp;</span><span class="n">make_T</span><span class="p">);</span>
+
+<span class="c1">// ... use the mocks ...</span>
+
+<span class="c1">// resets the default value.</span>
+<span class="n">DefaultValue</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Clear</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="akcje">
+<h3>Akcje<a class="headerlink" href="#akcje" title="Permalink to this heading">#</a></h3>
+<p>Akcje określają co powinno się stać, kiedy określona metoda mocka zostanie wywołana:</p>
+<section id="zwracanie-wartosci">
+<h4>Zwracanie wartości<a class="headerlink" href="#zwracanie-wartosci" title="Permalink to this heading">#</a></h4>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Return()</span></code></p></td>
+<td><p>Zwraca <code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Return(value)</span></code></p></td>
+<td><p>Zwraca <code class="docutils literal notranslate"><span class="pre">value</span></code>. Jeśli typ <cite>value</cite> jest inny od typu zwracanego z funkcji, <code class="docutils literal notranslate"><span class="pre">value</span></code> jest konwertowane w czasie ustawiania oczekiwania</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnArg&lt;N&gt;()</span></code></p></td>
+<td><p>Zwraca N-ty argument (indeksacja od 0)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnNew&lt;T&gt;(a1,</span> <span class="pre">...,</span> <span class="pre">ak)</span></code></p></td>
+<td><p>Zwraca <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">T(a1,</span> <span class="pre">...,</span> <span class="pre">ak)</span></code>; za każdym wywołaniem tworzony jest nowy obiekt</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnNull()</span></code></p></td>
+<td><p>Zwraca <code class="docutils literal notranslate"><span class="pre">nullptr</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnPointee(ptr)</span></code></p></td>
+<td><p>Zwraca wartość wskazywaną przez wskaźnik <code class="docutils literal notranslate"><span class="pre">ptr</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnRef(variable)</span></code></p></td>
+<td><p>Zwraca referencję do zmiennej <code class="docutils literal notranslate"><span class="pre">variable</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ReturnRefOfCopy(value)</span></code></p></td>
+<td><p>Zwraca referencję do kopii <code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Przykład:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">()).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">-1</span><span class="p">));</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">fake</span><span class="p">.</span><span class="n">my_method</span><span class="p">(),</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span><span class="w"> </span><span class="n">my_method_returning_ref</span><span class="p">()).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">ReturnRef</span><span class="p">(</span><span class="n">local</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span><span class="w"> </span><span class="n">my_method_returning_ptr</span><span class="p">()).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">ReturnPointee</span><span class="p">(</span><span class="o">&amp;</span><span class="n">local</span><span class="p">));</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">fake</span><span class="p">.</span><span class="n">my_method_returning_ptr</span><span class="p">()),</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow">
+<h3>Definiowanie różnych zachowań w zależności od parametrów<a class="headerlink" href="#definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow" title="Permalink to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">100</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">200</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="n">_</span><span class="p">)).</span><span class="n">WillRepeatedly</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">100</span><span class="p">)).</span><span class="n">WillRepeatedly</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="konfiguracja-efektow-ubocznych">
+<h3>Konfiguracja efektów ubocznych<a class="headerlink" href="#konfiguracja-efektow-ubocznych" title="Permalink to this heading">#</a></h3>
+<p>Czasami metoda wywoływana na obiekcie pozorującym daje efekt uboczny (np. ustawienie wartości dla zmiennej przekazanej jako parametr wywołania funkcji
+lub wywołanie funkcji):</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Mock</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">SetArgPointee</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mock</span><span class="p">.</span><span class="n">some_method</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// default value is returned from mocked method</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Jeśli chcemy połączyć wiele efektów ubocznych możemy zastosować <code class="docutils literal notranslate"><span class="pre">DoAll()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">DoAll</span><span class="p">(</span><span class="n">SetArgPointee</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Do najczęściej wykorzystywanych efektów ubocznych należą:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Assign(&amp;variable,</span> <span class="pre">value)</span></code></p></td>
+<td><p>Przypisuje wartość do zmiennej <code class="docutils literal notranslate"><span class="pre">variable</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SaveArg&lt;N&gt;(pointer)</span></code></p></td>
+<td><p>Save the N-th (0-based) argument to <code class="docutils literal notranslate"><span class="pre">*pointer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SaveArgPointee&lt;N&gt;(pointer)</span></code></p></td>
+<td><p>Zapisuje wartość wskazywanę przez N-ty argument do <code class="docutils literal notranslate"><span class="pre">*pointer</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SetArgReferee&lt;N&gt;(value)</span></code></p></td>
+<td><p>Przypisuje wartość <code class="docutils literal notranslate"><span class="pre">value</span></code> do referencji przekazanej jako N-ty argument</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SetArgPointee&lt;N&gt;(value)</span></code></p></td>
+<td><p>Przypisuje wartość <code class="docutils literal notranslate"><span class="pre">value</span></code> do zmiennej wskazwanej przez N-ty argument</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Throw(exception)</span></code></p></td>
+<td><p>Rzuca wyjątek (dowolną kopiowalną wartość)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="wywolania-funkcji-funktorow-lub-lambd">
+<h3>Wywołania funkcji, funktorów lub lambd<a class="headerlink" href="#wywolania-funkcji-funktorow-lub-lambd" title="Permalink to this heading">#</a></h3>
+<p>W poniższej tabeli <code class="docutils literal notranslate"><span class="pre">f</span></code> oznacza funkcję, <code class="docutils literal notranslate"><span class="pre">std::function</span></code>, funktor lub lambdę.</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
+<td><p>Wywołuje <code class="docutils literal notranslate"><span class="pre">f</span></code> z argumentami przekazanymi do mockowanej funkcji</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Invoke(f)</span></code></p></td>
+<td><p>Wywołuje <code class="docutils literal notranslate"><span class="pre">f</span></code> z argumentami przekazanymi do mockowanej funkcji</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Invoke(object_pointer,</span> <span class="pre">&amp;class::method)</span></code></p></td>
+<td><p>Wywołuje metodę na wskazanym obiekcie z argumentami przekazanymi do mockowanej funkcji</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">InvokeWithoutArgs(f)</span></code></p></td>
+<td><p>Wywołuje <code class="docutils literal notranslate"><span class="pre">f</span></code>; <code class="docutils literal notranslate"><span class="pre">f</span></code> nie przyjmuje żadnych argumentów</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">InvokeWithoutArgs(object_pointer,</span> <span class="pre">&amp;class::method)</span></code></p></td>
+<td><p>Wywołuje bezparametrową metodę na wskazanym obiekcie</p></td>
+</tr>
+</tbody>
+</table>
+<p>Wywołanie funkcji jako efekt uboczny możemy skonfigurować następująco:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">InvokeWithoutArgs</span><span class="p">(</span><span class="n">other_function</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">InvokeWithoutArgs</span><span class="p">(</span><span class="n">IgnoreResult</span><span class="p">(</span><span class="n">another_function</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method_with_many_args</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">WithArgs</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">callback_function</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Jeśli metoda, którą mockujemy przyjmuje argument w postaci wskaźnika do funkcji, możemy użyć tego wskaźnika do wywołania funkcji z określonym argumentem:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Mock</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">function_with_callback</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">)));</span>
+<span class="p">};</span>
+
+<span class="n">Mock</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">function_with_callback</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">InvokeArgument</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="konfiguracja-rzucania-wyjatkow">
+<h3>Konfiguracja rzucania wyjątków<a class="headerlink" href="#konfiguracja-rzucania-wyjatkow" title="Permalink to this heading">#</a></h3>
+<p>Aby pozorować rzucanie wyjątków należy skonfigurować mocka przy pomocy opji <code class="docutils literal notranslate"><span class="pre">Throw()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">InvalidArgumentException</span><span class="w"> </span><span class="n">my_exception</span><span class="p">(</span><span class="s">&quot;Error #13&quot;</span><span class="p">);</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="mi">13</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Throw</span><span class="p">(</span><span class="n">my_exception</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="okreslanie-ilosci-wywolan">
+<h3>Określanie ilości wywołań<a class="headerlink" href="#okreslanie-ilosci-wywolan" title="Permalink to this heading">#</a></h3>
+<p>Opcja <code class="docutils literal notranslate"><span class="pre">Times()</span></code> umożliwia konfigurację ilości wywołań metody dla mocka:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Mock</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">,</span><span class="w"> </span><span class="p">());</span>
+<span class="p">};</span>
+
+<span class="n">Mock</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span>
+
+<span class="c1">// setting expectation that my_function is called exactly 3 times returning default value</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="n">Exactly</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+
+<span class="c1">// setting expectation that my function is called exactly 3 times returning 10, 0, 0</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">my_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">my_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">my_function</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// other examples of Times options</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="n">AtLeast</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="n">AtMost</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="n">Between</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_function</span><span class="p">()).</span><span class="n">Times</span><span class="p">(</span><span class="n">AnyNumber</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Oczekiwania są zapisywane na stosie (LIFO) co w rezultacie umożliwia
+przedefiniowanie skonfigurowanych wcześniej (np. w fiksturze) oczekiwań.
+Zawsze sprawdzenie czy wywołanie metody pasuje do ustawionej konfiguracji
+zaczyna się od ostatniego wywołania <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">OverridingExpectations</span><span class="p">,</span><span class="w"> </span><span class="n">WhenLastConfigurationFitsRestIsInvisible</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Mock</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">is_saturated</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">))</span><span class="o">:</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">is_saturated</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">is_saturated</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">is_saturated</span><span class="p">());</span><span class="w"> </span><span class="c1">// error - is_saturated() ivoked twice</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Aby ograniczyć czas działania określonej konfiguracji oczekiwań możemy użyć
+opcji <code class="docutils literal notranslate"><span class="pre">RetiresOnSaturation()</span></code></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">OverridingExpectations</span><span class="p">,</span><span class="w"> </span><span class="n">CanBeManagedWithRetiresOnSaturation</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Mock</span><span class="w"> </span><span class="n">mock</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">is_saturated</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">))</span><span class="o">:</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">is_saturated</span><span class="p">())</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">false</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="n">RetiresOnSaturation</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">ASSERT_FALSE</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">is_saturated</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ASSERT_TRUE</span><span class="p">(</span><span class="n">mock</span><span class="p">.</span><span class="n">is_saturated</span><span class="p">());</span><span class="w"> </span><span class="c1">// ok</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="konfiguracja-kolejnosci-wywolan-metod">
+<h3>Konfiguracja kolejności wywołań metod<a class="headerlink" href="#konfiguracja-kolejnosci-wywolan-metod" title="Permalink to this heading">#</a></h3>
+<p>Gdy chcemy określić kolejność wykonywanych na mocku operacji
+możemy zastosować opcję <code class="docutils literal notranslate"><span class="pre">After()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Expectation</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">setup</span><span class="p">());</span>
+<span class="n">Expectation</span><span class="w"> </span><span class="n">validate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">validate</span><span class="p">());</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">run</span><span class="p">()).</span><span class="n">After</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span><span class="w"> </span><span class="n">validate</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Obiekt <code class="docutils literal notranslate"><span class="pre">ExpectationSet</span></code> umożliwia agregację oczekiwań w odpowiedniej kolejności:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ExpectationSet</span><span class="w"> </span><span class="n">all_inits</span><span class="p">;</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">devs_no</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">all_inits</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">init_dev</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">run</span><span class="p">()).</span><span class="n">After</span><span class="p">(</span><span class="n">all_inits</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Inną opcją określenia kolejności wywołań jest zastosowanie obiektu <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">SequencedCalls</span><span class="p">,</span><span class="w"> </span><span class="n">AllCallAreInSequence</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Sequence</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">1</span><span class="p">)).</span><span class="n">InSequence</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">2</span><span class="p">)).</span><span class="n">InSequence</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">other_method</span><span class="p">(</span><span class="n">_</span><span class="p">)).</span><span class="n">InSequence</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="matchers">
+<h2>Matchers<a class="headerlink" href="#matchers" title="Permalink to this heading">#</a></h2>
+<p>Obiekty dopasowujące (<em>matchers</em>) są wykorzystywane do sprawdzenia, czy
+metoda została wywołana z określonymi parametrami.</p>
+<section id="dopasowanie-dowolnej-wartosci">
+<h3>Dopasowanie dowolnej wartości<a class="headerlink" href="#dopasowanie-dowolnej-wartosci" title="Permalink to this heading">#</a></h3>
+<p>Dowolna wartość jest akceptowana przy pomocy <code class="docutils literal notranslate"><span class="pre">_</span></code> lub szablonu <code class="docutils literal notranslate"><span class="pre">A&lt;T&gt;</span></code> lub <code class="docutils literal notranslate"><span class="pre">An&lt;T&gt;</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">A</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// usable for overloaded functions</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">An</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span>
+</pre></div>
+</div>
+</section>
+<section id="porownania">
+<h3>Porównania<a class="headerlink" href="#porownania" title="Permalink to this heading">#</a></h3>
+<p>Dopasowanie wykorzystujące operatory porównań może być zdefiniowane przy pomocy matcherów <code class="docutils literal notranslate"><span class="pre">Eq()</span></code>, <code class="docutils literal notranslate"><span class="pre">Ne()</span></code>, <code class="docutils literal notranslate"><span class="pre">Lt()</span></code>, <code class="docutils literal notranslate"><span class="pre">Gt()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Ne</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Lt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Gt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Dla wskaźników możemy wykorzystać obiekty <code class="docutils literal notranslate"><span class="pre">IsNull()</span></code> i <code class="docutils literal notranslate"><span class="pre">NotNull()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">IsNull</span><span class="p">());</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">NotNull</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Porównania mogą być również ograniczane dla typów:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">TypedEq</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Matcher</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Gt</span><span class="p">(</span><span class="mi">50</span><span class="p">)));</span>
+</pre></div>
+</div>
+</section>
+<section id="dopasowanie-lancuchow-znakow">
+<h3>Dopasowanie łańcuchów znaków<a class="headerlink" href="#dopasowanie-lancuchow-znakow" title="Permalink to this heading">#</a></h3>
+<p>Łańcuchy znaków (C-strings i std::string) mogą być dopasowywane przy pomocy następujących obiektów:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ContainsRegex(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EndsWith(suffix)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasSubstr(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MatchesRegex(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StartsWith(prefix)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StrCaseEq(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StrCaseNe(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StrEq(string)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StrNe(string)</span></code></p></li>
+</ul>
+</section>
+<section id="laczenie-wielu-porownan">
+<h3>Łączenie wielu porównań<a class="headerlink" href="#laczenie-wielu-porownan" title="Permalink to this heading">#</a></h3>
+<p>Łączenie wielu obiektów porównujących może się odbywać przy pomocy obiektów:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AllOf(m1,</span> <span class="pre">m2,</span> <span class="pre">...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AnyOf(m1,</span> <span class="pre">m2,</span> <span class="pre">...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Not(m)</span></code></p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">AllOf</span><span class="p">(</span><span class="n">NotNull</span><span class="p">(),</span><span class="w"> </span><span class="n">Not</span><span class="p">(</span><span class="n">StrEq</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)),</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="dopasowanie-dla-pol-i-getterow-obiektow">
+<h3>Dopasowanie dla pól i getterów obiektów<a class="headerlink" href="#dopasowanie-dla-pol-i-getterow-obiektow" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Field(&amp;class::field,</span> <span class="pre">m)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Property(&amp;class::property,</span> <span class="pre">m)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Key(v/m)</span></code> - <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL(my_map,</span> <span class="pre">Contains(Key(42)))</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pair(m1,</span> <span class="pre">m2)</span></code></p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">MockUser</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">Gadget</span><span class="o">&amp;</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="n">MockUser</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="p">(</span><span class="n">Field</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Gadget</span><span class="o">::</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">Gt</span><span class="p">(</span><span class="mi">0</span><span class="p">))).</span><span class="n">Times</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">g1</span><span class="p">{</span><span class="mi">10</span><span class="p">};</span>
+<span class="n">user</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">g1</span><span class="p">);</span><span class="w"> </span><span class="c1">// ok</span>
+
+<span class="n">Gadget</span><span class="w"> </span><span class="n">g2</span><span class="p">{</span><span class="mi">-1</span><span class="p">};</span>
+<span class="n">user</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">g2</span><span class="p">);</span><span class="w"> </span><span class="c1">// report error</span>
+</pre></div>
+</div>
+</section>
+<section id="dopasowania-dla-kontenerow">
+<h3>Dopasowania dla kontenerów<a class="headerlink" href="#dopasowania-dla-kontenerow" title="Permalink to this heading">#</a></h3>
+<p>Dopasowania dla całych kontenrów:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ContainerEq(other)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IsEmpty()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Size(m)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Contains(e)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Each(e)</span></code></p></li>
+</ul>
+<p>Dopasowania dla kolekcji elementów:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ElementsAre(e0,</span> <span class="pre">e1,</span> <span class="pre">...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ElementsAreArray({...})</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pointwise(m,</span> <span class="pre">container)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UnorderedElementsAre(...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WhenSorted(m)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WhenSortedBy(comparator,</span> <span class="pre">m)</span></code></p></li>
+</ul>
+<p>Przykłady:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MOCK_METHOD1</span><span class="p">(</span><span class="n">save_data</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">numbers</span><span class="p">));</span>
+
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">save_data</span><span class="p">(</span><span class="n">UnorderedElementsAre</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Gt</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)));</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">-100</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span>
+<span class="n">mock</span><span class="p">.</span><span class="n">save_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w"> </span><span class="c1">// ok</span>
+</pre></div>
+</div>
+</section>
+<section id="dopsowania-wieloargumentowe">
+<h3>Dopsowania wieloargumentowe<a class="headerlink" href="#dopsowania-wieloargumentowe" title="Permalink to this heading">#</a></h3>
+<p>Czasami wymagane zdefiniowanie wzajemnie zależnych wymagań dla argumentów wywołania mockowanej funkcji:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">With</span><span class="p">(</span><span class="n">Eq</span><span class="p">());</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">With</span><span class="p">(</span><span class="n">AllArgs</span><span class="p">(</span><span class="n">Eq</span><span class="p">()));</span><span class="w"> </span><span class="c1">// the same as above</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">With</span><span class="p">(</span><span class="n">Args</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Eq</span><span class="p">()));</span>
+</pre></div>
+</div>
+</section>
+<section id="tworzenie-wlasnych-obiektow-dopasowujacych">
+<h3>Tworzenie własnych obiektów dopasowujących<a class="headerlink" href="#tworzenie-wlasnych-obiektow-dopasowujacych" title="Permalink to this heading">#</a></h3>
+<p>Tworzenie własnych obiektów dopasowujących jest możliwe na trzy sposoby:</p>
+<ol class="arabic">
+<li><p>Używając funkcji <code class="docutils literal notranslate"><span class="pre">Truly(predicate)</span></code></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">is_even</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// some_method() must be called with an even number.</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Truly</span><span class="p">(</span><span class="n">is_even</span><span class="p">)));</span>
+</pre></div>
+</div>
+</li>
+<li><p>Pisząc makro <code class="docutils literal notranslate"><span class="pre">MATCHER()</span></code></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MATCHER</span><span class="p">(</span><span class="n">IsEven</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">negation</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;isn&#39;t&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;is&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; even&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">MATCHER_P</span><span class="p">(</span><span class="n">IsDivisible</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">negation</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;isn&#39;t&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;is&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; divisible by &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">MATCHER_P2</span><span class="p">(</span><span class="n">InCloseRange</span><span class="p">,</span><span class="w"> </span><span class="n">low</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">negation</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot; isn not&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot; is&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; in range [&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">low</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, &quot;</span>
+<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">high</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;]&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">high</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Pisząc własną klasę dziedziczącą po <code class="docutils literal notranslate"><span class="pre">MatcherInterface</span></code></p></li>
+</ol>
+</section>
+<section id="wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow">
+<h3>Wykorzystanie obiektów dopasowujących w asercjach testów<a class="headerlink" href="#wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow" title="Permalink to this heading">#</a></h3>
+<p>Obiekty porównujące mogą być wykorzystane w asercjach testów jednostkowych:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ASSERT_THAT</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">AllOf</span><span class="p">(</span><span class="n">NotNull</span><span class="p">(),</span><span class="w"> </span><span class="n">StrNe</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)));</span>
+
+<span class="n">EXPECT_THAT</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">AnyOf</span><span class="p">(</span><span class="n">Gt</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w"> </span><span class="n">Le</span><span class="p">(</span><span class="mi">-100</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="mockowanie-metod-niewirtualnych">
+<h2>Mockowanie metod niewirtualnych<a class="headerlink" href="#mockowanie-metod-niewirtualnych" title="Permalink to this heading">#</a></h2>
+<p>Bibliotek gMock umożliwia mockowanie metod, które nie są wirtualne. Możemy to wykorzystać w testach kodu, który wykorzystuje <em>Hi-performance Dependency Injection</em>.</p>
+<p>W takim przypadku klasa mocka nie dziedziczy po interfejsie (lub klasie z metodami wirtualnymi).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// A simple logger class.  None of its members is virtual.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">warn</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">warning</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">error_msg</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">err_code</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Klasa mocka dla klasy logger:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MockLogger</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">));</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">warn</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">warning</span><span class="p">));</span>
+<span class="w">    </span><span class="n">MOCK_METHOD</span><span class="p">(</span><span class="kt">void</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">error_msg</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">err_code</span><span class="p">));</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Aby mieć możliwość podstawienia mocka dla potrzeb testów, musimy wykorzystać <em>static polymorphism</em> i szablony.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">LoggerImpl</span><span class="o">&gt;</span>
+<span class="n">Connection</span><span class="w"> </span><span class="n">create_connection</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">connection_str</span><span class="p">,</span><span class="w"> </span><span class="n">LoggerImpl</span><span class="o">*</span><span class="w"> </span><span class="n">logger</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Established connection to &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">connection_str</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">LoggerImpl</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataReader</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">LoggerImpl</span><span class="o">*</span><span class="w"> </span><span class="n">logger_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">DataReader</span><span class="p">(</span><span class="n">LoggerImpl</span><span class="o">*</span><span class="w"> </span><span class="n">logger</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">logger_</span><span class="p">{</span><span class="n">logger</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">read_data</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cmd</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//...</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">logger_</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger_</span><span class="o">-&gt;</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Command &quot;</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; has been executed&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Powyższy kod daje możliwość zastosowania konkretnej implementacji logger’a w kodzie produkcyjnym (np: <code class="docutils literal notranslate"><span class="pre">FileLogger</span></code>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">FileLogger</span><span class="w"> </span><span class="n">logger</span><span class="p">{</span><span class="s">&quot;log.dat&quot;</span><span class="p">};</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_connection</span><span class="p">(</span><span class="s">&quot;http://localhost:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">logger</span><span class="p">);</span>
+
+<span class="n">DataReader</span><span class="o">&lt;</span><span class="n">FileLogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reader</span><span class="p">{</span><span class="o">&amp;</span><span class="n">logger</span><span class="p">};</span>
+<span class="n">reader</span><span class="p">.</span><span class="n">read_data</span><span class="p">(</span><span class="s">&quot;select * from table&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>W teście możemy natomiast wykorzystać klasę mocka:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">MockLogger</span><span class="w"> </span><span class="n">mock_logger</span><span class="p">;</span>
+<span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock_logger</span><span class="p">,</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">);</span>
+<span class="c1">// set more expectations on mock_logger...</span>
+
+<span class="n">DataReader</span><span class="o">&lt;</span><span class="n">MockLogger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reader</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mock_logger</span><span class="p">);</span>
+<span class="c1">// exercise reader...</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="stub-vs-mock.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Stub Vs. Mock</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#korzystanie-z-mockow">Korzystanie z mocków</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-domyslnego-zachowania-dla-mocka">Konfiguracja domyślnego zachowania dla mocka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-oczekiwan-dla-mockow">Konfiguracja oczekiwań dla mocków</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#on-call-vs-expect-call">ON_CALL vs. EXPECT_CALL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nicemocks-vs-strictmocks">NiceMocks vs. StrictMocks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-mockow">Konfiguracja mocków</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zwracane-wartosci-domyslne">Zwracane wartości domyślne</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#akcje">Akcje</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#zwracanie-wartosci">Zwracanie wartości</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow">Definiowanie różnych zachowań w zależności od parametrów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-efektow-ubocznych">Konfiguracja efektów ubocznych</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wywolania-funkcji-funktorow-lub-lambd">Wywołania funkcji, funktorów lub lambd</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-rzucania-wyjatkow">Konfiguracja rzucania wyjątków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okreslanie-ilosci-wywolan">Określanie ilości wywołań</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konfiguracja-kolejnosci-wywolan-metod">Konfiguracja kolejności wywołań metod</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matchers">Matchers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-dowolnej-wartosci">Dopasowanie dowolnej wartości</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania">Porównania</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-lancuchow-znakow">Dopasowanie łańcuchów znaków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#laczenie-wielu-porownan">Łączenie wielu porównań</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowanie-dla-pol-i-getterow-obiektow">Dopasowanie dla pól i getterów obiektów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopasowania-dla-kontenerow">Dopasowania dla kontenerów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dopsowania-wieloargumentowe">Dopsowania wieloargumentowe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tworzenie-wlasnych-obiektow-dopasowujacych">Tworzenie własnych obiektów dopasowujących</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow">Wykorzystanie obiektów dopasowujących w asercjach testów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mockowanie-metod-niewirtualnych">Mockowanie metod niewirtualnych</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
