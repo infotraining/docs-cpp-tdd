@@ -2,3 +2,12 @@ format: jb-book
 root: index
 chapters:
 - file: tdd
+- file: unit-tests-intro
+- file: gtest
+- file: unit-tests-patterns
+- file: solid-oop
+- file: dependency-injection
+- file: refactoring
+- file: mocking-objects
+- file: stub-vs-mock
+- file: gmock
