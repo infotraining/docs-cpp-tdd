@@ -124,6 +124,8 @@ project/
 
   * `./tests/tests_calculator.cpp` - plik z testami jednostkowymi
 
+    `````{tab-set}
+    ````{tab-item} GTest
     ```c++
     #include <gmock/gmock.h>
     #include <gtest/gtest.h>
@@ -137,7 +139,32 @@ project/
         EXPECT_EQ(add(1, 2), 3);
     }
     ```
+    ````
+    
+    ````{tab-item} Catch2
+    ```c++
+    #include <algorithm>
+    #include <string>
+    #include <memory>
+    #include <catch2/catch_test_macros.hpp>
+    
+    #include <calculator.hpp>
+    
+    TEST_CASE("Addition of two numbers", "[add]") {
+        REQUIRE(add(1, 2) == 3);
+        REQUIRE(add(0, 0) == 0);
+        REQUIRE(add(-1, 1) == 0);
+        REQUIRE(add(-1, -1) == -2);
+    }
+    ```
+    ````
+    `````
+
   * `./tests/CMakeLists.txt` - plik konfiguracyjny CMake dla testów
+
+
+    `````{tab-set}
+    ````{tab-item} GTest
 
     ```cmake
     set(PROJECT_TESTS "tests-${PROJECT_ID}" PARENT_SCOPE)
@@ -179,6 +206,52 @@ project/
     gtest_discover_tests(${PROJECT_TESTS})
     ```
 
+    ````
+
+    ````{tab-item} Catch2
+    
+    ```cmake
+    set(PROJECT_TESTS "tests-${PROJECT_ID}")
+    set(PROJECT_TESTS "tests-${PROJECT_ID}" PARENT_SCOPE)
+    message(STATUS "PROJECT_TESTS is: " ${PROJECT_TESTS})
+    
+    ####################
+    # Sources & headers
+    aux_source_directory(. SRC_LIST)
+    file(GLOB HEADERS_LIST "*.h" "*.hpp")
+    
+    find_package(Catch2 3 REQUIRED)
+    
+    if (NOT Catch2_FOUND)
+      Include(FetchContent)
+    
+      FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.8.0 # or a later release
+      )
+    
+      FetchContent_MakeAvailable(Catch2)
+    
+      list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+    endif()
+    
+    enable_testing()
+    
+    include(Catch)
+    
+    add_executable(${PROJECT_TESTS} ${SRC_LIST} ${HEADERS_LIST})
+    
+    target_link_libraries(${PROJECT_TESTS} PRIVATE Catch2::Catch2WithMain ${PROJECT_LIB})
+    
+    catch_discover_tests(${PROJECT_TESTS})
+    ```
+
+    ````
+    `````
+
+    
+
 * Aplikacja główna `main.cpp`:
 
   * `./main.cpp` - plik z kodem aplikacji
@@ -215,4 +288,3 @@ project/
   target_link_libraries(${PROJECT_MAIN} PRIVATE ${PROJECT_LIB} ${CMAKE_THREAD_LIBS_INIT})
   target_compile_features(${PROJECT_MAIN} PUBLIC cxx_std_20)
 ```
-
