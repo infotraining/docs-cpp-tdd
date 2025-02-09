@@ -2,6 +2,7 @@ format: jb-book
 root: index
 chapters:
 - file: tdd
+- file: tdd-in-practice
 - file: unit-tests-intro
 - file: gtest
 - file: unit-tests-patterns
