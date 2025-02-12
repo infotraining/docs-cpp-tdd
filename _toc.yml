@@ -3,12 +3,15 @@ root: index
 chapters:
 - file: tdd
 - file: tdd-in-practice
-- file: unit-tests-intro
-- file: gtest
+- file: unit-tests
+- file: unit-tests-frameworks
+  sections:
+  - file: gtest
+  - file: catch2
 - file: unit-tests-patterns
+- file: refactoring
 - file: solid-oop
 - file: dependency-injection
-- file: refactoring
 - file: mocking-objects
 - file: stub-vs-mock
 - file: gmock
