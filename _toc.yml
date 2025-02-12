@@ -12,6 +12,9 @@ chapters:
 - file: refactoring
 - file: solid-oop
 - file: dependency-injection
-- file: mocking-objects
-- file: stub-vs-mock
-- file: gmock
+- file: test-doubles
+  sections:
+  - file: test-doubles-intro
+  - file: test-doubles-types
+  - file: stub-vs-mock
+  - file: gmock
