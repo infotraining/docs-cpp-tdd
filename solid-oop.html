@@ -1,72 +1,68 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SOLID OOP - zasady solidnego programowania obiektowego &#8212; Test-Driven Development w C++</title>
+    <title>S.O.L.I.D. OOP &#8212; Test-Driven Development w C++</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'solid-oop';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Dependency Injection" href="dependency-injection.html" />
-    <link rel="prev" title="Wzorce testów jednostkowych" href="unit-tests-patterns.html" />
+    <link rel="prev" title="Refaktoryzacja kodu" href="refactoring.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -76,19 +72,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -110,12 +110,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -130,9 +138,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
+  
   
   
   
@@ -142,12 +152,23 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Test-Driven Development w C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Test-Driven Development w C++ - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -159,15 +180,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+</ul>
+</details></li>
 </ul>
 
     </div>
@@ -183,7 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -192,14 +222,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -222,7 +252,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/infotraining/cpp-tdd" target="_blank"
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -239,7 +269,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/infotraining/cpp-tdd/issues/new?title=Issue%20on%20page%20%2Fsolid-oop.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd/issues/new?title=Issue%20on%20page%20%2Fsolid-oop.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -321,26 +351,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -351,7 +383,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SOLID OOP - zasady solidnego programowania obiektowego</h1>
+    <h1>S.O.L.I.D. OOP</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,30 +423,30 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
-  <section id="solid-oop-zasady-solidnego-programowania-obiektowego">
-<h1>SOLID OOP - zasady solidnego programowania obiektowego<a class="headerlink" href="#solid-oop-zasady-solidnego-programowania-obiektowego" title="Permalink to this heading">#</a></h1>
+  <section id="s-o-l-i-d-oop">
+<h1>S.O.L.I.D. OOP<a class="headerlink" href="#s-o-l-i-d-oop" title="Link to this heading">#</a></h1>
 <p><strong>SOLID</strong> to akronim powstały od pięciu zasad dobrego programowania zorientowanego obiektowo.</p>
 <section id="zasada-pojedynczej-odpowiedzialnosci">
-<h2>Zasada pojedynczej odpowiedzialności<a class="headerlink" href="#zasada-pojedynczej-odpowiedzialnosci" title="Permalink to this heading">#</a></h2>
+<h2>Zasada pojedynczej odpowiedzialności<a class="headerlink" href="#zasada-pojedynczej-odpowiedzialnosci" title="Link to this heading">#</a></h2>
 <p><strong>Zasada pojedynczej odpowiedzialności</strong> (<em>Single-Responsibility Principle</em>) – każda klasa lub moduł powinien mieć tylko jeden powód do zmiany.</p>
 <p>Każdy obszar odpowiedzialności jest faktyczną osią zmian. Kiedy wymagania ulegają zmianie, zakres niezbędnych modyfikacji jest określany na podstawie obszarów odpowiedzialności przypisanych do poszczególnych klas. Jeśli pojedyncza klasa odpowiada za więcej niż jeden obszar jednocześnie, może istnieć więcej niż jeden powód jej modyfikowania. W takim przypadku, te rozłączne obszary są ze sobą powiązane. Zmiany jednego obszaru mogą osłabiać lub powstrzymywać funkcjonowanie w innym obszarze. Każdy taki związek ogranicza elastyczność projektów i prowadzi do nieoczekiwanych rezultatów zmian.</p>
 <section id="przyklad-naruszenia-zasady-pojedynczej-odpowiedzialnosci">
-<h3>Przykład naruszenia zasady pojedynczej odpowiedzialności<a class="headerlink" href="#przyklad-naruszenia-zasady-pojedynczej-odpowiedzialnosci" title="Permalink to this heading">#</a></h3>
+<h3>Przykład naruszenia zasady pojedynczej odpowiedzialności<a class="headerlink" href="#przyklad-naruszenia-zasady-pojedynczej-odpowiedzialnosci" title="Link to this heading">#</a></h3>
 <p>Klasa <code class="docutils literal notranslate"><span class="pre">Employee</span></code> łączy dwa obszary odpowiedzialności – reguły biznesowe oraz mechanizmy utrwalania danych.</p>
 <a class="reference internal image-reference" href="_images/srp.png"><img alt="_images/srp.png" class="align-center" src="_images/srp.png" style="width: 60%;" /></a>
 <p>Reguły biznesowe z natury rzeczy bardzo często ulegają modyfikacjom. Jeżeli istnieje konieczność zmian mechanizmów utrwalania, przyczyny tych modyfikacji są zupełnie inne niż w przypadku reguł biznesowych.</p>
 </section>
 </section>
 <section id="zasada-otwarte-zamkniete">
-<h2>Zasada otwarte-zamknięte<a class="headerlink" href="#zasada-otwarte-zamkniete" title="Permalink to this heading">#</a></h2>
+<h2>Zasada otwarte-zamknięte<a class="headerlink" href="#zasada-otwarte-zamkniete" title="Link to this heading">#</a></h2>
 <p><strong>Zasada otwarte-zamknięte</strong> (<em>Open/Close Principle</em>) – klasy powinny być otwarte na rozbudowę i zamknięte na modyfikacje.</p>
 <p>Jeśli dysponujemy klasą o określonym zachowaniu, które działa prawidłowo, należy uniemożliwić wprowadzenie modyfikacji w jej działającym kodzie. W przypadku konieczności rozbudowy kodu (dodania nowej funkcjonalności), należy stworzyć klasy pochodne, w których można nadpisać wybrane metody i dostosować ich działanie do bieżących potrzeb. Choć nie można modyfikować kodu klasy (zasada zamknięte), to jednak jest ona otwarta na rozbudowę (zasada otwarte).</p>
 <p>Wprowadzenie nowej funkcjonalności nie powinno również powodować zmian w kodzie klientów korzystających z niej.</p>
 <p>Klasy otwarte na rozszerzanie powinny zawierać punkty rozszerzenia (<em>extension points</em>), poprzez które można podpiąć się do istniejącego kodu i dostarczyć nową funkcjonalność. Punkty rozszerzeń mogą być definiowane poprzez wyodrębnienie interfejsu określonej funkcjonalności.</p>
 <section id="przyklad-naruszenia-zasady-ocp">
-<h3>Przykład naruszenia zasady OCP<a class="headerlink" href="#przyklad-naruszenia-zasady-ocp" title="Permalink to this heading">#</a></h3>
+<h3>Przykład naruszenia zasady OCP<a class="headerlink" href="#przyklad-naruszenia-zasady-ocp" title="Link to this heading">#</a></h3>
 <a class="reference internal image-reference" href="_images/ocp-before.png"><img alt="_images/ocp-before.png" class="align-center" src="_images/ocp-before.png" style="width: 50%;" /></a>
 <p>W tym przypadku konkretna klasa <code class="docutils literal notranslate"><span class="pre">Client</span></code> wykorzystuje konkretną klasę <code class="docutils literal notranslate"><span class="pre">Server</span></code>. Klasy te są ze sobą silnie powiązane (<em>strongly coupled</em>).</p>
 <p>Gdybyśmy chcieli, aby obiekt klasy <code class="docutils literal notranslate"><span class="pre">Client</span></code> wykorzystywał obiekt innej klasy serwera, musielibyśmy w klasie <code class="docutils literal notranslate"><span class="pre">Client</span></code> zmienić nazwę wykorzystywanej klasy serwera.</p>
@@ -424,18 +456,18 @@ document.write(`
 </section>
 </section>
 <section id="zasada-podstawiania-liskov">
-<h2>Zasada podstawiania Liskov<a class="headerlink" href="#zasada-podstawiania-liskov" title="Permalink to this heading">#</a></h2>
+<h2>Zasada podstawiania Liskov<a class="headerlink" href="#zasada-podstawiania-liskov" title="Link to this heading">#</a></h2>
 <p><strong>Zasada podstawiania Liskov</strong> (<em>Liskov Substitution Principle</em>) – musi istnieć możliwość podstawiania typów pochodnych w miejsce ich typów bazowych.</p>
 <p>LCP dotyczy prawidłowo zaprojektowanego dziedziczenia. Tworząc klasę pochodną, musimy być w stanie użyć jej zamiast klasy bazowej. Jeśli nie ma takiej możliwości, to dziedziczenie zostało nieprawidłowo użyte.</p>
 <p>Jeśli zasada LSP nie jest spełniona dodanie nowej klasy do hierarchii klas wymusza zmiany w kodzie klientów korzystających z klasy bazowej lub interfejsu będącego na szczycie hierarchii.</p>
 <p>Tak długo jak nie ma konieczności zmian w interfejsie, nie powinno być powodów do zmiany istniejącego kodu (kodu klientów).</p>
 <section id="przyklad-naruszenia-zasady-podstawiania">
-<h3>Przykład naruszenia zasady podstawiania<a class="headerlink" href="#przyklad-naruszenia-zasady-podstawiania" title="Permalink to this heading">#</a></h3>
+<h3>Przykład naruszenia zasady podstawiania<a class="headerlink" href="#przyklad-naruszenia-zasady-podstawiania" title="Link to this heading">#</a></h3>
 <a class="reference internal image-reference" href="_images/lsp.png"><img alt="_images/lsp.png" class="align-center" src="_images/lsp.png" style="width: 20%;" /></a>
 <p>Klient korzystający z klasy <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> ma możliwość niezależnego ustawienia szerokości oraz wysokości. Jeśli przekażemy klientowi obiekt typu <code class="docutils literal notranslate"><span class="pre">Square</span></code> za pośrednictwem interfejsu <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code>, klient otrzyma niespodziewane zachowanie polegające na niejawnej zmianie drugiego wymiaru prostokąta. Taka sytuacja może doprowadzić do działania aplikacji w nieprawidłowym stanie.</p>
 </section>
 <section id="design-by-contract">
-<h3>Design by contract<a class="headerlink" href="#design-by-contract" title="Permalink to this heading">#</a></h3>
+<h3>Design by contract<a class="headerlink" href="#design-by-contract" title="Link to this heading">#</a></h3>
 <p>Definicja kontraktu między obiektem klienckim a obiektem dostarczającym funkcjonalności polega na zdefiniowaniu wymagań wstępnych (<em>precondtions</em>), wymagań końcowych (<em>postconditions</em>) oraz niezmienników dla każdej metody interfejsu.</p>
 <p>Aby zasada LSP była zachowana:</p>
 <ul class="simple">
@@ -446,20 +478,20 @@ document.write(`
 </section>
 </section>
 <section id="zasada-segregacji-interfejsow">
-<h2>Zasada segregacji interfejsów<a class="headerlink" href="#zasada-segregacji-interfejsow" title="Permalink to this heading">#</a></h2>
+<h2>Zasada segregacji interfejsów<a class="headerlink" href="#zasada-segregacji-interfejsow" title="Link to this heading">#</a></h2>
 <p><strong>Zasada segregacji interfejsów</strong> (<em>Interface Segregation Principle</em>) – klient nie powinien być zmuszany do zależności od metod, których nie używa.</p>
 <p>Jeśli klient zależy od klasy zawierającej metodę, której ten klient nie używa, ale której używają pozostałe klasy klienckie, to zmiany tych klas będą miały wpływ na naszą klasę. Aby uniknąć tego rodzaju związków, należy podzielić interfejsy.</p>
 <section id="przyklad-naruszenia-zasady-segregacji-interfejsow">
-<h3>Przykład naruszenia zasady segregacji interfejsów<a class="headerlink" href="#przyklad-naruszenia-zasady-segregacji-interfejsow" title="Permalink to this heading">#</a></h3>
+<h3>Przykład naruszenia zasady segregacji interfejsów<a class="headerlink" href="#przyklad-naruszenia-zasady-segregacji-interfejsow" title="Link to this heading">#</a></h3>
 <a class="reference internal image-reference" href="_images/isp-before.png"><img alt="_images/isp-before.png" class="align-center" src="_images/isp-before.png" style="width: 50%;" /></a>
 <p>Najlepszym sposobem zapewnienia zgodności z zasadą <em>ISP</em> jest zastosowanie techniki dziedziczenia wielokrotnego. Mimo że obiekty klienckie dwóch klas bazowych mogą korzystać z tego samego interfejsu, żadna z tych klas nie jest zależna od tego interfejsu. Oznacza to, że obiekty kliencie korzystają z tego samego obiektu za pośrednictwem różnych interfejsów.</p>
 <p>Poprawiony diagram klas zgodny z zasadą <em>ISP</em>:</p>
-<img alt="_images/isp-after.png" class="align-center" src="_images/isp-after.png" />
+<a class="reference internal image-reference" href="_images/isp-after.png"><img alt="_images/isp-after.png" class="align-center" src="_images/isp-after.png" style="width: 80%;" /></a>
 <p>Obiekty klienckie powinny zależeć wyłącznie od wywoływanych przez siebie metod. Można ten cel osiągnąć rozbijając interfejs “grubej” klasy na wiele mniejszych interfejsów właściwych dla poszczególnych klientów. Każdy taki interfejs deklaruje tylko te funkcje, które rzeczywiście są wywoływane przez danego klienta lub grupę klientów. W takim przypadku “gruba” klasa może dziedziczyć i implementować wszystkie interfejsy właściwe dla klientów. Opisany model eliminuje zależność obiektów klienckich od metod, których nie wywołują, i umożliwia zapewnienie wzajemnej niezależności samych klientów.</p>
 </section>
 </section>
 <section id="zasada-odwracania-zaleznosci">
-<h2>Zasada odwracania zależności<a class="headerlink" href="#zasada-odwracania-zaleznosci" title="Permalink to this heading">#</a></h2>
+<h2>Zasada odwracania zależności<a class="headerlink" href="#zasada-odwracania-zaleznosci" title="Link to this heading">#</a></h2>
 <p><strong>Zasada odwracania zależności</strong> (<em>Dependency Inversion Principle</em>)</p>
 <ul class="simple">
 <li><p>Moduły wysokopoziomowe nie powinny zależeć od modułów niskopoziomowych. Obie grupy modułów powinny zależeć od abstrakcji.</p></li>
@@ -469,11 +501,11 @@ document.write(`
 <p>Zasada odwracania zależności jest kluczowym mechanizmem niskiego poziomu. Właściwe stosowanie tej zasady jest ważne, jeśli chcemy tworzyć frameworki wielokrotnego użytku. <em>DIP</em> ma także ogromny wpływ na odporność kodu źródłowego na przyszłe zmiany. Ponieważ zgodnie z tą zasadą abstrakcje i szczegółowe mechanizmy są od siebie izolowane, tak tworzony kod jest dużo prostszy w konserwacji.</p>
 <p>Zasadę odwracania zależności możemy stosować za każdym razem, gdy jedna klasa wysyła komunikat do innej klasy.</p>
 <section id="przyklad-naruszenia-zasady-dip">
-<h3>Przykład naruszenia zasady DIP<a class="headerlink" href="#przyklad-naruszenia-zasady-dip" title="Permalink to this heading">#</a></h3>
+<h3>Przykład naruszenia zasady DIP<a class="headerlink" href="#przyklad-naruszenia-zasady-dip" title="Link to this heading">#</a></h3>
 <a class="reference internal image-reference" href="_images/dip-before.png"><img alt="_images/dip-before.png" class="align-center" src="_images/dip-before.png" style="width: 55%;" /></a>
 <p>Klasa <code class="docutils literal notranslate"><span class="pre">ToggleButton</span></code> bezpośrednio zależy od klasy <code class="docutils literal notranslate"><span class="pre">LEDLight</span></code>. Wysokopoziomowa strategia nie została właściwie oddzielona od niskopoziomowej implementacji. Abstrakcje nie zostały oddzielone od szczegółowych rozwiązań. Model ten można udoskonalić, odwracając zależność łączącą obiekty klas <code class="docutils literal notranslate"><span class="pre">ToggleButton</span></code> i <code class="docutils literal notranslate"><span class="pre">LEDLight</span></code>.</p>
 <p>Poniżej przedstawiony jest model, w którym klasa <code class="docutils literal notranslate"><span class="pre">ToggleButton</span></code> zawiera odwołanie tylko do interfejsu nazwanego <code class="docutils literal notranslate"><span class="pre">ISwitch</span></code> – za jego pośrednictwem można włączać lub wyłączać różne urządzenia.</p>
-<img alt="_images/dip-after.png" class="align-center" src="_images/dip-after.png" />
+<a class="reference internal image-reference" href="_images/dip-after.png"><img alt="_images/dip-after.png" class="align-center" src="_images/dip-after.png" style="width: 90%;" /></a>
 <p>Interfejs <code class="docutils literal notranslate"><span class="pre">ISwitch</span></code> jest implementowany przez klasę <code class="docutils literal notranslate"><span class="pre">LEDSwitch</span></code>, która adaptuje niskopoziomową implementację <code class="docutils literal notranslate"><span class="pre">LEDLight</span></code>. Oznacza to, że od tej pory to klasa <code class="docutils literal notranslate"><span class="pre">LEDSwitch</span></code> zależy od klasy <code class="docutils literal notranslate"><span class="pre">ToggleButton</span></code> (a nie odwrotnie).</p>
 </section>
 </section>
@@ -504,19 +536,18 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="unit-tests-patterns.html"
+       href="refactoring.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Wzorce testów jednostkowych</p>
+        <p class="prev-next-title">Refaktoryzacja kodu</p>
       </div>
     </a>
     <a class="right-next"
@@ -528,10 +559,7 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -539,6 +567,7 @@ document.write(`
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -588,9 +617,10 @@ By Krystian Piękoś - Infotraining
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -614,8 +644,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
 
   <footer class="bd-footer">
   </footer>

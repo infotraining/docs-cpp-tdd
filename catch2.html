@@ -1,0 +1,909 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Catch2 &#8212; Test-Driven Development w C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'catch2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Wzorce testów jednostkowych" href="unit-tests-patterns.html" />
+    <link rel="prev" title="GoogleTest" href="gtest.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Test-Driven Development w C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Test-Driven Development w C++ - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Test-Driven Development w C++
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Catch2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd/issues/new?title=Issue%20on%20page%20%2Fcatch2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/catch2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Catch2</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proste-testy">Proste testy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-i-sekcje">Testy i sekcje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-w-stylu-bdd">Testy w stylu BDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje">Asercje</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#require-i-check">REQUIRE i CHECK</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#require-false">REQUIRE_FALSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje-wyjatkow">Asercje wyjątków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje-liczb-zmiennoprzecinkowych">Asercje liczb zmiennoprzecinkowych</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-parametryzowane">Testy parametryzowane</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generatory">Generatory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametryzacja-testow-typami">Parametryzacja testów typami</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmarki">Benchmarki</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="catch2">
+<h1>Catch2<a class="headerlink" href="#catch2" title="Link to this heading">#</a></h1>
+<section id="proste-testy">
+<h2>Proste testy<a class="headerlink" href="#proste-testy" title="Link to this heading">#</a></h2>
+<p>Podstwowym makrem definiującym noty test w Catch2 jest <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code>.</p>
+<p>Pierwszym argumentem makra <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> jest nazwa testu jest dowolnym stringiem, który opisuje test. Drugi (opcjonalny) argument to tag, który pozwala na grupowanie testów.</p>
+<p>Do sprawdzenia warunków używamy makr <code class="docutils literal notranslate"><span class="pre">REQUIRE</span></code> i <code class="docutils literal notranslate"><span class="pre">CHECK</span></code>. Różnica między nimi polega na tym, że <code class="docutils literal notranslate"><span class="pre">REQUIRE</span></code> kończy test, jeśli warunek nie jest spełniony, a <code class="docutils literal notranslate"><span class="pre">CHECK</span></code> kontynuuje test.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Factorial</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="n">number</span><span class="mi">-1</span><span class="p">)</span><span class="o">*</span><span class="n">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;Factorials are computed&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[factorial, math]&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">Factorial</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3628800</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="testy-i-sekcje">
+<h2>Testy i sekcje<a class="headerlink" href="#testy-i-sekcje" title="Link to this heading">#</a></h2>
+<p>Testy mogą być zagnieżdżone w sekcje. Sekcje pozwalają na grupowanie testów i wykonywanie ich w określonej kolejności. Odpowiada to mechanizmowi fikstur w innych frameworkach testowych.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;vectors can be sized and resized&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[vector]&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c1">// This setup will be done 4 times in total, once for each section</span>
+
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">SECTION</span><span class="p">(</span><span class="s">&quot;resizing bigger changes size and capacity&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">v</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">SECTION</span><span class="p">(</span><span class="s">&quot;resizing smaller changes size but not capacity&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">v</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">SECTION</span><span class="p">(</span><span class="s">&quot;reserving bigger changes capacity but not size&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">SECTION</span><span class="p">(</span><span class="s">&quot;reserving smaller does not change size or capacity&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Dla każdej sekcji <code class="docutils literal notranslate"><span class="pre">SECTION</span></code> test jest wykonywany od początku. Oznacza to, że każda sekcja jest uruchamiana z nowo skonstruowanym wektorem <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<p>Sekcje mogą być zagnieżdżane, co pozwala na tworzenie bardziej złożonych struktur testów.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">SECTION</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;reserving bigger changes capacity but not size&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">SECTION</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;reserving down unused capacity does not change capacity&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">);</span>
+<span class="w">        </span>
+<span class="w">            </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="testy-w-stylu-bdd">
+<h2>Testy w stylu BDD<a class="headerlink" href="#testy-w-stylu-bdd" title="Link to this heading">#</a></h2>
+<p>Catch2 pozwala na pisanie testów w stylu BDD (Behavior-Driven Development). W tym stylu testy są pisane w sposób bardziej czytelny dla osób niebędących programistami. Poprzez odpowiednie aliasy dla makr <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> i <code class="docutils literal notranslate"><span class="pre">SECTION</span></code> można tworzyć testy wykorzystujące styl nazewnictwa <em>Given-When-Then</em>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;catch2/catch_test_macros.hpp&gt;</span>
+
+<span class="n">SCENARIO</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;vectors can be sized and resized&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[vector]&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">GIVEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;A vector with some items&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">(</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">WHEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;the size is increased&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">THEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;the size and capacity change&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">WHEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;the size is reduced&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">THEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;the size changes but not capacity&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">);</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">WHEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;more capacity is reserved&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">THEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;the capacity changes but not the size&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">WHEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;less capacity is reserved&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">v</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">THEN</span><span class="p">(</span><span class="w"> </span><span class="s">&quot;neither size nor capacity are changed&quot;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">                </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="asercje">
+<h2>Asercje<a class="headerlink" href="#asercje" title="Link to this heading">#</a></h2>
+<p>Catch2 dostarcza kilka makr do sprawdzania warunków.</p>
+<section id="require-i-check">
+<h3>REQUIRE i CHECK<a class="headerlink" href="#require-i-check" title="Link to this heading">#</a></h3>
+<p>Makra <code class="docutils literal notranslate"><span class="pre">REQUIRE</span></code> testują wyrażenie i przerywają test jeśli wyrażenie nie jest ewaluowane do <code class="docutils literal notranslate"><span class="pre">true</span></code>. Rodzina makr <code class="docutils literal notranslate"><span class="pre">CHECK</span></code> testuje wyrażenie i kontynuuje test, nawet jeśli wyrażenie nie jest prawdziwe.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK</span><span class="p">(</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;string value&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="n">CHECK</span><span class="p">(</span><span class="w"> </span><span class="n">thisReturnsTrue</span><span class="p">()</span><span class="w"> </span><span class="p">);</span>
+<span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Wyrażenia logiczne zawierające operatory <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> oraz <code class="docutils literal notranslate"><span class="pre">||</span></code> nie mogą być zdekomponowane przez Catch2 i ich kompilacja zwróci błąd. Aby użyć takich wyrażeń, należy:</p>
+<ol class="arabic">
+<li><p>Zastosować nawiasy, aby wyrażenie było ewaluowane jako pojedyncza wartość logiczna przed dekompozycją.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Przepisać wyrażenie <code class="docutils literal notranslate"><span class="pre">REQUIRE(a</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">&amp;&amp;</span> <span class="pre">b</span> <span class="pre">==</span> <span class="pre">2)</span></code> do postaci:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">);</span>
+<span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="require-false">
+<h3>REQUIRE_FALSE<a class="headerlink" href="#require-false" title="Link to this heading">#</a></h3>
+<p>Wyrażenia poprzedzone operatorem <code class="docutils literal notranslate"><span class="pre">!</span></code> nie mogą być zdekomponowane przez Catch2. W takim przypadku można użyć makra <code class="docutils literal notranslate"><span class="pre">REQUIRE_FALSE</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Status</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">someFunction</span><span class="p">();</span>
+<span class="n">REQUIRE_FALSE</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"> </span><span class="c1">// result must evaluate to false, and Catch2 will print</span>
+<span class="w">                    </span><span class="c1">// out the value of ret if possibly</span>
+</pre></div>
+</div>
+</section>
+<section id="asercje-wyjatkow">
+<h3>Asercje wyjątków<a class="headerlink" href="#asercje-wyjatkow" title="Link to this heading">#</a></h3>
+<p>Catch2 pozwala na testowanie wyjątków.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REQUIRE_THROWS</span></code> sprawdza, czy wyjątek został rzucony</p></li>
+<li><p>makro <code class="docutils literal notranslate"><span class="pre">REQUIRE_THROWS_AS</span></code> sprawdza, czy wyjątek został rzucony i jest odpowiedniego typu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REQUIRE_THROWS_WITH</span></code> sprawdza, czy wyjątek został rzucony i ma odpowiedni komunikat</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REQUIRE_NOTHROW</span></code> sprawdza, czy wyjątek nie został rzucony</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
+
+<span class="n">REQUIRE_THROWS</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+<span class="n">REQUIRE_THROWS_AS</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">out_of_range</span><span class="w"> </span><span class="p">);</span>
+<span class="n">REQUIRE_THROWS_WITH</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;out of range&quot;</span><span class="w"> </span><span class="p">);</span>
+<span class="n">REQUIRE_NOTHROW</span><span class="p">(</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="asercje-liczb-zmiennoprzecinkowych">
+<h3>Asercje liczb zmiennoprzecinkowych<a class="headerlink" href="#asercje-liczb-zmiennoprzecinkowych" title="Link to this heading">#</a></h3>
+<p>Catch2 dostarcza makra do porównywania liczb zmiennoprzecinkowych. Zalecanym sposobem porównania liczb zmiennoprzecinkowych jest wykorzystanie makr dopasowujących tzw. <em>matchers</em>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;catch2/matchers/catch_matchers_floating_point.hpp&gt;</span>
+</pre></div>
+</div>
+<p>Biblioteka dostarcza trzy makra:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">WithinAbs(double</span> <span class="pre">target,</span> <span class="pre">double</span> <span class="pre">margin)</span></code> - sprawdza, czy wartość mieści się w określonym przez <code class="docutils literal notranslate"><span class="pre">margin</span></code> przedziale</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">REQUIRE_THAT</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">WithinAbs</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WithinRel(FloatingPoint</span> <span class="pre">target,</span> <span class="pre">FloatingPoint</span> <span class="pre">eps)</span></code> - akceptuje porównanie, jeżeli wartość jest w przybliżeniu równa wartości oczekiwanej z tolerancją <code class="docutils literal notranslate"><span class="pre">eps</span></code>. Sprawdzany jest warunek <code class="docutils literal notranslate"><span class="pre">|arg</span> <span class="pre">-</span> <span class="pre">target|</span> <span class="pre">&lt;=</span> <span class="pre">eps</span> <span class="pre">*</span> <span class="pre">max(|arg|,</span> <span class="pre">|target|)</span></code>. Jeżeli nie podajemy <code class="docutils literal notranslate"><span class="pre">eps</span></code>, to domyślnie jest to <code class="docutils literal notranslate"><span class="pre">std::numeric_limits&lt;FloatingPoint&gt;::epsilon</span> <span class="pre">*</span> <span class="pre">100</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">REQUIRE_THAT</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">WithinRel</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0001</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WithinULP(FloatingPoint</span> <span class="pre">target,</span> <span class="pre">uint64_t</span> <span class="pre">maxUlpDiff)</span></code> - tworzy porównanie, które akceptuje wartość, jeżeli różnica między wartością oczekiwaną a wartością testowaną jest mniejsza niż <code class="docutils literal notranslate"><span class="pre">maxUlpDiff</span></code> jednostek <a class="reference external" href="https://en.wikipedia.org/wiki/Unit_in_the_last_place">ULP</a>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">REQUIRE_THAT</span><span class="p">(</span><span class="w"> </span><span class="mf">-0.f</span><span class="p">,</span><span class="w"> </span><span class="n">WithinULP</span><span class="p">(</span><span class="w"> </span><span class="mf">0.f</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="testy-parametryzowane">
+<h2>Testy parametryzowane<a class="headerlink" href="#testy-parametryzowane" title="Link to this heading">#</a></h2>
+<section id="generatory">
+<h3>Generatory<a class="headerlink" href="#generatory" title="Link to this heading">#</a></h3>
+<p>Testy parametryzowane pozwalają na przetestowanie kodu z różnymi zestawami danych wejściowych. Catch2 wykorzystuje generatory, które pozwalają przekazać zestaw danych do testu - respektowane są zagnieżdżenia makr <code class="docutils literal notranslate"><span class="pre">TEST_CASE</span></code> i <code class="docutils literal notranslate"><span class="pre">SECTION</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;is_odd&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GENERATE</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="n">REQUIRE</span><span class="p">(</span><span class="n">is_odd</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Jeśli chcemy przekazać do testu parametryzowanego kilka wartości jednocześnie należy użyć makra <code class="docutils literal notranslate"><span class="pre">GENERATE</span></code> w połączeniu z generatorem <code class="docutils literal notranslate"><span class="pre">table</span></code>.<br />
+Aby utworzyć sekcję z dynamiczną nazwą odwołującą się do parametrów, należy użyć makra <code class="docutils literal notranslate"><span class="pre">DYNAMIC_SECTION</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;table generators&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[generators]&quot;</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GENERATE</span><span class="p">(</span><span class="n">table</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">({</span>
+<span class="w">        </span><span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s">&quot;bb&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s">&quot;ccc&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="n">DYNAMIC_SECTION</span><span class="p">(</span><span class="s">&quot;length for &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">length</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>W przypadku testów w stylu BDD parametryzacja może wyglądać następująco:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">SCENARIO</span><span class="p">(</span><span class="s">&quot;Eating cucumbers&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[approvals]&quot;</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">eat</span><span class="p">,</span><span class="w"> </span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GENERATE</span><span class="p">(</span><span class="n">table</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">({</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">eat_cucumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">eat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">eat</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">GIVEN</span><span class="p">(</span><span class="s">&quot;there are &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; cucumbers&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">WHEN</span><span class="p">(</span><span class="s">&quot;I eat &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">eat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; cucumbers&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">THEN</span><span class="p">(</span><span class="s">&quot;I should have &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; cucumbers&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">eat_cucumber</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">eat</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">left</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="parametryzacja-testow-typami">
+<h3>Parametryzacja testów typami<a class="headerlink" href="#parametryzacja-testow-typami" title="Link to this heading">#</a></h3>
+<p>Catch2 pozwala na parametryzację testów typami. W tym celu należy użyć makra <code class="docutils literal notranslate"><span class="pre">TEMPLATE_TEST_CASE</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEMPLATE_TEST_CASE</span><span class="p">(</span><span class="s">&quot;vector can be resized&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[template]&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TestType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span><span class="w"> </span><span class="c1">// This setup will be done 3 times in total, once for each type</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vec</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="benchmarki">
+<h2>Benchmarki<a class="headerlink" href="#benchmarki" title="Link to this heading">#</a></h2>
+<p>Catch2 pozwala na tworzenie benchmarków. Aby utworzyć benchmark, należy użyć makra <code class="docutils literal notranslate"><span class="pre">BENCHMARK</span></code>.</p>
+<ul class="simple">
+<li><p>Najprostszy benchmark wykorzystuje makro <code class="docutils literal notranslate"><span class="pre">BENCHMARK</span></code>:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;Fibonacci&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// some more asserts..</span>
+
+<span class="w">    </span><span class="n">CHECK</span><span class="p">(</span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// some more asserts..</span>
+
+<span class="w">    </span><span class="c1">// now let&#39;s benchmark:</span>
+<span class="w">    </span><span class="n">BENCHMARK</span><span class="p">(</span><span class="s">&quot;Fibonacci 20&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span><span class="w"> </span>
+
+<span class="w">    </span><span class="n">BENCHMARK</span><span class="p">(</span><span class="s">&quot;Fibonacci 25&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">25</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">BENCHMARK</span><span class="p">(</span><span class="s">&quot;Fibonacci 30&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">BENCHMARK</span><span class="p">(</span><span class="s">&quot;Fibonacci 35&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Fibonacci</span><span class="p">(</span><span class="mi">35</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Zaawansowane benchmarki wykorzystują makro <code class="docutils literal notranslate"><span class="pre">BENCHMARK_ADVANCED</span></code>:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">generate_data</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">random_device</span><span class="w"> </span><span class="n">rd</span><span class="p">{};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">mt19937</span><span class="w"> </span><span class="n">rnd_engine</span><span class="p">{</span><span class="n">rd</span><span class="p">()};</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">rnd_gen</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10&#39;000</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">generate_n</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">vec</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">rnd_gen</span><span class="p">(</span><span class="n">rnd_engine</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;sorting&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[benchmarks]&quot;</span><span class="p">)</span>
+<span class="p">{</span><span class="w">    </span>
+<span class="w">    </span><span class="n">BENCHMARK_ADVANCED</span><span class="p">(</span><span class="s">&quot;sort - stl&quot;</span><span class="p">)(</span><span class="n">Catch</span><span class="o">::</span><span class="n">Benchmark</span><span class="o">::</span><span class="n">Chronometer</span><span class="w"> </span><span class="n">meter</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generate_data</span><span class="p">();</span><span class="w"> </span><span class="c1">// setup data for benchmark</span>
+
+<span class="w">        </span><span class="n">meter</span><span class="p">.</span><span class="n">measure</span><span class="p">([</span><span class="o">&amp;</span><span class="n">data</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// this will be benchmarked</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">BENCHMARK_ADVANCED</span><span class="p">(</span><span class="s">&quot;sort - ranges&quot;</span><span class="p">)(</span><span class="n">Catch</span><span class="o">::</span><span class="n">Benchmark</span><span class="o">::</span><span class="n">Chronometer</span><span class="w"> </span><span class="n">meter</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generate_data</span><span class="p">();</span><span class="w"> </span><span class="c1">// setup data for benchmark</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">meter</span><span class="p">.</span><span class="n">measure</span><span class="p">([</span><span class="o">&amp;</span><span class="n">data</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// this will be benchmarked</span>
+<span class="w">    </span><span class="p">};</span><span class="w">    </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="gtest.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GoogleTest</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="unit-tests-patterns.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Wzorce testów jednostkowych</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proste-testy">Proste testy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-i-sekcje">Testy i sekcje</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-w-stylu-bdd">Testy w stylu BDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje">Asercje</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#require-i-check">REQUIRE i CHECK</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#require-false">REQUIRE_FALSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje-wyjatkow">Asercje wyjątków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asercje-liczb-zmiennoprzecinkowych">Asercje liczb zmiennoprzecinkowych</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-parametryzowane">Testy parametryzowane</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generatory">Generatory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametryzacja-testow-typami">Parametryzacja testów typami</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmarki">Benchmarki</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

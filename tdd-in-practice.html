@@ -1,0 +1,824 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>TDD w praktyce &#8212; Test-Driven Development w C++</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tdd-in-practice';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testy jednostkowe - Unit Tests" href="unit-tests.html" />
+    <link rel="prev" title="Wstęp do TDD" href="tdd.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Test-Driven Development w C++ - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Test-Driven Development w C++ - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Test-Driven Development w C++
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">TDD w praktyce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/docs-cpp-tdd/issues/new?title=Issue%20on%20page%20%2Ftdd-in-practice.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tdd-in-practice.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>TDD w praktyce</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-out-tdd">Inside-Out TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapy-inside-out-tdd">Etapy Inside-Out TDD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outside-in-tdd">Outside-In TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapy-outside-in-tdd">Etapy Outside-In TDD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacja-projektu-tdd">Organizacja projektu TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struktura-katalogow">Struktura katalogów</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="tdd-w-praktyce">
+<h1>TDD w praktyce<a class="headerlink" href="#tdd-w-praktyce" title="Link to this heading">#</a></h1>
+<section id="inside-out-tdd">
+<h2>Inside-Out TDD<a class="headerlink" href="#inside-out-tdd" title="Link to this heading">#</a></h2>
+<p><strong>Inside-Out TDD</strong> to podejście do tworzenia oprogramowania, które koncentruje się na budowaniu aplikacji od wnętrza na zewnątrz. Oznacza to, że najpierw piszesz i testujesz wewnętrzne komponenty i logikę biznesową, a następnie stopniowo przechodzisz do bardziej zewnętrznych warstw aplikacji, takich jak interfejs użytkownika czy integracje z zewnętrznymi systemami.</p>
+<section id="etapy-inside-out-tdd">
+<h3>Etapy Inside-Out TDD<a class="headerlink" href="#etapy-inside-out-tdd" title="Link to this heading">#</a></h3>
+<p>Inside-Out TDD składa się z kilku kroków:</p>
+<ol class="arabic simple">
+<li><p><strong>Definiowanie logiki biznesowej</strong>: Rozpoczynasz od zdefiniowania i przetestowania najważniejszych funkcji logiki biznesowej, które są sercem aplikacji. Skupiasz się na pisaniu testów jednostkowych dla poszczególnych funkcji.</p></li>
+<li><p><strong>Implementacja wewnętrznych komponentów</strong>: Po napisaniu testów jednostkowych i upewnieniu się, że są one nieudane (ponieważ nie ma jeszcze implementacji), przechodzisz do pisania kodu, który sprawi, że testy przejdą. Tworzysz i testujesz wewnętrzne komponenty aplikacji.</p></li>
+<li><p><strong>Refaktoryzacja kodu</strong>: Gdy wszystkie testy jednostkowe przechodzą, możesz przejść do refaktoryzacji kodu. Upewniasz się, że kod jest czytelny, utrzymywany w dobrym stanie i zgodny z najlepszymi praktykami programistycznymi.</p></li>
+<li><p><strong>Dodawanie warstw aplikacji</strong>: Stopniowo dodajesz kolejne warstwy aplikacji, takie jak interfejs użytkownika (UI) czy warstwa komunikacji z bazą danych. Każda z tych warstw jest testowana za pomocą odpowiednich testów integracyjnych i funkcjonalnych. Oznacza to, że testy klas warstw zewnętrznych nie są wykonywane w izolacji, ale korzystają z napisanych i przetestowanych klas warstw wewnętrznych.</p></li>
+<li><p><strong>Testowanie całości aplikacji</strong>: Na końcu, gdy wszystkie warstwy są zaimplementowane i przetestowane, przeprowadzasz testy całościowe (end-to-end), aby upewnić się, że aplikacja działa zgodnie z oczekiwaniami i spełnia wszystkie wymagania.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/tdd-inside-out.svg"><img alt="tdd-inside-out" class="align-center" src="_images/tdd-inside-out.svg" style="width: 600px;" /></a>
+<p>Inside-Out TDD pomaga zapewnić, że kluczowa logika biznesowa jest solidna i dobrze przetestowana, zanim przejdziesz do bardziej zewnętrznych aspektów aplikacji. To podejście może być szczególnie przydatne w dużych projektach, gdzie wyodrębnienie i testowanie wewnętrznych komponentów na wczesnym etapie pomaga w lepszym zrozumieniu i utrzymaniu kodu.</p>
+</section>
+</section>
+<section id="outside-in-tdd">
+<h2>Outside-In TDD<a class="headerlink" href="#outside-in-tdd" title="Link to this heading">#</a></h2>
+<p><strong>Outside-In TDD</strong> (Test-Driven Development) to podejście do tworzenia oprogramowania, które koncentruje się na budowaniu aplikacji od zewnątrz do wewnątrz. Oznacza to, że zaczynasz od testowania i tworzenia warstw najbardziej oddalonych od jądra logiki biznesowej, takich jak interfejs użytkownika czy serwisy komunikujące się z zewnętrznymi systemami, a następnie stopniowo przechodzisz do bardziej wewnętrznych komponentów.</p>
+<section id="etapy-outside-in-tdd">
+<h3>Etapy Outside-In TDD<a class="headerlink" href="#etapy-outside-in-tdd" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Zdefiniowanie wymagań na wysokim poziomie</strong>: Rozpoczynasz od zdefiniowania wymagań i scenariuszy użytkowania z punktu widzenia użytkownika końcowego lub klientów biznesowych. Te wymagania są często formułowane w postaci testów akceptacyjnych lub <em>User Stories</em>.</p></li>
+<li><p><strong>Pisanie testów akceptacyjnych</strong>: Tworzysz testy akceptacyjne, które sprawdzają, czy aplikacja spełnia zdefiniowane wymagania na wysokim poziomie. Testy te często obejmują testowanie interfejsu użytkownika i interakcji z zewnętrznymi systemami. Te testy długo będą w fazie <em>RED</em>, ponieważ nie ma jeszcze dla nich implementacji lub jest ona niekompletna.</p></li>
+<li><p><strong>Implementacja warstw zewnętrznych</strong>: Zaczynasz implementować zewnętrzne warstwy aplikacji, takie jak interfejs użytkownika, aby sprawić, że testy akceptacyjne przejdą. W miarę postępu implementacji napotykasz na brakujące elementy wewnętrznych warstw aplikacji. Te brakujące elementy są zastępowane obiektami pozorującymi (<em>Test Doubles</em>), które pozwalają na testowanie warstw zewnętrznych w izolacji.</p></li>
+<li><p><strong>Pisanie testów jednostkowych i integracyjnych</strong>: W miarę identyfikowania brakujących wewnętrznych komponentów, piszesz testy jednostkowe i integracyjne dla tych komponentów. Testy jednostkowe sprawdzają, czy poszczególne funkcje działają poprawnie, a testy integracyjne weryfikują, czy różne komponenty współpracują ze sobą.</p></li>
+<li><p><strong>Implementacja logiki biznesowej</strong>: Tworzysz kod, który realizuje logikę biznesową i sprawia, że testy jednostkowe i integracyjne przechodzą. W miarę postępu prac, wewnętrzne komponenty aplikacji stają się coraz bardziej kompletne.</p></li>
+<li><p><strong>Refaktoryzacja i testowanie całościowe</strong>: Na końcu, gdy wszystkie warstwy są zaimplementowane i przetestowane, przeprowadzasz refaktoryzację kodu oraz testy całościowe (end-to-end), aby upewnić się, że aplikacja działa zgodnie z oczekiwaniami i spełnia wszystkie wymagania.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/tdd-outside-in.svg"><img alt="tdd-outside-in" class="align-center" src="_images/tdd-outside-in.svg" style="width: 700px;" /></a>
+<p>Outside-In TDD pozwala na szybkie dostarczanie funkcjonalności widocznych dla użytkownika końcowego, jednocześnie zapewniając, że wewnętrzne komponenty są dobrze przetestowane i zintegrowane. To podejście jest szczególnie przydatne w projektach, gdzie szybkie dostarczanie wartości dla użytkowników jest kluczowe.</p>
+</section>
+</section>
+<section id="organizacja-projektu-tdd">
+<h2>Organizacja projektu TDD<a class="headerlink" href="#organizacja-projektu-tdd" title="Link to this heading">#</a></h2>
+<p>Organizacja projektu w podejściu TDD ma kluczowe znaczenie dla efektywnego tworzenia oprogramowania. Odpowiednie strukturyzowanie kodu, testów i zasobów projektu pomaga w utrzymaniu przejrzystości, łatwości testowania i skalowalności aplikacji.</p>
+<section id="struktura-katalogow">
+<h3>Struktura katalogów<a class="headerlink" href="#struktura-katalogow" title="Link to this heading">#</a></h3>
+<p>Przykład struktury katalogów projektu TDD w języku C++:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>project/
+│
+├── src/                    # Library - source files
+│   ├── include/            # Library - header files
+│   │   └── calculator.hpp
+│   ├── calculator.cpp
+│   └── CMakeLists.txt
+│
+├── tests/                  # Tests
+│   ├── test_calculator.cpp
+│   └── CMakeLists.txt
+│
+├── main.cpp                # Main application
+└── CMakeLists.txt
+</pre></div>
+</div>
+<ul>
+<li><p>Biblioteka <code class="docutils literal notranslate"><span class="pre">calculator-lib</span></code> zawiera pliki źródłowe i nagłówkowe:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">./src/include/calculator.hpp</span></code> - plik nagłówkowy z deklaracjami klas i funkcji</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef CALCULATOR_HPP</span>
+<span class="cp">#define CALCULATOR_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./src/calculator.cpp</span></code> - plik źródłowy z definicjami funkcji</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;calculator.hpp&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./src/CMakeLists.txt</span></code> - plik konfiguracyjny CMake dla biblioteki</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_LIB</span><span class="w"> </span><span class="s2">&quot;${PROJECT_ID}_lib&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_LIB</span><span class="w"> </span><span class="s2">&quot;${PROJECT_ID}_lib&quot;</span><span class="w"> </span><span class="s">PARENT_SCOPE</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;PROJECT_LIB is: &quot;</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">include_directories</span><span class="p">(</span><span class="s">include</span><span class="p">)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span><span class="w"> </span><span class="s">SRC_FILES</span><span class="w"> </span><span class="s">*.cpp</span><span class="w"> </span><span class="s">*.c</span><span class="w"> </span><span class="s">*.cxx</span><span class="p">)</span>
+
+<span class="nb">add_library</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="w"> </span><span class="s">STATIC</span><span class="w"> </span><span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">SRC_HEADERS</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Katalog <code class="docutils literal notranslate"><span class="pre">tests</span></code> zawiera projekt testów jednostkowych:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">./tests/tests_calculator.cpp</span></code> - plik z testami jednostkowymi</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+GTest</label><div class="sd-tab-content docutils">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gmock/gmock.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;gtest/gtest.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculator.hpp&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">CalculatorTests</span><span class="p">,</span><span class="w"> </span><span class="n">AddReturnsSumOfTwoArguments</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Catch2</label><div class="sd-tab-content docutils">
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;catch2/catch_test_macros.hpp&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;calculator.hpp&gt;</span>
+
+<span class="n">TEST_CASE</span><span class="p">(</span><span class="s">&quot;Addition of two numbers&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[add]&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./tests/CMakeLists.txt</span></code> - plik konfiguracyjny CMake dla testów</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+GTest</label><div class="sd-tab-content docutils">
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_TESTS</span><span class="w"> </span><span class="s2">&quot;tests-${PROJECT_ID}&quot;</span><span class="w"> </span><span class="s">PARENT_SCOPE</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;PROJECT_TESTS is: &quot;</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c">####################</span>
+<span class="c"># GTest</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">GTest</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">GTest_FOUND</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;GTest package not found! Trying to download it...&quot;</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nb">FetchContent_Declare</span><span class="p">(</span>
+<span class="w">        </span><span class="s">googletest</span><span class="w"> </span>
+<span class="w">        </span><span class="s">URL</span><span class="w"> </span><span class="s">https://github.com/google/googletest/archive/refs/tags/v1.16.0.zip</span>
+<span class="w">        </span><span class="s">DOWNLOAD_EXTRACT_TIMESTAMP</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c"># For Windows: Prevent overriding the parent project&#39;s compiler/linker settings</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">gtest_force_shared_crt</span><span class="w"> </span><span class="s">ON</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">BOOL</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="s">FORCE</span><span class="p">)</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">googletest</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">enable_testing</span><span class="p">()</span>
+
+<span class="c">####################</span>
+<span class="c"># Sources &amp; headers</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span><span class="w"> </span><span class="s">SRC_FILES</span><span class="w"> </span><span class="s">*.cpp</span><span class="w"> </span><span class="s">*.c</span><span class="w"> </span><span class="s">*.cxx</span><span class="p">)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span><span class="w"> </span><span class="s">SRC_HEADERS</span><span class="w"> </span><span class="s">*.h</span><span class="w"> </span><span class="s">*.hpp</span><span class="w"> </span><span class="s">*.hxx</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">SRC_HEADERS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="w"> </span><span class="s">GTest::gmock</span><span class="w"> </span><span class="s">GTest::gtest_main</span><span class="p">)</span>
+
+<span class="c">####################</span>
+<span class="c"># GTest discover tests</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">GoogleTest</span><span class="p">)</span>
+<span class="nb">gtest_discover_tests</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Catch2</label><div class="sd-tab-content docutils">
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_TESTS</span><span class="w"> </span><span class="s2">&quot;tests-${PROJECT_ID}&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_TESTS</span><span class="w"> </span><span class="s2">&quot;tests-${PROJECT_ID}&quot;</span><span class="w"> </span><span class="s">PARENT_SCOPE</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;PROJECT_TESTS is: &quot;</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c">####################</span>
+<span class="c"># Sources &amp; headers</span>
+<span class="nb">aux_source_directory</span><span class="p">(</span><span class="s">.</span><span class="w"> </span><span class="s">SRC_LIST</span><span class="p">)</span>
+<span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span><span class="w"> </span><span class="s">HEADERS_LIST</span><span class="w"> </span><span class="s2">&quot;*.h&quot;</span><span class="w"> </span><span class="s2">&quot;*.hpp&quot;</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Catch2</span><span class="w"> </span><span class="s">3</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">Catch2_FOUND</span><span class="p">)</span>
+<span class="w">  </span><span class="nb">Include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+
+<span class="w">  </span><span class="nb">FetchContent_Declare</span><span class="p">(</span>
+<span class="w">    </span><span class="s">Catch2</span>
+<span class="w">    </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/catchorg/Catch2.git</span>
+<span class="w">    </span><span class="s">GIT_TAG</span><span class="w">        </span><span class="s">v3.8.0</span><span class="w"> </span><span class="c"># or a later release</span>
+<span class="w">  </span><span class="p">)</span>
+
+<span class="w">  </span><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">Catch2</span><span class="p">)</span>
+
+<span class="w">  </span><span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span><span class="w"> </span><span class="s">CMAKE_MODULE_PATH</span><span class="w"> </span><span class="o">${</span><span class="nv">catch2_SOURCE_DIR</span><span class="o">}</span><span class="s">/extras</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">enable_testing</span><span class="p">()</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="s">Catch</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">SRC_LIST</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">HEADERS_LIST</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">Catch2::Catch2WithMain</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">catch_discover_tests</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_TESTS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Aplikacja główna <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">./main.cpp</span></code> - plik z kodem aplikacji</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;calculator.hpp&quot;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;1 + 2 = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Plik konfiguracyjny CMake dla całego projektu:</p></li>
+</ul>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.20</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">PROJECT_ID</span><span class="w"> </span><span class="s2">&quot;calculator&quot;</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_ID</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;PROJECT_ID is: &quot;</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_ID</span><span class="o">}</span><span class="p">)</span>
+
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">src</span><span class="p">)</span>
+<span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">tests</span><span class="p">)</span>
+
+<span class="c">####################</span>
+<span class="c"># Packages &amp; libs</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Threads</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="c">####################</span>
+<span class="c"># Main app</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_MAIN</span><span class="o">}</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_MAIN</span><span class="o">}</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_LIB</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_THREAD_LIBS_INIT</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">target_compile_features</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_MAIN</span><span class="o">}</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">cxx_std_20</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tdd.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Wstęp do TDD</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="unit-tests.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Testy jednostkowe - <em>Unit Tests</em></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-out-tdd">Inside-Out TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapy-inside-out-tdd">Etapy Inside-Out TDD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outside-in-tdd">Outside-In TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapy-outside-in-tdd">Etapy Outside-In TDD</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organizacja-projektu-tdd">Organizacja projektu TDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struktura-katalogow">Struktura katalogów</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
