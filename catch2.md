@@ -163,13 +163,13 @@ Wyrażenia logiczne zawierające operatory `&&` oraz `||` nie mogą być zdekomp
 
 1. Zastosować nawiasy, aby wyrażenie było ewaluowane jako pojedyncza wartość logiczna przed dekompozycją.
    
-   ```c++
+   ```cpp
    REQUIRE( (a == 1 && b == 2) );
    ```
 
 2. Przepisać wyrażenie `REQUIRE(a == 1 && b == 2)` do postaci:
    
-   ```c++
+   ```cpp
    REQUIRE( a == 1 );
    REQUIRE( b == 2 );
    ```
@@ -209,7 +209,7 @@ REQUIRE_NOTHROW( v.at(2) );
 
 Catch2 dostarcza makra do porównywania liczb zmiennoprzecinkowych. Zalecanym sposobem porównania liczb zmiennoprzecinkowych jest wykorzystanie makr dopasowujących tzw. *matchers*.
 
-```c++
+```cpp
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 ```
 
@@ -217,20 +217,20 @@ Biblioteka dostarcza trzy makra:
 
 * `WithinAbs(double target, double margin)` - sprawdza, czy wartość mieści się w określonym przez `margin` przedziale
 
-  ```c++
+  ```cpp
   REQUIRE_THAT(1.0, WithinAbs(1.2, 0.2));
   ```
 
   
 * `WithinRel(FloatingPoint target, FloatingPoint eps)` - akceptuje porównanie, jeżeli wartość jest w przybliżeniu równa wartości oczekiwanej z tolerancją `eps`. Sprawdzany jest warunek `|arg - target| <= eps * max(|arg|, |target|)`. Jeżeli nie podajemy `eps`, to domyślnie jest to `std::numeric_limits<FloatingPoint>::epsilon * 100`
 
-  ```c++
+  ```cpp
   REQUIRE_THAT(1.0, WithinRel(1.0, 0.0001));
   ```
 
 * `WithinULP(FloatingPoint target, uint64_t maxUlpDiff)` - tworzy porównanie, które akceptuje wartość, jeżeli różnica między wartością oczekiwaną a wartością testowaną jest mniejsza niż `maxUlpDiff` jednostek [ULP](https://en.wikipedia.org/wiki/Unit_in_the_last_place). 
 
-  ```c++
+  ```cpp
   REQUIRE_THAT( -0.f, WithinULP( 0.f, 0 ) );
   ```
 
@@ -243,8 +243,8 @@ Testy parametryzowane pozwalają na przetestowanie kodu z różnymi zestawami da
 ```cpp
 TEST_CASE("is_odd") 
 {
-auto n = GENERATE(1, 3, 5);
-REQUIRE(is_odd(n));
+    auto n = GENERATE(1, 3, 5);
+    REQUIRE(is_odd(n));
 }
 ```
 
@@ -269,7 +269,7 @@ TEST_CASE("table generators", "[generators]")
 
 W przypadku testów w stylu BDD parametryzacja może wyglądać następująco:
 
-```c++
+```cpp
 SCENARIO("Eating cucumbers", "[approvals]")
 {
     auto [start, eat, left] = GENERATE(table<int, int, int>({

@@ -82,7 +82,7 @@ project/
 
   * `./src/include/calculator.hpp` - plik nagłówkowy z deklaracjami klas i funkcji
 
-    ```c++
+    ```cpp
     #ifndef CALCULATOR_HPP
     #define CALCULATOR_HPP
 
@@ -96,7 +96,7 @@ project/
 
   * `./src/calculator.cpp` - plik źródłowy z definicjami funkcji
 
-    ```c++
+    ```cpp
     #include "calculator.hpp"
 
     int add(int a, int b)
@@ -126,7 +126,7 @@ project/
 
     `````{tab-set}
     ````{tab-item} GTest
-    ```c++
+    ```cpp
     #include <gmock/gmock.h>
     #include <gtest/gtest.h>
 
@@ -142,7 +142,7 @@ project/
     ````
     
     ````{tab-item} Catch2
-    ```c++
+    ```cpp
     #include <algorithm>
     #include <string>
     #include <memory>
@@ -256,7 +256,7 @@ project/
 
   * `./main.cpp` - plik z kodem aplikacji
 
-    ```c++
+    ```cpp
     #include <iostream>
     #include "calculator.hpp"
     int main()
