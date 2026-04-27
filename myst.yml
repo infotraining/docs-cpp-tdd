@@ -33,7 +33,7 @@ project:
       children:
         - file: test-doubles-intro.md
         - file: test-doubles-types.md
-        - file: stub-vs-mock
+        - file: stub-vs-mock.md
         - file: gmock
 site:
   options:
