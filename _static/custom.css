@@ -35,6 +35,14 @@ img {
   margin-bottom: 2em;
 }
 
+.bd-page-width {
+  max-width: 98rem !important;
+}
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 70em !important;
+}
+
 main.bd-content #main-content h1,
 main.bd-content #main-content h2,
 main.bd-content #main-content h3,
