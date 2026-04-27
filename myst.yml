@@ -26,8 +26,8 @@ project:
         - file: gtest.md
         - file: catch2.md
     - file: unit-test-patterns.md
-    - file: refactoring
-    - file: solid-oop
+    - file: refactoring.md
+    - file: solid-oop.md
     - file: dependency-injection.md
     - file: test-doubles.md
       children:
