@@ -1,0 +1,42 @@
+version: 1
+project:
+  title: Test-Driven Development w C++
+  authors:
+    - name: Krystian Piękoś - Infotraining
+  github: infotraining/docs-cpp-tdd
+  thebe:
+    binder:
+      repo: infotraining/docs-cpp-tdd
+      provider: github
+      url: https://mybinder.org
+      ref: master
+  bibliography:
+    - references.bib
+  exports:
+    - format: pdf
+      template: plain_latex_book
+      output: exports/cpp-tdd.pdf
+  toc:
+    - file: index.md
+    - file: tdd.md
+    - file: tdd-in-practice.md
+    - file: unit-tests.md
+    - file: unit-tests-frameworks.md
+      children:
+        - file: gtest.md
+        - file: catch2.md
+    - file: unit-tests-patterns
+    - file: refactoring
+    - file: solid-oop
+    - file: dependency-injection.md
+    - file: test-doubles.md
+      children:
+        - file: test-doubles-intro.md
+        - file: test-doubles-types.md
+        - file: stub-vs-mock
+        - file: gmock
+site:
+  options:
+    logo: logo.png
+    folders: true
+  template: book-theme
