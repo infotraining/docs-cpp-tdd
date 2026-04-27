@@ -203,16 +203,16 @@ Akcje okreslaja co powinno sie stac, kiedy okreslona metoda mocka zostanie wywol
 
 #### Zwracanie wartosci
 
-| Akcja | Opis |
-|---|---|
-| `Return()` | Zwraca `void` |
-| `Return(value)` | Zwraca `value`. Jesli typ `value` jest inny od typu zwracanego z funkcji, `value` jest konwertowane w czasie ustawiania oczekiwania |
-| `ReturnArg<N>()` | Zwraca N-ty argument (indeksacja od 0) |
-| `ReturnNew<T>(a1, ..., ak)` | Zwraca `new T(a1, ..., ak)`; za kazdym wywolaniem tworzony jest nowy obiekt |
-| `ReturnNull()` | Zwraca `nullptr` |
-| `ReturnPointee(ptr)` | Zwraca wartosc wskazywana przez wskaznik `ptr` |
-| `ReturnRef(variable)` | Zwraca referencje do zmiennej `variable` |
-| `ReturnRefOfCopy(value)` | Zwraca referencje do kopii `value` |
+| Akcja                       | Opis                                                                                                                                |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `Return()`                  | Zwraca `void`                                                                                                                       |
+| `Return(value)`             | Zwraca `value`. Jesli typ `value` jest inny od typu zwracanego z funkcji, `value` jest konwertowane w czasie ustawiania oczekiwania |
+| `ReturnArg<N>()`            | Zwraca N-ty argument (indeksacja od 0)                                                                                              |
+| `ReturnNew<T>(a1, ..., ak)` | Zwraca `new T(a1, ..., ak)`; za kazdym wywolaniem tworzony jest nowy obiekt                                                         |
+| `ReturnNull()`              | Zwraca `nullptr`                                                                                                                    |
+| `ReturnPointee(ptr)`        | Zwraca wartosc wskazywana przez wskaznik `ptr`                                                                                      |
+| `ReturnRef(variable)`       | Zwraca referencje do zmiennej `variable`                                                                                            |
+| `ReturnRefOfCopy(value)`    | Zwraca referencje do kopii `value`                                                                                                  |
 
 Przyklad:
 
@@ -266,26 +266,26 @@ EXPECT_CALL(mock, some_method(true, _))
 
 Do najczesciej wykorzystywanych efektow ubocznych naleza:
 
-| Akcja | Opis |
-|---|---|
-| `Assign(&variable, value)` | Przypisuje wartosc do zmiennej `variable` |
-| `SaveArg<N>(pointer)` | Zapisuje N-ty (0-based) argument do `*pointer` |
-| `SaveArgPointee<N>(pointer)` | Zapisuje wartosc wskazywana przez N-ty argument do `*pointer` |
-| `SetArgReferee<N>(value)` | Przypisuje wartosc `value` do referencji przekazanej jako N-ty argument |
-| `SetArgPointee<N>(value)` | Przypisuje wartosc `value` do zmiennej wskazywanej przez N-ty argument |
-| `Throw(exception)` | Rzuca wyjatek (dowolna kopiowalna wartosc) |
+| Akcja                        | Opis                                                                    |
+|------------------------------|-------------------------------------------------------------------------|
+| `Assign(&variable, value)`   | Przypisuje wartosc do zmiennej `variable`                               |
+| `SaveArg<N>(pointer)`        | Zapisuje N-ty (0-based) argument do `*pointer`                          |
+| `SaveArgPointee<N>(pointer)` | Zapisuje wartosc wskazywana przez N-ty argument do `*pointer`           |
+| `SetArgReferee<N>(value)`    | Przypisuje wartosc `value` do referencji przekazanej jako N-ty argument |
+| `SetArgPointee<N>(value)`    | Przypisuje wartosc `value` do zmiennej wskazywanej przez N-ty argument  |
+| `Throw(exception)`           | Rzuca wyjatek (dowolna kopiowalna wartosc)                              |
 
 #### Wywolania funkcji, funktorow lub lambd
 
 W ponizszej tabeli `f` oznacza funkcje, `std::function`, funktor lub lambde.
 
-| Akcja | Opis |
-|---|---|
-| `f` | Wywoluje `f` z argumentami przekazanymi do mockowanej funkcji |
-| `Invoke(f)` | Wywoluje `f` z argumentami przekazanymi do mockowanej funkcji |
-| `Invoke(object_pointer, &class::method)` | Wywoluje metode na wskazanym obiekcie z argumentami przekazanymi do mockowanej funkcji |
-| `InvokeWithoutArgs(f)` | Wywoluje `f`; `f` nie przyjmuje zadnych argumentow |
-| `InvokeWithoutArgs(object_pointer, &class::method)` | Wywoluje bezparametrowa metode na wskazanym obiekcie |
+| Akcja                                               | Opis                                                                                   |
+|-----------------------------------------------------|----------------------------------------------------------------------------------------|
+| `f`                                                 | Wywoluje `f` z argumentami przekazanymi do mockowanej funkcji                          |
+| `Invoke(f)`                                         | Wywoluje `f` z argumentami przekazanymi do mockowanej funkcji                          |
+| `Invoke(object_pointer, &class::method)`            | Wywoluje metode na wskazanym obiekcie z argumentami przekazanymi do mockowanej funkcji |
+| `InvokeWithoutArgs(f)`                              | Wywoluje `f`; `f` nie przyjmuje zadnych argumentow                                     |
+| `InvokeWithoutArgs(object_pointer, &class::method)` | Wywoluje bezparametrowa metode na wskazanym obiekcie                                   |
 
 Wywolanie funkcji jako efekt uboczny mozemy skonfigurowac nastepujaco:
 
