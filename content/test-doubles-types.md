@@ -15,7 +15,7 @@ W testach jednostkowych rozróżniamy kilka rodzajów obiektów pozorujących:
 
 Obiekty typu **Stub** dostarczają predefiniowanych wartości na potrzeby testu:
 
-```c++
+```cpp
 class StubPricingService : public PricingService
 {
 public:
@@ -28,7 +28,7 @@ public:
 
 ## Fake
 
-```c++
+```cpp
 class FakePricingService : public PricingService
 {
 public:
@@ -49,7 +49,7 @@ public:
 
 ## Spy
 
-```c++
+```cpp
 class SpyPricingService : public PricingService
 {
 public:

@@ -89,7 +89,7 @@ Nazwa testu opisuje testowaną funkcjonalność.
 
 Przykład: `TestFunctionName_StateUnderTest_ExpectedBehavior`
 
-```c++
+```cpp
 // Functionality-Based Naming
 
 TEST(RecentlyUsedListTest, Add_MostRecentlyUsedUpdated) 
@@ -115,7 +115,7 @@ Nazwa testu opisuje oczekiwane zachowanie.
 
 Przykład: `FunctionUnderTest_ExpectedResult`
 
-```c++
+```cpp
 // Behavior-Based Naming
 TEST(RecentlyUsedListTest, GetRecentItem_ReturnsLastAddedItem) 
 {
@@ -141,7 +141,7 @@ Przykład: `GivenInitialState_WhenSomethingHappens_ThenResultIsObserved`
 
 `````{tab-set}
 ````{tab-item} GTest
-```c++
+```cpp
 // Given-When-Then Naming
 TEST(RecentlyUsedListTest, GivenEmptyList_WhenItemIsAdded_ThenListIsNotEmpty) 
 {

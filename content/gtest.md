@@ -108,7 +108,7 @@ Jeśli tworzymy testy operujące na tym samym zestawie danych, można użyć kla
 * Przygotowanie obiektu fikstury odbywa się albo w konstruktorze, albo przy pomocy specjalnej metody `SetUp()`
 * Jeśli zachodzi potrzeba zwalniana zasobów, można użyć destruktora lub metody `TearDown()`, która w przeciwieństwie do destruktora może wygenerować wyjątek
 
-```important
+```{important}
 Jeśli używamy fikstury, to należy użyć makra `TEST_F(…)` zamiast `TEST(…)`
 ```
 
