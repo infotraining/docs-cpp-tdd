@@ -1,5 +1,5 @@
-S.O.L.I.D. OOP
-==============
+SOLID OOP - zasady solidnego programowania obiektowego
+======================================================
 
 **SOLID** to akronim powstały od pięciu zasad dobrego programowania zorientowanego obiektowo.
 
@@ -142,7 +142,6 @@ Poprawiony diagram klas zgodny z zasadą *ISP*:
 
 .. image:: img/uml-schemes/solid/isp-after.*
     :align: center
-    :width: 80%
 
 Obiekty klienckie powinny zależeć wyłącznie od wywoływanych przez siebie metod. Można ten cel osiągnąć rozbijając interfejs "grubej" klasy na wiele mniejszych interfejsów właściwych dla poszczególnych klientów. Każdy taki interfejs deklaruje tylko te funkcje, które rzeczywiście są wywoływane przez danego klienta lub grupę klientów. W takim przypadku "gruba" klasa może dziedziczyć i implementować wszystkie interfejsy właściwe dla klientów. Opisany model eliminuje zależność obiektów klienckich od metod, których nie wywołują, i umożliwia zapewnienie wzajemnej niezależności samych klientów.
 
@@ -181,6 +180,5 @@ Poniżej przedstawiony jest model, w którym klasa ``ToggleButton`` zawiera odwo
 
 .. image:: img/uml-schemes/solid/dip-after.*
     :align: center
-    :width: 90%
 
 Interfejs ``ISwitch`` jest implementowany przez klasę ``LEDSwitch``, która adaptuje niskopoziomową implementację ``LEDLight``. Oznacza to, że od tej pory to klasa ``LEDSwitch`` zależy od klasy ``ToggleButton`` (a nie odwrotnie).

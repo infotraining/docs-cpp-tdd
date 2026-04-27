@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Biblioteka googlemock &#8212; Test-Driven Development w C++</title>
   
@@ -14,50 +15,54 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gmock';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,23 +76,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -109,20 +119,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -156,18 +158,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -179,24 +170,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Biblioteka googlemock</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Biblioteka googlemock</a></li>
 </ul>
 
     </div>
@@ -212,7 +194,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -221,14 +203,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -369,9 +351,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -435,17 +417,17 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section id="biblioteka-googlemock">
-<h1>Biblioteka googlemock<a class="headerlink" href="#biblioteka-googlemock" title="Link to this heading">#</a></h1>
+<h1>Biblioteka googlemock<a class="headerlink" href="#biblioteka-googlemock" title="Permalink to this heading">#</a></h1>
 <p>Podczas pisania testów często nie można, z różnych powodów, używać rzeczywistych obiektów.
 Warto wtedy użyć obiektu mock (mock object). Jest to obiekt który implementuje ten sam interfejs, co obiekt rzeczywisty, ale pozwala na
 sprawdzenie kolejności, parametrów i ilości wywołania metod interfejsu.
 Różni się więc od obiektów typu <em>fake</em>, które są działającą implementacją (uproszczoną) rzeczywistego obiektu.</p>
 <p>Biblioteka Google C++ Mocking Framework służy do tworzenia klas dostarczających mocków.</p>
 <section id="korzystanie-z-mockow">
-<h2>Korzystanie z mocków<a class="headerlink" href="#korzystanie-z-mockow" title="Link to this heading">#</a></h2>
+<h2>Korzystanie z mocków<a class="headerlink" href="#korzystanie-z-mockow" title="Permalink to this heading">#</a></h2>
 <p>Praca z biblioteką <em>Google Mock</em> sprowadza się do trzech kroków:</p>
 <ol class="arabic">
 <li><p>Użycia prostych makr, aby opisać interfejs który chcemy pozorować.</p>
@@ -496,7 +478,7 @@ Różni się więc od obiektów typu <em>fake</em>, które są działającą imp
 </ol>
 </section>
 <section id="konfiguracja-domyslnego-zachowania-dla-mocka">
-<h2>Konfiguracja domyślnego zachowania dla mocka<a class="headerlink" href="#konfiguracja-domyslnego-zachowania-dla-mocka" title="Link to this heading">#</a></h2>
+<h2>Konfiguracja domyślnego zachowania dla mocka<a class="headerlink" href="#konfiguracja-domyslnego-zachowania-dla-mocka" title="Permalink to this heading">#</a></h2>
 <p>Aby ustawić domyślną konfigurację dla metody i określić zwracaną wartość
 należy użyć makra <code class="docutils literal notranslate"><span class="pre">ON_CALL()</span></code>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ON_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">)).</span><span class="n">WillByDefault</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">42</span><span class="p">));</span>
@@ -505,7 +487,7 @@ należy użyć makra <code class="docutils literal notranslate"><span class="pre
 <p><code class="docutils literal notranslate"><span class="pre">ON_CALL()</span></code> definiuje zachowanie w przypadku wywołania określonej metody, ale <strong>nie definiuje oczekiwania</strong>, że ta metoda zostanie wywołana.</p>
 </section>
 <section id="konfiguracja-oczekiwan-dla-mockow">
-<h2>Konfiguracja oczekiwań dla mocków<a class="headerlink" href="#konfiguracja-oczekiwan-dla-mockow" title="Link to this heading">#</a></h2>
+<h2>Konfiguracja oczekiwań dla mocków<a class="headerlink" href="#konfiguracja-oczekiwan-dla-mockow" title="Permalink to this heading">#</a></h2>
 <p>Konfiguracja oczekiwań jest realizowana za pomocą makra <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code>.
 <code class="docutils literal notranslate"><span class="pre">EXPECT_CALL()</span></code> wyraża konkretne oczekiwanie wywołania metody weryfikowane
 w momencie wywołania destruktora obiektu pozorującego.</p>
@@ -531,7 +513,7 @@ wszystkich argumentów (np. <code class="docutils literal notranslate"><span cla
 </li>
 </ul>
 <section id="on-call-vs-expect-call">
-<h3>ON_CALL vs. EXPECT_CALL<a class="headerlink" href="#on-call-vs-expect-call" title="Link to this heading">#</a></h3>
+<h3>ON_CALL vs. EXPECT_CALL<a class="headerlink" href="#on-call-vs-expect-call" title="Permalink to this heading">#</a></h3>
 <p>Dobre testy, powinny <strong>weryfikować kontrakt</strong> pomiędzy klientem (testowany kod), a obiektami zależnymi (pozorowanymi przez mocki).
 Jeśli test zbyt szczegółowo specyfikuje wymagania dla mocków, to efektem jest brak możliwości swobodnej implementacji funkcjonalności.
 W takiej sytuacji refaktoring kodu zwykle powoduje zgłoszenie błędów przez testy.</p>
@@ -544,7 +526,7 @@ W takiej sytuacji refaktoring kodu zwykle powoduje zgłoszenie błędów przez t
 </ul>
 </section>
 <section id="nicemocks-vs-strictmocks">
-<h3>NiceMocks vs. StrictMocks<a class="headerlink" href="#nicemocks-vs-strictmocks" title="Link to this heading">#</a></h3>
+<h3>NiceMocks vs. StrictMocks<a class="headerlink" href="#nicemocks-vs-strictmocks" title="Permalink to this heading">#</a></h3>
 <p>Domyślnie (bez konfiguracji oczekiwań) obiekt mocka stworzony przy pomocy framework’a <em>googlemock</em> akceptuje
 wszystkie wywołania metod zgłaszając ostrzeżenie z opisem jaka metoda została wywołana.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
@@ -604,9 +586,9 @@ jest zgłaszane jako błąd:</p>
 </section>
 </section>
 <section id="konfiguracja-mockow">
-<h2>Konfiguracja mocków<a class="headerlink" href="#konfiguracja-mockow" title="Link to this heading">#</a></h2>
+<h2>Konfiguracja mocków<a class="headerlink" href="#konfiguracja-mockow" title="Permalink to this heading">#</a></h2>
 <section id="zwracane-wartosci-domyslne">
-<h3>Zwracane wartości domyślne<a class="headerlink" href="#zwracane-wartosci-domyslne" title="Link to this heading">#</a></h3>
+<h3>Zwracane wartości domyślne<a class="headerlink" href="#zwracane-wartosci-domyslne" title="Permalink to this heading">#</a></h3>
 <p>Domyślnie metody wywoływane na mocku zwracają domyślne wartości określonego typu (<strong>default-constructed values</strong>).</p>
 <p>Możemy zmienić domyślną wartość dla określonego typu wykorzystując szablon <code class="docutils literal notranslate"><span class="pre">DefaultValue&lt;T&gt;</span></code>:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">DefaultValue</span><span class="p">;</span>
@@ -626,11 +608,11 @@ jest zgłaszane jako błąd:</p>
 </div>
 </section>
 <section id="akcje">
-<h3>Akcje<a class="headerlink" href="#akcje" title="Link to this heading">#</a></h3>
+<h3>Akcje<a class="headerlink" href="#akcje" title="Permalink to this heading">#</a></h3>
 <p>Akcje określają co powinno się stać, kiedy określona metoda mocka zostanie wywołana:</p>
 <section id="zwracanie-wartosci">
-<h4>Zwracanie wartości<a class="headerlink" href="#zwracanie-wartosci" title="Link to this heading">#</a></h4>
-<div class="pst-scrollable-table-container"><table class="table">
+<h4>Zwracanie wartości<a class="headerlink" href="#zwracanie-wartosci" title="Permalink to this heading">#</a></h4>
+<table class="table">
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Return()</span></code></p></td>
 <td><p>Zwraca <code class="docutils literal notranslate"><span class="pre">void</span></code></p></td>
@@ -658,7 +640,6 @@ jest zgłaszane jako błąd:</p>
 </tr>
 </tbody>
 </table>
-</div>
 <p>Przykład:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">()).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">-1</span><span class="p">));</span>
 <span class="n">ASSERT_EQ</span><span class="p">(</span><span class="n">fake</span><span class="p">.</span><span class="n">my_method</span><span class="p">(),</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span>
@@ -673,7 +654,7 @@ jest zgłaszane jako błąd:</p>
 </section>
 </section>
 <section id="definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow">
-<h3>Definiowanie różnych zachowań w zależności od parametrów<a class="headerlink" href="#definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow" title="Link to this heading">#</a></h3>
+<h3>Definiowanie różnych zachowań w zależności od parametrów<a class="headerlink" href="#definiowanie-roznych-zachowan-w-zaleznosci-od-parametrow" title="Permalink to this heading">#</a></h3>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">100</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">true</span><span class="p">));</span>
 <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">my_method</span><span class="p">(</span><span class="mi">200</span><span class="p">)).</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
 
@@ -683,7 +664,7 @@ jest zgłaszane jako błąd:</p>
 </div>
 </section>
 <section id="konfiguracja-efektow-ubocznych">
-<h3>Konfiguracja efektów ubocznych<a class="headerlink" href="#konfiguracja-efektow-ubocznych" title="Link to this heading">#</a></h3>
+<h3>Konfiguracja efektów ubocznych<a class="headerlink" href="#konfiguracja-efektow-ubocznych" title="Permalink to this heading">#</a></h3>
 <p>Czasami metoda wywoływana na obiekcie pozorującym daje efekt uboczny (np. ustawienie wartości dla zmiennej przekazanej jako parametr wywołania funkcji
 lub wywołanie funkcji):</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Mock</span>
@@ -705,7 +686,7 @@ lub wywołanie funkcji):</p>
 </pre></div>
 </div>
 <p>Do najczęściej wykorzystywanych efektów ubocznych należą:</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Assign(&amp;variable,</span> <span class="pre">value)</span></code></p></td>
 <td><p>Przypisuje wartość do zmiennej <code class="docutils literal notranslate"><span class="pre">variable</span></code></p></td>
@@ -727,12 +708,11 @@ lub wywołanie funkcji):</p>
 </tr>
 </tbody>
 </table>
-</div>
 </section>
 <section id="wywolania-funkcji-funktorow-lub-lambd">
-<h3>Wywołania funkcji, funktorów lub lambd<a class="headerlink" href="#wywolania-funkcji-funktorow-lub-lambd" title="Link to this heading">#</a></h3>
+<h3>Wywołania funkcji, funktorów lub lambd<a class="headerlink" href="#wywolania-funkcji-funktorow-lub-lambd" title="Permalink to this heading">#</a></h3>
 <p>W poniższej tabeli <code class="docutils literal notranslate"><span class="pre">f</span></code> oznacza funkcję, <code class="docutils literal notranslate"><span class="pre">std::function</span></code>, funktor lub lambdę.</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">f</span></code></p></td>
 <td><p>Wywołuje <code class="docutils literal notranslate"><span class="pre">f</span></code> z argumentami przekazanymi do mockowanej funkcji</p></td>
@@ -751,7 +731,6 @@ lub wywołanie funkcji):</p>
 </tr>
 </tbody>
 </table>
-</div>
 <p>Wywołanie funkcji jako efekt uboczny możemy skonfigurować następująco:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">))</span>
 <span class="w">    </span><span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">InvokeWithoutArgs</span><span class="p">(</span><span class="n">other_function</span><span class="p">));</span>
@@ -781,7 +760,7 @@ lub wywołanie funkcji):</p>
 </div>
 </section>
 <section id="konfiguracja-rzucania-wyjatkow">
-<h3>Konfiguracja rzucania wyjątków<a class="headerlink" href="#konfiguracja-rzucania-wyjatkow" title="Link to this heading">#</a></h3>
+<h3>Konfiguracja rzucania wyjątków<a class="headerlink" href="#konfiguracja-rzucania-wyjatkow" title="Permalink to this heading">#</a></h3>
 <p>Aby pozorować rzucanie wyjątków należy skonfigurować mocka przy pomocy opji <code class="docutils literal notranslate"><span class="pre">Throw()</span></code>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">InvalidArgumentException</span><span class="w"> </span><span class="n">my_exception</span><span class="p">(</span><span class="s">&quot;Error #13&quot;</span><span class="p">);</span>
 
@@ -790,7 +769,7 @@ lub wywołanie funkcji):</p>
 </div>
 </section>
 <section id="okreslanie-ilosci-wywolan">
-<h3>Określanie ilości wywołań<a class="headerlink" href="#okreslanie-ilosci-wywolan" title="Link to this heading">#</a></h3>
+<h3>Określanie ilości wywołań<a class="headerlink" href="#okreslanie-ilosci-wywolan" title="Permalink to this heading">#</a></h3>
 <p>Opcja <code class="docutils literal notranslate"><span class="pre">Times()</span></code> umożliwia konfigurację ilości wywołań metody dla mocka:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Mock</span>
 <span class="p">{</span>
@@ -858,7 +837,7 @@ opcji <code class="docutils literal notranslate"><span class="pre">RetiresOnSatu
 </div>
 </section>
 <section id="konfiguracja-kolejnosci-wywolan-metod">
-<h3>Konfiguracja kolejności wywołań metod<a class="headerlink" href="#konfiguracja-kolejnosci-wywolan-metod" title="Link to this heading">#</a></h3>
+<h3>Konfiguracja kolejności wywołań metod<a class="headerlink" href="#konfiguracja-kolejnosci-wywolan-metod" title="Permalink to this heading">#</a></h3>
 <p>Gdy chcemy określić kolejność wykonywanych na mocku operacji
 możemy zastosować opcję <code class="docutils literal notranslate"><span class="pre">After()</span></code>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Expectation</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">setup</span><span class="p">());</span>
@@ -890,11 +869,11 @@ możemy zastosować opcję <code class="docutils literal notranslate"><span clas
 </section>
 </section>
 <section id="matchers">
-<h2>Matchers<a class="headerlink" href="#matchers" title="Link to this heading">#</a></h2>
+<h2>Matchers<a class="headerlink" href="#matchers" title="Permalink to this heading">#</a></h2>
 <p>Obiekty dopasowujące (<em>matchers</em>) są wykorzystywane do sprawdzenia, czy
 metoda została wywołana z określonymi parametrami.</p>
 <section id="dopasowanie-dowolnej-wartosci">
-<h3>Dopasowanie dowolnej wartości<a class="headerlink" href="#dopasowanie-dowolnej-wartosci" title="Link to this heading">#</a></h3>
+<h3>Dopasowanie dowolnej wartości<a class="headerlink" href="#dopasowanie-dowolnej-wartosci" title="Permalink to this heading">#</a></h3>
 <p>Dowolna wartość jest akceptowana przy pomocy <code class="docutils literal notranslate"><span class="pre">_</span></code> lub szablonu <code class="docutils literal notranslate"><span class="pre">A&lt;T&gt;</span></code> lub <code class="docutils literal notranslate"><span class="pre">An&lt;T&gt;</span></code>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">));</span>
 <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">A</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// usable for overloaded functions</span>
@@ -903,7 +882,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="porownania">
-<h3>Porównania<a class="headerlink" href="#porownania" title="Link to this heading">#</a></h3>
+<h3>Porównania<a class="headerlink" href="#porownania" title="Permalink to this heading">#</a></h3>
 <p>Dopasowanie wykorzystujące operatory porównań może być zdefiniowane przy pomocy matcherów <code class="docutils literal notranslate"><span class="pre">Eq()</span></code>, <code class="docutils literal notranslate"><span class="pre">Ne()</span></code>, <code class="docutils literal notranslate"><span class="pre">Lt()</span></code>, <code class="docutils literal notranslate"><span class="pre">Gt()</span></code>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
 <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">Ne</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
@@ -923,7 +902,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="dopasowanie-lancuchow-znakow">
-<h3>Dopasowanie łańcuchów znaków<a class="headerlink" href="#dopasowanie-lancuchow-znakow" title="Link to this heading">#</a></h3>
+<h3>Dopasowanie łańcuchów znaków<a class="headerlink" href="#dopasowanie-lancuchow-znakow" title="Permalink to this heading">#</a></h3>
 <p>Łańcuchy znaków (C-strings i std::string) mogą być dopasowywane przy pomocy następujących obiektów:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ContainsRegex(string)</span></code></p></li>
@@ -938,7 +917,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </ul>
 </section>
 <section id="laczenie-wielu-porownan">
-<h3>Łączenie wielu porównań<a class="headerlink" href="#laczenie-wielu-porownan" title="Link to this heading">#</a></h3>
+<h3>Łączenie wielu porównań<a class="headerlink" href="#laczenie-wielu-porownan" title="Permalink to this heading">#</a></h3>
 <p>Łączenie wielu obiektów porównujących może się odbywać przy pomocy obiektów:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">AllOf(m1,</span> <span class="pre">m2,</span> <span class="pre">...)</span></code></p></li>
@@ -950,7 +929,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="dopasowanie-dla-pol-i-getterow-obiektow">
-<h3>Dopasowanie dla pól i getterów obiektów<a class="headerlink" href="#dopasowanie-dla-pol-i-getterow-obiektow" title="Link to this heading">#</a></h3>
+<h3>Dopasowanie dla pól i getterów obiektów<a class="headerlink" href="#dopasowanie-dla-pol-i-getterow-obiektow" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Field(&amp;class::field,</span> <span class="pre">m)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Property(&amp;class::property,</span> <span class="pre">m)</span></code></p></li>
@@ -980,7 +959,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="dopasowania-dla-kontenerow">
-<h3>Dopasowania dla kontenerów<a class="headerlink" href="#dopasowania-dla-kontenerow" title="Link to this heading">#</a></h3>
+<h3>Dopasowania dla kontenerów<a class="headerlink" href="#dopasowania-dla-kontenerow" title="Permalink to this heading">#</a></h3>
 <p>Dopasowania dla całych kontenrów:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ContainerEq(other)</span></code></p></li>
@@ -1009,7 +988,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="dopsowania-wieloargumentowe">
-<h3>Dopsowania wieloargumentowe<a class="headerlink" href="#dopsowania-wieloargumentowe" title="Link to this heading">#</a></h3>
+<h3>Dopsowania wieloargumentowe<a class="headerlink" href="#dopsowania-wieloargumentowe" title="Permalink to this heading">#</a></h3>
 <p>Czasami wymagane zdefiniowanie wzajemnie zależnych wymagań dla argumentów wywołania mockowanej funkcji:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">With</span><span class="p">(</span><span class="n">Eq</span><span class="p">());</span>
 <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span><span class="w"> </span><span class="n">some_method</span><span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)).</span><span class="n">With</span><span class="p">(</span><span class="n">AllArgs</span><span class="p">(</span><span class="n">Eq</span><span class="p">()));</span><span class="w"> </span><span class="c1">// the same as above</span>
@@ -1018,7 +997,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </div>
 </section>
 <section id="tworzenie-wlasnych-obiektow-dopasowujacych">
-<h3>Tworzenie własnych obiektów dopasowujących<a class="headerlink" href="#tworzenie-wlasnych-obiektow-dopasowujacych" title="Link to this heading">#</a></h3>
+<h3>Tworzenie własnych obiektów dopasowujących<a class="headerlink" href="#tworzenie-wlasnych-obiektow-dopasowujacych" title="Permalink to this heading">#</a></h3>
 <p>Tworzenie własnych obiektów dopasowujących jest możliwe na trzy sposoby:</p>
 <ol class="arabic">
 <li><p>Używając funkcji <code class="docutils literal notranslate"><span class="pre">Truly(predicate)</span></code></p>
@@ -1048,7 +1027,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </ol>
 </section>
 <section id="wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow">
-<h3>Wykorzystanie obiektów dopasowujących w asercjach testów<a class="headerlink" href="#wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow" title="Link to this heading">#</a></h3>
+<h3>Wykorzystanie obiektów dopasowujących w asercjach testów<a class="headerlink" href="#wykorzystanie-obiektow-dopasowujacych-w-asercjach-testow" title="Permalink to this heading">#</a></h3>
 <p>Obiekty porównujące mogą być wykorzystane w asercjach testów jednostkowych:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ASSERT_THAT</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">AllOf</span><span class="p">(</span><span class="n">NotNull</span><span class="p">(),</span><span class="w"> </span><span class="n">StrNe</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)));</span>
 
@@ -1058,7 +1037,7 @@ metoda została wywołana z określonymi parametrami.</p>
 </section>
 </section>
 <section id="mockowanie-metod-niewirtualnych">
-<h2>Mockowanie metod niewirtualnych<a class="headerlink" href="#mockowanie-metod-niewirtualnych" title="Link to this heading">#</a></h2>
+<h2>Mockowanie metod niewirtualnych<a class="headerlink" href="#mockowanie-metod-niewirtualnych" title="Permalink to this heading">#</a></h2>
 <p>Bibliotek gMock umożliwia mockowanie metod, które nie są wirtualne. Możemy to wykorzystać w testach kodu, który wykorzystuje <em>Hi-performance Dependency Injection</em>.</p>
 <p>W takim przypadku klasa mocka nie dziedziczy po interfejsie (lub klasie z metodami wirtualnymi).</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// A simple logger class.  None of its members is virtual.</span>
@@ -1158,7 +1137,7 @@ metoda została wywołana z określonymi parametrami.</p>
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1178,7 +1157,6 @@ metoda została wywołana z określonymi parametrami.</p>
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1244,7 +1222,7 @@ By Krystian Piękoś - Infotraining
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -1268,8 +1246,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

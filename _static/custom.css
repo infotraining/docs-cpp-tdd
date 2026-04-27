@@ -25,19 +25,22 @@ p {
   font-size: 1.1em !important;
 }
 
-ol li > p + ul.simple
-{
-  margin-top: 0.4rem !important;
-}
-
-p + ul.simple
+/* p + ul.simple
 {
   margin-top: -1rem !important;
-}
+} */
 
 img {
   margin-top: 2em;
   margin-bottom: 2em;
+}
+
+.bd-page-width {
+  max-width: 98rem !important;
+}
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 70em !important;
 }
 
 main.bd-content #main-content h1,
@@ -130,15 +133,4 @@ dt {
 
 .h4 h4 {
   font-size: 1.2rem !important;
-}
-
-@media print {
-  .skip-link {
-    display: none !important;
-    position: absolute;
-  }
-}
-
-.table tbody tr:hover {
-  background-color: #ababab33 !important;
 }

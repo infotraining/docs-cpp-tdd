@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Refaktoryzacja kodu &#8212; Test-Driven Development w C++</title>
   
@@ -14,55 +15,59 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'refactoring';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="S.O.L.I.D. OOP" href="solid-oop.html" />
-    <link rel="prev" title="Wzorce testów jednostkowych" href="unit-tests-patterns.html" />
+    <link rel="next" title="Obiekty pozorujące" href="mocking-objects.html" />
+    <link rel="prev" title="Dependency Injection" href="dependency-injection.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -72,23 +77,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -110,20 +120,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -157,18 +159,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -180,24 +171,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Refaktoryzacja kodu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
 </ul>
 
     </div>
@@ -213,7 +195,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -222,14 +204,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -370,9 +352,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -416,10 +398,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section id="refaktoryzacja-kodu">
-<h1>Refaktoryzacja kodu<a class="headerlink" href="#refaktoryzacja-kodu" title="Link to this heading">#</a></h1>
+<h1>Refaktoryzacja kodu<a class="headerlink" href="#refaktoryzacja-kodu" title="Permalink to this heading">#</a></h1>
 <p>Refaktoryzujemy zawsze, kiedy jest taka potrzeba.</p>
 <p>Trzy sytuacje, w których musimy bezwzględnie przeprowadzić refaktoryzację:</p>
 <ol class="arabic simple">
@@ -428,28 +410,28 @@ document.write(`
 <li><p>Jeśli wykryjemy zły kod (<em>code smell</em>) – symptomy, że występuje problem z jakością projektu</p></li>
 </ol>
 <section id="duplikacja-kodu">
-<h2>Duplikacja kodu<a class="headerlink" href="#duplikacja-kodu" title="Link to this heading">#</a></h2>
+<h2>Duplikacja kodu<a class="headerlink" href="#duplikacja-kodu" title="Permalink to this heading">#</a></h2>
 <p>Występowanie duplikacji kodu jest znacznikiem niskiej jakości kodu. Jeżeli istnieje kod, który się powtarza, należy pozbyć się duplikacji za pomocą ekstrakcji metody.</p>
 <p>Duplikacji należy unikać również w kodzie testów jednostkowych. Często w kodzie testach powtarzane jest ustawienie obiektów do testu. Możemy wyodrębnić ten kod do metod ustawiających fiksturę testu (<em>test fixture</em>).</p>
 </section>
 <section id="niejasne-intencje">
-<h2>Niejasne intencje<a class="headerlink" href="#niejasne-intencje" title="Link to this heading">#</a></h2>
+<h2>Niejasne intencje<a class="headerlink" href="#niejasne-intencje" title="Permalink to this heading">#</a></h2>
 <p>Kod jest najważniejszą wartością, którą dostarcza programista. W związku z tym powinien być tak jasny i zrozumiały, jak to tylko możliwe. Nie zawsze możemy napisać taki kod na początku, ale możemy go refaktoryzować, aby był bardziej zrozumiały.</p>
 <p>Prostym sposobem wyjaśnienia intencji jest wybór lepszych nazw.</p>
 <p>Stosowanie TDD pomaga w jasnym przekazaniu intencji w czasie pisania kodu, ponieważ musimy myśleć o interfejsie klasy, a nie o jej implementacji. Decydujemy, co jest najbardziej sensowne z punktu widzenia użytkownika klasy bez wchodzenia w szczegóły implementacji.</p>
 </section>
 <section id="zly-kod">
-<h2>Zły kod<a class="headerlink" href="#zly-kod" title="Link to this heading">#</a></h2>
+<h2>Zły kod<a class="headerlink" href="#zly-kod" title="Permalink to this heading">#</a></h2>
 <p>Pojęcie złego kodu (<em>code smell</em>) jest szeroko używane przez społeczność eXtreme Programming w odniesieniu do kodu o nieakceptowalnej jakości. Termin ten został po raz pierwszy użyty przez Fowler’a i Beck’a.</p>
 <p>Jeśli natrafimy na zły kod, powinniśmy przeprowadzić refaktoryzację i pozbyć się go. Zły kod nie zawsze oznacza problem, ale powinniśmy przyjrzeć się temu fragmentowi kodu, aby wyeliminować takie niebezpieczeństwo.</p>
 </section>
 <section id="przeprowadzenie-refaktoryzacji">
-<h2>Przeprowadzenie refaktoryzacji<a class="headerlink" href="#przeprowadzenie-refaktoryzacji" title="Link to this heading">#</a></h2>
+<h2>Przeprowadzenie refaktoryzacji<a class="headerlink" href="#przeprowadzenie-refaktoryzacji" title="Permalink to this heading">#</a></h2>
 <p>Niezbędne są automatyczne testy, które dadzą nam informację zwrotną, czy w czasie refaktoryzacji czegoś nie zepsuliśmy. Nie chcemy zmieniać zachowania, a testy sprawdzające zachowanie poinformują nas, jeśli taka zmiana zajdzie.</p>
 <p>Refaktoryzacja jest przeprowadzana małymi krokami, a po każdym z nich uruchamiane są testy. Dzięki temu od razu wiemy, czy czegoś nie zepsuliśmy. Łatwo określić, co spowodowało problem – ostatni krok. Należy wycofać ten krok i spróbować ponownie.</p>
 </section>
 <section id="ekstrakcja-klasy">
-<h2>Ekstrakcja klasy<a class="headerlink" href="#ekstrakcja-klasy" title="Link to this heading">#</a></h2>
+<h2>Ekstrakcja klasy<a class="headerlink" href="#ekstrakcja-klasy" title="Permalink to this heading">#</a></h2>
 <p>Jeśli klasa jest za duża lub jej działanie jest niejasne, musimy podzielić ją na części mające spójne zachowanie. Ekstrakcja klasy pozwala wyodrębnić jeden z tych zestawów zachowań do nowej klasy. Przy ekstrakcji klasy należy zachować Zasadę Pojedynczej Odpowiedzialności (SRP).</p>
 <p>Jeśli potrzebujemy powielić implementację jakiegoś zachowania, to możemy wyodrębnić kod do oddzielnej klasy. Następnie możemy wyekstrahować interfejs i napisać wymagane implementacje.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Movie</span>
@@ -493,7 +475,7 @@ document.write(`
 </div>
 </section>
 <section id="zastapienie-instancji-klasy-obiektem-std-function">
-<h2>Zastąpienie instancji klasy obiektem std::function<a class="headerlink" href="#zastapienie-instancji-klasy-obiektem-std-function" title="Link to this heading">#</a></h2>
+<h2>Zastąpienie instancji klasy obiektem std::function<a class="headerlink" href="#zastapienie-instancji-klasy-obiektem-std-function" title="Permalink to this heading">#</a></h2>
 <p>Jeżeli klasa (abstrakcyjna) posiada tylko jedną metodę, wówczas jest spore prawdopodobieństwo, że taką klasę można zastąpić funktorem lub <code class="docutils literal notranslate"><span class="pre">std::function</span></code>.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ShapeCreator</span>
 <span class="p">{</span>
@@ -532,7 +514,7 @@ uprościć i uelastycznić kod zastępując ją typem <code class="docutils lite
 </div>
 </section>
 <section id="ekstrakcja-interfejsu">
-<h2>Ekstrakcja interfejsu<a class="headerlink" href="#ekstrakcja-interfejsu" title="Link to this heading">#</a></h2>
+<h2>Ekstrakcja interfejsu<a class="headerlink" href="#ekstrakcja-interfejsu" title="Permalink to this heading">#</a></h2>
 <p>Aby poprawić testowalność lub uniknąć zależności od konkretnych implementacji
 możemy z klasy wyekstrahować jej interfejs:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span>
@@ -572,7 +554,7 @@ możemy z klasy wyekstrahować jej interfejs:</p>
 </div>
 </section>
 <section id="ekstrakcja-metody-lub-funkcji">
-<h2>Ekstrakcja metody lub funkcji<a class="headerlink" href="#ekstrakcja-metody-lub-funkcji" title="Link to this heading">#</a></h2>
+<h2>Ekstrakcja metody lub funkcji<a class="headerlink" href="#ekstrakcja-metody-lub-funkcji" title="Permalink to this heading">#</a></h2>
 <p>Ekstrakcję metody lub funkcji stosujemy, jeśli kod metody jest zbyt długi lub występują w niej komentarze, które wskazują cel implementacji.</p>
 <p>Metoda przed refaktoringiem:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">file_name</span><span class="p">)</span>
@@ -622,7 +604,7 @@ możemy z klasy wyekstrahować jej interfejs:</p>
 </div>
 </section>
 <section id="zastepowanie-type-code-podklasami">
-<h2>Zastępowanie <em>type-code</em> podklasami<a class="headerlink" href="#zastepowanie-type-code-podklasami" title="Link to this heading">#</a></h2>
+<h2>Zastępowanie <em>type-code</em> podklasami<a class="headerlink" href="#zastepowanie-type-code-podklasami" title="Permalink to this heading">#</a></h2>
 <p>Tę refaktoryzację stosujemy w sytuacji, gdy istnieje klasa, która wykorzystuje typy proste jako identyfikatory wykorzystywane przy implementacji zachowania.</p>
 <ul class="simple">
 <li><p>Tworzymy podklasy dla każdego identyfikatora</p></li>
@@ -663,11 +645,11 @@ możemy z klasy wyekstrahować jej interfejs:</p>
 </div>
 </section>
 <section id="zastepowanie-wyrazenia-warunkowego-polimorfizmem">
-<h2>Zastępowanie wyrażenia warunkowego polimorfizmem<a class="headerlink" href="#zastepowanie-wyrazenia-warunkowego-polimorfizmem" title="Link to this heading">#</a></h2>
+<h2>Zastępowanie wyrażenia warunkowego polimorfizmem<a class="headerlink" href="#zastepowanie-wyrazenia-warunkowego-polimorfizmem" title="Permalink to this heading">#</a></h2>
 <p>Wyrażenia warunkowe można zastąpić podklasami obsługującymi różne przypadki. Jeśli istnieją już podklasy, to można rozważyć umieszczenie w nich zachowania warunkowego.</p>
 </section>
 <section id="wprowadzenie-zmiennej-opisujacej">
-<h2>Wprowadzenie zmiennej opisującej<a class="headerlink" href="#wprowadzenie-zmiennej-opisujacej" title="Link to this heading">#</a></h2>
+<h2>Wprowadzenie zmiennej opisującej<a class="headerlink" href="#wprowadzenie-zmiennej-opisujacej" title="Permalink to this heading">#</a></h2>
 <p>W przypadku złożonego wyrażenia, które jest trudne do zrozumienia, możemy wyodrębnić jego części i przechować pośrednie wyniki w dobrze nazwanych zmiennych tymczasowych. Dzięki temu uzyskujemy łatwe do zrozumienia części, a całe wyrażenie jest jaśniejsze.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="nf">calculate_total</span><span class="p">()</span>
 <span class="p">{</span>
@@ -690,7 +672,7 @@ możemy z klasy wyekstrahować jej interfejs:</p>
 </div>
 </section>
 <section id="zastepowanie-dziedziczenia-delegowaniem">
-<h2>Zastępowanie dziedziczenia delegowaniem<a class="headerlink" href="#zastepowanie-dziedziczenia-delegowaniem" title="Link to this heading">#</a></h2>
+<h2>Zastępowanie dziedziczenia delegowaniem<a class="headerlink" href="#zastepowanie-dziedziczenia-delegowaniem" title="Permalink to this heading">#</a></h2>
 <p>Dziedziczenie powinno być używane tylko, jeśli podklasy są specjalnymi rodzajami klasy nadrzędnej lub rozszerzają ją, a nie jedynie nadpisują jej części.
 Jeśli dziedziczenie jest stosowane tylko w celu ponownego użycia pewnych funkcjonalności klasy nadrzędnej, to powinno zostać zastąpione delegowaniem.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MovieList</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;</span>
@@ -709,7 +691,7 @@ Jeśli dziedziczenie jest stosowane tylko w celu ponownego użycia pewnych funkc
 </div>
 </section>
 <section id="zastepowanie-magicznej-wartosci-stala-symboliczna">
-<h2>Zastępowanie magicznej wartości stałą symboliczną<a class="headerlink" href="#zastepowanie-magicznej-wartosci-stala-symboliczna" title="Link to this heading">#</a></h2>
+<h2>Zastępowanie magicznej wartości stałą symboliczną<a class="headerlink" href="#zastepowanie-magicznej-wartosci-stala-symboliczna" title="Permalink to this heading">#</a></h2>
 <p>Nie zaleca się używania w kodzie wartości literalnych zakodowanych na sztywno. Trudniej je zauważyć i są rażącą duplikacją, a ich zmiana to tzw. shotgun surgery. Zamiast nich należy używać dobrze nazwanych stałych symbolicznych. Zmiana wartości to edycja tylko w jednym miejscu.
 To zalecenie jest bardziej ogólne i odnosi się do dowolnej wartości literalnej, np. string.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">double</span> <span class="n">distance_in_km</span> <span class="o">=</span> <span class="mf">1.609344</span> <span class="o">*</span> <span class="n">distance_in_miles</span><span class="p">;</span>
@@ -722,7 +704,7 @@ To zalecenie jest bardziej ogólne i odnosi się do dowolnej wartości literalne
 </div>
 </section>
 <section id="refaktoryzacja-do-wzorcow">
-<h2>Refaktoryzacja do wzorców<a class="headerlink" href="#refaktoryzacja-do-wzorcow" title="Link to this heading">#</a></h2>
+<h2>Refaktoryzacja do wzorców<a class="headerlink" href="#refaktoryzacja-do-wzorcow" title="Permalink to this heading">#</a></h2>
 <p>Wzorce projektowe są esencją sprawdzonych idei projektowych. Powinniśmy poznać jak najwięcej wzorców oraz wiedzieć, kiedy ich używać, a kiedy nie. Jeśli nie znamy wzorców projektowych lub ich nie używamy, tworzony kod może nie wykazywać cech dobrego kodu obiektowego. Nie dostrzeżemy tak łatwo podobieństw i może się okazać, że rozwiązujemy ponownie te same problemy. Znajomość wzorców pomaga rozpoznać powtarzające się problemy i ułatwia ich rozwiązanie.</p>
 <p>Niebezpieczeństwem wzorców projektowych jest ich nadużywanie</p>
 <ul class="simple">
@@ -774,24 +756,24 @@ To zalecenie jest bardziej ogólne i odnosi się do dowolnej wartości literalne
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="unit-tests-patterns.html"
+       href="dependency-injection.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Wzorce testów jednostkowych</p>
+        <p class="prev-next-title">Dependency Injection</p>
       </div>
     </a>
     <a class="right-next"
-       href="solid-oop.html"
+       href="mocking-objects.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">S.O.L.I.D. OOP</p>
+        <p class="prev-next-title">Obiekty pozorujące</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -803,7 +785,6 @@ To zalecenie jest bardziej ogólne i odnosi się do dowolnej wartości literalne
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -849,7 +830,7 @@ By Krystian Piękoś - Infotraining
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -873,8 +854,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

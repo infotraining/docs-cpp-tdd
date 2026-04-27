@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Wstęp do TDD &#8212; Test-Driven Development w C++</title>
   
@@ -14,54 +15,58 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tdd';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TDD w praktyce" href="tdd-in-practice.html" />
+    <link rel="next" title="Wprowadzenie do testów jednostkowych" href="unit-tests-intro.html" />
     <link rel="prev" title="Test-Driven Development w C++" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -72,23 +77,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -110,20 +120,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -157,18 +159,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -180,24 +171,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Wstęp do TDD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependency-injection.html">Dependency Injection</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
 </ul>
 
     </div>
@@ -213,7 +195,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -222,14 +204,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -370,9 +352,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -396,11 +378,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-programisty">Testy programisty</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trzy-prawa-tdd">Trzy prawa TDD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cykl-red-green-refactor">Cykl Red-Green-Refactor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-i-wady-tdd">Zalety i wady TDD</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-tdd">Zalety TDD</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wady-tdd">Wady TDD</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytm-rozwoju-aplikacji-tdd">Algorytm rozwoju aplikacji TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-tdd">Zalety TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-out-development">Inside-Out Development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outside-in-development">Outside-In Development</a></li>
 </ul>
             </nav>
         </div>
@@ -410,69 +391,63 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section id="wstep-do-tdd">
-<h1>Wstęp do TDD<a class="headerlink" href="#wstep-do-tdd" title="Link to this heading">#</a></h1>
+<h1>Wstęp do TDD<a class="headerlink" href="#wstep-do-tdd" title="Permalink to this heading">#</a></h1>
 <p><strong>Test-Driven Development (TDD)</strong> to technika tworzenia oprogramowania sterowana przez testy:</p>
 <ul class="simple">
-<li><p>Utrzymujemy kompletny zestaw <strong>testów programisty</strong> (<em>Programmer Tests</em>)</p></li>
+<li><p>Utrzymujemy kompletny zestaw testów programisty (Programmer Tests)</p></li>
 <li><p>Kod nie powinien trafić do produkcji, jeśli nie ma powiązanych testów</p></li>
-<li><p>Najpierw piszemy testy!!!</p></li>
+<li><p>Najpierw piszemy testy</p></li>
 <li><p>Testy określają, jaki kod powinniśmy napisać</p></li>
 </ul>
 <section id="testy-programisty">
-<h2>Testy programisty<a class="headerlink" href="#testy-programisty" title="Link to this heading">#</a></h2>
-<p>Testy programisty, to testy pisane i wykonywane przez programistów, aby upewnić się, że pojedyncze jednostki lub komponenty ich kodu działają poprawnie.</p>
-<p>Sa podobne do testów jednostkowych, ale tworzone z innego powodu:</p>
+<h2>Testy programisty<a class="headerlink" href="#testy-programisty" title="Permalink to this heading">#</a></h2>
+<p>Testy programisty służą do sprawdzenia, czy klasa wykazuje prawidłowe zachowanie. Są tworzone przez programistę, który pisze kod do przetestowania.</p>
+<p>Podobne do testów jednostkowych, ale tworzone z innego powodu:</p>
 <ul class="simple">
 <li><p>Testy jednostkowe tworzone są w celu sprawdzenia, czy napisany już kod działa</p></li>
-<li><p>Testy programisty definiują, co to znaczy, że kod działa - definiują wymagania dla kodu, który ma być napisany</p></li>
+<li><p>Testy programisty definiują, co to znaczy, że kod działa</p></li>
 </ul>
 <p>Testy programisty nazywane są w ten sposób również w celu odróżnienia od testów tworzonych przez klienta, których zadaniem jest sprawdzenie, czy system działa prawidłowo z punktu widzenia użytkownika.</p>
-<p>Pisząc i wykonując te testy, programiści mogą wcześnie wykrywać błędy, poprawiać jakość kodu i zapewniać, że ich oprogramowanie pozostaje niezawodne i łatwe w utrzymaniu.</p>
-<p>Używanie TDD oznacza teoretycznie, że dysponujemy kompletnym zestawem testów. Dzieje się tak, ponieważ nie może istnieć kod, jeśli nie istnieje test, który ten kod powinien przejść. Piszemy test, a potem (i nie wcześniej) piszemy kod, który jest testowany przez ten test.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>W systemie nie powinien istnieć kod, który nie został napisany w odpowiedzi na test.</p>
-</div>
-<p>Jeśli mamy do zaimplementowania jakiś fragment funkcjonalności, to najpierw tworzymy kod testu, który definiuje wymagania, a dopiero potem implementujemy samą funkcjonalność. Tworzymy test, a następnie piszemy tylko tyle kodu, żeby test mógł przejść.</p>
-<p>Testy określają, jaki kod powinniśmy napisać. Pisząc tylko kod wymagany do przejścia testu ograniczamy ilość kodu do napisania. Do weryfikacji testu tworzymy najprostszy, działający kod. Ten kod może być później zrefaktoryzowany.</p>
+<p>Używanie TDD oznacza teoretycznie, że dysponujemy kompletnym zestawem testów. Dzieje się tak, ponieważ nie może istnieć kod, jeśli nie istnieje test, który ten kod powinien przejść. Piszemy test, a potem (i nie wcześniej) piszemy kod, który jest testowany przez ten test. W systemie nie powinien istnieć kod, który nie został napisany w odpowiedzi na test.</p>
+<p>Jeśli mamy do zaimplementowania jakiś fragment funkcjonalności, to najpierw tworzymy kod, który sprawdzi, czy ta funkcjonalność działa zgodnie z wymaganiami, a dopiero potem implementujemy samą funkcjonalność. Tworzymy test, a następnie tylko tyle kodu, żeby test mógł przejść.</p>
+<p>Testy określają, jaki kod powinniśmy napisać. Pisząc tylko kod wymagany do przejścia testu ograniczamy ilość kodu do napisania. Do weryfikacji testu tworzymy najprostszy, działający kod.</p>
 </section>
 <section id="trzy-prawa-tdd">
-<h2>Trzy prawa TDD<a class="headerlink" href="#trzy-prawa-tdd" title="Link to this heading">#</a></h2>
+<h2>Trzy prawa TDD<a class="headerlink" href="#trzy-prawa-tdd" title="Permalink to this heading">#</a></h2>
 <p>TDD zakłada pisanie testów jednostkowych na początku, przed napisanie kodu produkcyjnego.</p>
 <p>Możemy zdefiniować trzy podstawowe prawa TDD:</p>
-<ol class="arabic">
-<li><p><strong>Nie wolno pisać produkcyjnego kodu, dopóki nie napiszesz najpierw nieudanego testu jednostkowego.</strong></p>
-<p>Oznacza to, że przed dodaniem jakiejkolwiek funkcjonalności do aplikacji, programista musi najpierw napisać test, który nie przejdzie, ponieważ jeszcze nie ma odpowiedniej implementacji.</p>
-</li>
-<li><p><strong>Nie wolno pisać więcej testów jednostkowych, niż jest to absolutnie konieczne, aby test nie przeszedł.</strong></p>
-<p>Ten punkt kładzie nacisk na minimalizm w pisaniu testów. Testy powinny być jak najprostsze i testować tylko jedną rzecz na raz, aby ułatwić identyfikację problemów.</p>
-</li>
-<li><p><strong>Nie wolno pisać więcej kodu produkcyjnego, niż jest to absolutnie konieczne, aby test przeszedł.</strong></p>
-<p>Oznacza to, że programista powinien napisać tylko tyle kodu, ile jest konieczne, aby test przeszedł. Nadmiarowy kod jest unikany, a refaktoryzacja jest wykonywana na późniejszym etapie, aby utrzymać kod czystym i zrozumiałym.</p>
-</li>
+<ol class="arabic simple">
+<li><p>Nie można zacząć pisać kodu produkcyjnego przed zakończeniem pisania testu jednostkowego, który nie jest spełniony.</p></li>
+<li><p>Kod testu jednostkowego powinien być tylko tak długi, aby wystarczył do niespełnienia testu, a błędna kompilacja jest jednocześnie nieudanym testem.</p></li>
+<li><p>Nie można pisać większej ilości kodu produkcyjnego, niż jest wymagana do przejścia testu jednostkowego.</p></li>
 </ol>
 <p>Te trzy prawa zamykają się w cyklu, który trwa prawdopodobnie kilkadziesiąt sekund. Testy i kod produkcyjny są pisane razem, przy czym testy są pisane kilka sekund wcześniej niż kod produkcyjny.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Kod testów jest tak samo ważny, jak kod produkcyjny. Kod testów jest kodem, który musi być utrzymywany, czytany i zrozumiany przez innych programistów. Taki kod podlega również refaktoryzacji.</p>
+<p>Kod testów jest tak samo ważny, jak kod produkcyjny.</p>
 </div>
 </section>
 <section id="cykl-red-green-refactor">
-<h2>Cykl Red-Green-Refactor<a class="headerlink" href="#cykl-red-green-refactor" title="Link to this heading">#</a></h2>
+<h2>Cykl Red-Green-Refactor<a class="headerlink" href="#cykl-red-green-refactor" title="Permalink to this heading">#</a></h2>
 <p>Aplikacja TDD jest rozwijana w mikro-cyklach:</p>
 <ul class="simple">
 <li><p>Napisz test</p></li>
 <li><p>Napisz tyle kodu, aby test został spełniony</p></li>
-<li><p>Zrefaktoryzuj kod do najprostszej implementacji funkcjonalności określonej przez test (<em>Refactor to Clean Code</em>)</p></li>
+<li><p>Zrefaktoryzuj kod do najprostszej implementacji funkcjonalności określonej przez test</p></li>
 </ul>
 <p>Ten cykl nazywa się cyklem <strong>Red-Green-Refactor</strong>.</p>
-<a class="reference internal image-reference" href="_images/tdd-cycle.png"><img alt="red-green-refactor" class="align-center" src="_images/tdd-cycle.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/red-green-refactor.png"><img alt="red-green-refactor" class="align-center" src="_images/red-green-refactor.png" style="width: 400px;" /></a>
 </section>
-<section id="zalety-i-wady-tdd">
-<h2>Zalety i wady TDD<a class="headerlink" href="#zalety-i-wady-tdd" title="Link to this heading">#</a></h2>
+<section id="algorytm-rozwoju-aplikacji-tdd">
+<h2>Algorytm rozwoju aplikacji TDD<a class="headerlink" href="#algorytm-rozwoju-aplikacji-tdd" title="Permalink to this heading">#</a></h2>
+<p>Standardowy algorytm rozwijania aplikacji z użyciem TDD wygląda następująco:</p>
+<a class="reference internal image-reference" href="_images/tdd-algorithm.png"><img alt="tdd-algorithm" class="align-center" src="_images/tdd-algorithm.png" style="width: 300px;" /></a>
+</section>
+<section id="zalety-tdd">
+<h2>Zalety TDD<a class="headerlink" href="#zalety-tdd" title="Permalink to this heading">#</a></h2>
 <p>Stosując TDD mamy natychmiastowy feedback dotyczący jakości zarówno implementacji (“Czy to działa?”), jak i projektu (“Czy to jest dobrze zaprojektowane?”).</p>
 <p>Pisząc testy programisty:</p>
 <ul class="simple">
@@ -487,27 +462,21 @@ document.write(`
 <li><p>Wyłapujemy błędy, kiedy kontekst dla tworzonego kodu jest jeszcze świeży</p></li>
 <li><p>Dostajemy informację zwrotną, czy już zakończyliśmy tworzenie danej funkcjonalności - unikamy tym samym over-engineering’u aplikacji</p></li>
 </ul>
-<section id="zalety-tdd">
-<h3>Zalety TDD<a class="headerlink" href="#zalety-tdd" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Wyższa jakość kodu: Regularne pisanie testów prowadzi do bardziej niezawodnego i stabilnego kodu. Testy pomagają wykryć błędy we wczesnych etapach.</p></li>
-<li><p>Lepsza architektura i projekt: TDD wymusza pisanie modularnego, łatwo testowalnego kodu. Ponieważ testujesz małe jednostki, kod staje się bardziej zrozumiały i łatwiejszy do utrzymania.</p></li>
-<li><p>Szybsze wykrywanie błędów: Dzięki testom jednostkowym błędy są wykrywane wcześniej w cyklu rozwoju, co pozwala na szybsze i tańsze ich naprawienie.</p></li>
-<li><p>Dokumentacja: Testy działają jako dokumentacja dla kodu. Inni programiści mogą szybko zrozumieć, jak kod działa, przeglądając testy.</p></li>
-<li><p>Większa pewność wprowadzania zmian: Programiści mogą wprowadzać zmiany lub refaktoryzować kod, mając pewność, że testy wykryją, jeśli coś pójdzie nie tak.</p></li>
-</ul>
 </section>
-<section id="wady-tdd">
-<h3>Wady TDD<a class="headerlink" href="#wady-tdd" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Czasochłonność: Pisanie testów przed kodem może wydłużyć czas potrzebny na opracowanie funkcji. Początkowo może wydawać się, że rozwój przebiega wolniej.</p></li>
-<li><p>Krzywa uczenia się: Programiści, którzy nie są zaznajomieni z TDD, muszą poświęcić czas na naukę tej metodyki i dostosowanie się do niej.</p></li>
-<li><p>Nieodpowiednie dla niektórych projektów: W przypadku projektów o wysokim stopniu niepewności lub ciągłych zmian, TDD może być trudniejsze do wdrożenia. Pisanie testów dla zmieniających się wymagań może być frustrujące.</p></li>
-<li><p>Fokus na testy jednostkowe: Choć TDD skupia się na testach jednostkowych, inne rodzaje testów (np. integracyjne, akceptacyjne) są równie ważne i nie powinny być pomijane.</p></li>
-<li><p>Potencjalne przeciążenie testami: Jeśli testy są zbyt szczegółowe lub źle napisane, mogą utrudniać wprowadzanie zmian i prowadzić do fałszywych alarmów.</p></li>
-</ul>
-<p>TDD oferuje wiele korzyści, szczególnie w kontekście poprawy jakości kodu i wykrywania błędów na wczesnym etapie. Jednak wprowadzenie TDD wymaga dyscypliny i może wiązać się z pewnymi wyzwaniami, zwłaszcza na początku. Ważne jest, aby znaleźć równowagę i dostosować praktyki TDD do specyficznych potrzeb i charakterystyki projektu.</p>
+<section id="inside-out-development">
+<h2>Inside-Out Development<a class="headerlink" href="#inside-out-development" title="Permalink to this heading">#</a></h2>
+<p>Taktyka rozwijania oprogramowania metodą <strong>Inside-Out</strong> polega na antycypowaniu potrzeb klas pochodzących z zewnętrznych warstw (modułów) systemu i
+pisaniu testów jednostkowych oraz kodu dla klas z warstw (modułów) wewnętrznych.</p>
+<a class="reference internal image-reference" href="_images/tdd-inside-out.svg"><img alt="tdd-inside-out" class="align-center" src="_images/tdd-inside-out.svg" width="600px" /></a>
+<p>Oznacza to, że testy klas warstw zewnętrznych nie są wykonywane w izolacji, ale korzystają z napisanych i przetestowanych klas warstw wewnętrznych.</p>
 </section>
+<section id="outside-in-development">
+<h2>Outside-In Development<a class="headerlink" href="#outside-in-development" title="Permalink to this heading">#</a></h2>
+<p>Inne podejście do TDD, które polega na projektowaniu testów i kodu na sposób <strong>Outside-In</strong>. Ten sposób rozwijania
+oprogramowania zmusza do rozwiązania problemu zależności od klas, które jeszcze nie zostały zaimplementowane.</p>
+<a class="reference internal image-reference" href="_images/tdd-outside-in.svg"><img alt="tdd-outside-in" class="align-center" src="_images/tdd-outside-in.svg" width="700px" /></a>
+<p>W tym celu konieczne jest stosowanie obiektów pozorujących Stub oraz Mock.</p>
+<p>Zaletą podejścia <strong>outside-in</strong> jest fakt, iż pomaga ono zdefiniować jakie testy są potrzebne dla klas wewnętrznych warstw systemu.</p>
 </section>
 </section>
 
@@ -538,7 +507,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -551,11 +520,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="tdd-in-practice.html"
+       href="unit-tests-intro.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">TDD w praktyce</p>
+        <p class="prev-next-title">Wprowadzenie do testów jednostkowych</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -568,7 +537,6 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -578,11 +546,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testy-programisty">Testy programisty</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trzy-prawa-tdd">Trzy prawa TDD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cykl-red-green-refactor">Cykl Red-Green-Refactor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-i-wady-tdd">Zalety i wady TDD</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-tdd">Zalety TDD</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wady-tdd">Wady TDD</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytm-rozwoju-aplikacji-tdd">Algorytm rozwoju aplikacji TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zalety-tdd">Zalety TDD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inside-out-development">Inside-Out Development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outside-in-development">Outside-In Development</a></li>
 </ul>
   </nav></div>
 
@@ -607,7 +574,7 @@ By Krystian Piękoś - Infotraining
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -631,8 +598,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

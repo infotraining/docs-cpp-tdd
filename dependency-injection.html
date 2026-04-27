@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Dependency Injection &#8212; Test-Driven Development w C++</title>
   
@@ -14,55 +15,59 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cbef0915" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'dependency-injection';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Obiekty pozorujące" href="test-doubles.html" />
-    <link rel="prev" title="S.O.L.I.D. OOP" href="solid-oop.html" />
+    <link rel="next" title="Refaktoryzacja kodu" href="refactoring.html" />
+    <link rel="prev" title="SOLID OOP - zasady solidnego programowania obiektowego" href="solid-oop.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -72,23 +77,28 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -110,20 +120,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -157,18 +159,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -180,24 +171,15 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tdd.html">Wstęp do TDD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tdd-in-practice.html">TDD w praktyce</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unit-tests.html">Testy jednostkowe - <em>Unit Tests</em></a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="unit-tests-frameworks.html">Biblioteki do unit testów</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="gtest.html">GoogleTest</a></li>
-<li class="toctree-l2"><a class="reference internal" href="catch2.html">Catch2</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="unit-tests-intro.html">Wprowadzenie do testów jednostkowych</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gtest.html">Google C++ Testing Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unit-tests-patterns.html">Wzorce testów jednostkowych</a></li>
-<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
-<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">S.O.L.I.D. OOP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solid-oop.html">SOLID OOP - zasady solidnego programowania obiektowego</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Dependency Injection</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="test-doubles.html">Obiekty pozorujące</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-intro.html">Izolowanie zależności</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test-doubles-types.html">Rodzaje obiektów pozorujących</a></li>
-<li class="toctree-l2"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="refactoring.html">Refaktoryzacja kodu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mocking-objects.html">Obiekty pozorujące</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stub-vs-mock.html">Stub Vs. Mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmock.html">Biblioteka googlemock</a></li>
 </ul>
 
     </div>
@@ -213,7 +195,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -222,14 +204,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -299,7 +281,7 @@
       
       
       
-      <li><a href="_sources/dependency-injection.md" target="_blank"
+      <li><a href="_sources/dependency-injection.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -309,7 +291,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.rst</span>
 </a>
 </li>
       
@@ -370,9 +352,9 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -393,7 +375,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklad">Przykład</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Dependency Injection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklad-klasy-z-silnymi-zaleznosciami">Przykład klasy z silnymi zależnościami.</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -403,80 +388,64 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section id="dependency-injection">
-<h1>Dependency Injection<a class="headerlink" href="#dependency-injection" title="Link to this heading">#</a></h1>
+<h1>Dependency Injection<a class="headerlink" href="#dependency-injection" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>Dependency Injection<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p><strong>Wstrzykiwanie zależności (DI)</strong> jest mechanizmem oddzielenia konstrukcji obiektu od jego użytkowania. Jest realizacją techniki <strong>Inversion of Control</strong> do zarządzania zależnościami. Odwraca realizację zależności poprzez przeniesienie drugorzędnej odpowiedzialności z obiektu do innego obiektu, dedykowanego do tych zadań, przez co zapewnia się zachowanie <strong>Zasady Pojedynczej Odpowiedzialności (SRP)</strong>.</p>
-<a class="reference internal image-reference" href="_images/dependency-injection.png"><img alt="_images/dependency-injection.png" class="align-center" src="_images/dependency-injection.png" style="width: 80%;" /></a>
-<p>W kontekście zarządzania zależnościami obiekt nie powinien być odpowiedzialny za samodzielne tworzenie zależności. Powinien przekazywać tę odpowiedzialność do innego “autorytarnego” mechanizmu, odwracając w ten sposób sterowanie (np. do kontenera IoC).</p>
-<section id="przyklad">
-<h2>Przykład<a class="headerlink" href="#przyklad" title="Link to this heading">#</a></h2>
-<p>W konstruktorze klasy <code class="docutils literal notranslate"><span class="pre">UserService</span></code> definiowane są zależności od klas konkretnych. Nie ma możliwości zmiany implementacji usług wykorzystywanych przez instancję klasy bez zmiany implementacji konstruktora. Naruszona jest Zasada Otwarte/Zamknięte (OCP) oraz Zasada Pojedynczej Odpowiedzialności (SRP), ponieważ instancja <code class="docutils literal notranslate"><span class="pre">UserService</span></code> poza swoją podstawową odpowiedzialnością związaną z logiką biznesową, hermetyzuje również odpowiedzialność związaną z zarządzaniem zależnościami.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">UserService</span>
+<img alt="_images/di.svg" class="align-center" src="_images/di.svg" /><p>W kontekście zarządzania zależnościami obiekt nie powinien być odpowiedzialny za samodzielne tworzenie zależności. Powinien przekazywać tę odpowiedzialność do innego “autorytarnego” mechanizmu, odwracając w ten sposób sterowanie (np. do kontenera IoC).</p>
+<section id="przyklad-klasy-z-silnymi-zaleznosciami">
+<h3>Przykład klasy z silnymi zależnościami.<a class="headerlink" href="#przyklad-klasy-z-silnymi-zaleznosciami" title="Permalink to this heading">#</a></h3>
+<p>W konstruktorze klasy <code class="docutils literal notranslate"><span class="pre">BusinessService</span></code> definiowane są zależności od klas konkretnych. Nie ma możliwości zmiany implementacji usług wykorzystywanych przez instancję klasy bez zmiany implementacji konstruktora. Naruszona jest Zasada Otwarte/Zamknięte (OCP) oraz Zasada Pojedynczej Odpowiedzialności (SRP), ponieważ instancja <code class="docutils literal notranslate"><span class="pre">BusinessService</span></code> poza swoją podstawową odpowiedzialnością związaną z logiką biznesową, hermetyzuje również odpowiedzialność związaną z zarządzaniem zależnościami.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BusinessService</span>
 <span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-<span class="w">    </span><span class="n">DbUsersGateway</span><span class="w"> </span><span class="n">db_users_gateway_</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MailingService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mailing_service_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">DataAccessComponent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data_access_component_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">WebService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">service_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Logger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">logger_</span><span class="p">;</span>
 
 <span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="n">UserService</span><span class="p">()</span>
+<span class="w">    </span><span class="n">BusinessService</span><span class="p">()</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">db_users_gateway_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DbUsersGateway</span><span class="p">(</span><span class="n">AppManager</span><span class="o">::</span><span class="n">connection_string</span><span class="p">());</span>
-<span class="w">        </span><span class="n">mailing_service_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MailingService</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;smtp.gmail.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;password&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">data_access_component_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">DataAccessComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">AppManager</span><span class="o">::</span><span class="n">connection_string</span><span class="p">());</span>
+<span class="w">        </span><span class="n">service_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_service_proxy</span><span class="p">(</span><span class="s">&quot;https://infotraining.pl/service&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">logging_data_sink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">LoggingDataSink</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">        </span><span class="n">logger_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">FileLogger</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;log.dat&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">logging_data_sink</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="n">Result</span><span class="w"> </span><span class="n">create_account</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">get_price_by_id</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmd_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db_users_gateway_</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmd_result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CommandResult</span><span class="o">::</span><span class="n">Success</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">mailing_service_</span><span class="o">-&gt;</span><span class="n">send_email</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;User created&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;User has been created successfully!!!&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Logger</span><span class="o">::</span><span class="n">instance</span><span class="p">().</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;User(id: {}, name: {}) has been created&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="o">::</span><span class="n">Success</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span>
-<span class="w">        </span><span class="n">Logger</span><span class="o">::</span><span class="n">instance</span><span class="p">().</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Failed to create User(id: {}, name: {})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="o">::</span><span class="n">Failure</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// implementacja wykorzystująca obiekty zależne</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>Klasa <code class="docutils literal notranslate"><span class="pre">UserService</span></code> jest też słabo testowalna, ponieważ zależności są zdefiniowane statycznie i nie mamy możliwości podstawienia w ich miejsce obiektów pozorujących w celu odizolowania serwisu od bazy danych, serwisu wysyłającego maile i loggera.</p>
-<p>Technika wstrzykiwania zależności stanowi alternatywny sposób organizowania kodu w celu uniknięcia ścisłego powiązania <code class="docutils literal notranslate"><span class="pre">UserService</span></code> z klasami zależnymi.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">UserService</span>
+<p>Klasa <code class="docutils literal notranslate"><span class="pre">BusinessService</span></code> jest też słabo testowalna, ponieważ zależności są zdefiniowane statycznie i nie mamy możliwości podstawienia w ich miejsce obiektów pozorujących w celu odizolowania serwisu od bazy danych, web-service’u i komponentów logowania.</p>
+<p>Wzorzec wstrzykiwania zależności stanowi alternatywny sposób organizowania kodu w celu uniknięcia ścisłego powiązania <code class="docutils literal notranslate"><span class="pre">BusinessService</span></code> z klasami zależnymi.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BusinessService</span>
 <span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
-<span class="w">    </span><span class="n">DbUsersGateway</span><span class="o">&amp;</span><span class="w"> </span><span class="n">db_users_gateway_</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MailingService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mailing_service_</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Logger</span><span class="o">&amp;</span><span class="w"> </span><span class="n">logger_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">DataAccessComponent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data_access_component_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">WebService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">service_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Logger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">logger_</span><span class="p">;</span>
 
 <span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="n">UserService</span><span class="p">(</span><span class="n">DbUsersGateway</span><span class="o">&amp;</span><span class="w"> </span><span class="n">db_users_gateway</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">MailingService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mailing_service</span><span class="p">,</span><span class="w"> </span><span class="n">Logger</span><span class="o">&amp;</span><span class="w"> </span><span class="n">logger</span><span class="p">)</span>
-<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">db_users_gateway_</span><span class="p">(</span><span class="n">db_users_gateway</span><span class="p">),</span><span class="w"> </span><span class="n">mailing_service_</span><span class="p">(</span><span class="n">mailing_service</span><span class="p">),</span><span class="w"> </span><span class="n">logger_</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+<span class="w">    </span><span class="n">BusinessService</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">DataAccessComponent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dac</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">WebService</span><span class="o">&gt;</span><span class="w"> </span><span class="n">service</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Logger</span><span class="o">&gt;</span><span class="w"> </span><span class="n">logger</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">data_access_component_</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dac</span><span class="p">)},</span><span class="w"> </span><span class="n">service_</span><span class="p">{</span><span class="n">service</span><span class="p">},</span><span class="w"> </span><span class="n">logger_</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">logger</span><span class="p">)}</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span>
 
-<span class="w">    </span><span class="n">Result</span><span class="w"> </span><span class="n">create_account</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">get_price_by_id</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmd_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db_users_gateway_</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmd_result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CommandResult</span><span class="o">::</span><span class="n">Success</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">mailing_service_</span><span class="o">-&gt;</span><span class="n">send_email</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;User created&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;User has been created successfully!!!&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">logger_</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;User(id: {}, name: {}) has been created&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="o">::</span><span class="n">Success</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span>
-<span class="w">        </span><span class="n">logger_</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Failed to create User(id: {}, name: {})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Result</span><span class="o">::</span><span class="n">Failure</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// implementacja wykorzystująca obiekty zależne</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>Po implementacji techniki DI klasa <code class="docutils literal notranslate"><span class="pre">UserService</span></code> spełnia zasady OCP i SRP oraz staje się łatwiej testowalna.</p>
+<p>Po implementacji techniki DI klasa <code class="docutils literal notranslate"><span class="pre">BusinessService</span></code> spełnia zasady OCP i SRP oraz jest w pełni testowalna.</p>
+</section>
 </section>
 </section>
 
@@ -507,7 +476,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer d-print-none">
+                <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -516,15 +485,15 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">S.O.L.I.D. OOP</p>
+        <p class="prev-next-title">SOLID OOP - zasady solidnego programowania obiektowego</p>
       </div>
     </a>
     <a class="right-next"
-       href="test-doubles.html"
+       href="refactoring.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Obiekty pozorujące</p>
+        <p class="prev-next-title">Refaktoryzacja kodu</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -537,14 +506,16 @@ document.write(`
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklad">Przykład</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Dependency Injection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklad-klasy-z-silnymi-zaleznosciami">Przykład klasy z silnymi zależnościami.</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -569,7 +540,7 @@ By Krystian Piękoś - Infotraining
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -593,8 +564,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
