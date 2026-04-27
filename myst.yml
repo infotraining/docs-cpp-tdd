@@ -17,24 +17,24 @@ project:
       template: plain_latex_book
       output: exports/cpp-tdd.pdf
   toc:
-    - file: index.md
-    - file: tdd.md
-    - file: tdd-in-practice.md
-    - file: unit-tests.md
-    - file: unit-tests-frameworks.md
+    - file: content/index.md
+    - file: content/tdd.md
+    - file: content/tdd-in-practice.md
+    - file: content/unit-tests.md
+    - file: content/unit-tests-frameworks.md
       children:
-        - file: gtest.md
-        - file: catch2.md
-    - file: unit-test-patterns.md
-    - file: refactoring.md
-    - file: solid-oop.md
-    - file: dependency-injection.md
-    - file: test-doubles.md
+        - file: content/gtest.md
+        - file: content/catch2.md
+    - file: content/unit-test-patterns.md
+    - file: content/refactoring.md
+    - file: content/solid-oop.md
+    - file: content/dependency-injection.md
+    - file: content/test-doubles.md
       children:
-        - file: test-doubles-intro.md
-        - file: test-doubles-types.md
-        - file: stub-vs-mock.md
-        - file: gmock
+        - file: content/test-doubles-intro.md
+        - file: content/test-doubles-types.md
+        - file: content/stub-vs-mock.md
+        - file: content/gmock.md
 site:
   template: book-theme
   options:
